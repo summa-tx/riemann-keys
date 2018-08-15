@@ -6,10 +6,10 @@ from two1.bitcoin.utils import address_to_key_hash
 from two1.crypto.ecdsa import ECPointAffine
 from two1.crypto.ecdsa import secp256k1
 
-from hd_key import HDKey
-from utils import get_bytes, sha3
-from signiture import Signature
-from hd_privatekey import HDPrivateKey, PrivateKey
+from hd.hd_key import HDKey
+from hd.utils import get_bytes, sha3
+from hd.signiture import Signature
+from hd.hd_privatekey import HDPrivateKey, PrivateKey
 
 
 bitcoin_curve = secp256k1()

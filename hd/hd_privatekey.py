@@ -11,11 +11,7 @@ from two1.bitcoin.utils import rand_bytes
 from two1.crypto.ecdsa import secp256k1
 from two1.crypto.ecdsa_base import Point
 
-
-from hd_key import HDKey
-from signiture import Signature
-from hd_publickey import PublicKey, HDPublicKey
-from utils import get_bytes
+import hd
 
 bitcoin_curve = secp256k1()
 class PrivateKeyBase(object):
@@ -371,7 +367,7 @@ class PrivateKey(PrivateKeyBase):
         return self.key
 
 
-class HDPrivateKey(HDKey, PrivateKeyBase):
+class HDPrivateKey(hd.HDKey, PrivateKeyBase):
     """ Implements an HD Private Key according to BIP-0032:
     https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
 

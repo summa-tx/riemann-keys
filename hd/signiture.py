@@ -4,7 +4,7 @@ import base64
 import math
 
 
-from utils import get_bytes
+from hd.utils import get_bytes
 
 bitcoin_curve = secp256k1()
 
