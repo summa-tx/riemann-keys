@@ -9,6 +9,7 @@ eth-utils = "*"
 "two1" = "*"
 pycrypto = "*"
 pycryptodome = "*"
+"base58" = "==1.0"
 
 [dev-packages]
 
