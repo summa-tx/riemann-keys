@@ -1,3 +1,13 @@
+from two1.crypto.ecdsa import secp256k1
+from two1.bitcoin.utils import bytes_to_str
+import base64
+import math
+
+
+from utils import get_bytes
+
+bitcoin_curve = secp256k1()
+
 
 class Signature(object):
     """ Encapsulation of a ECDSA signature for Bitcoin purposes.

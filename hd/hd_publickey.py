@@ -1,5 +1,18 @@
-from hd_key import HDKey
+import base64
+import hashlib
+import hmac
+from two1.bitcoin.utils import bytes_to_str
+from two1.bitcoin.utils import address_to_key_hash
+from two1.crypto.ecdsa import ECPointAffine
+from two1.crypto.ecdsa import secp256k1
 
+from hd_key import HDKey
+from utils import get_bytes, sha3
+from signiture import Signature
+from hd_privatekey import HDPrivateKey, PrivateKey
+
+
+bitcoin_curve = secp256k1()
 
 class PublicKeyBase(object):
     """ Base class for both PublicKey and HDPublicKey.
@@ -331,18 +344,18 @@ class PublicKey(PublicKeyBase):
         """
         return self.ripe_compressed if compressed else self.ripe
 
-    def address(self, compressed=True):
-        """ Address property that returns the Base58Check
-        encoded version of the HASH160.
+    # def address(self, compressed=True):
+    #     """ Address property that returns the Base58Check
+    #     encoded version of the HASH160.
 
-        Args:
-            compressed (bool): Whether or not the compressed key should
-               be used.
+    #     Args:
+    #         compressed (bool): Whether or not the compressed key should
+    #            be used.
 
-        Returns:
-            bytes: Base58Check encoded string
-        """
-        return encode_hex(self.keccak[12:])
+    #     Returns:
+    #         bytes: Base58Check encoded string
+    #     """
+    #     return encode_hex(self.keccak[12:])
 
     def verify(self, message, signature, do_hash=True):
         """ Verifies that message was appropriately signed.

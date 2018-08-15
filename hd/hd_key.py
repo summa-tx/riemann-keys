@@ -1,3 +1,7 @@
+import base64
+import base58
+
+
 from utils import sha3, get_bytes
 from hd_privatekey import HDPrivateKey
 from hd_publickey import HDPublicKey, PublicKey
