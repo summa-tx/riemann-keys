@@ -1,5 +1,3 @@
-Ethereum BIP44 Python
-================================
 
 *Code adapted from two1 library for bitcoin by 21 Inc. (https://github.com/21dotco/two1-python/tree/master/two1)
 
@@ -62,3 +60,5 @@ print(Private key (hex): " + private_key._key.to_hex())
 
 
 
+=======
+Placeholder repo for riemann-keys 
