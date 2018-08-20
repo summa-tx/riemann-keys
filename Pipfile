@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+rlp = "*"
+eth-utils = "*"
+"two1" = "*"
+pycrypto = "*"
+pycryptodome = "*"
+"base58" = "==1.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6.2"
