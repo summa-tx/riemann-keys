@@ -3,14 +3,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[packages]
-rlp = "*"
-eth-utils = "*"
-pycrypto = "*"
-pycryptodome = "*"
-"base58" = "==1.0"
-
 [dev-packages]
+pytest = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.7"
