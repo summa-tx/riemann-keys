@@ -21,42 +21,6 @@ class HDKey():
         self.public_key = None
         self.fingerprint = None
 
-    @classmethod
-    def to_dict(HDKey):
-        pass
-
-    @classmethod
-    def from_entropy(self, root_seed, salt=b''):
-        I = hashlib.pbkdf2_hmac('sha512', root_seed, salt, 2048)  # noqa: E741
-        IL, IR = I[32:], I[:32]
-
-        hd_key = HDKey()
-        hd_key.private_key = IL
-        hd_key.chain_code = IR
-
-        return hd_key
-
-    def derive_descendant(self, derivation_path):
-        current = self
-        for index in derivation_path.split('/')[1:]:
-            current = current.derive_child(index)
-        return current
-
-    def derive_child(self, index):
-        if 'h' in index:
-            pass
-        else:
-            I = hashlib.pbkdf2_hmac(                            # noqa: E741
-                    'sha512', self.chain_code, b'', 2048)
-            IL, IR = I[32:], I[:32]
-
-            hd_key = HDKey()
-            hd_key.private_key = IL
-            hd_key.chain_code = IR
-            hd_key.depth = self.depth + 1
-
-            return hd_key
-
     @staticmethod
     def from_mnemonic(mnemonic, salt=None):
         '''Mnemoinc -> HDKey.
@@ -68,6 +32,10 @@ class HDKey():
             Returns:
                 (HDKey)
         '''
+        # get mnemonic -> check right number of words, words exist in list
+        # handle salt -> check it starts with 'mnemonic'
+        # get 512 bit seed by key stretching (pbkdf2 using HMAC-SHA512 for 2048 rounds)
+        # return call from_entropy with 512 bit seed
         return HDKey
 
     @staticmethod
