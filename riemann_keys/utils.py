@@ -12,3 +12,7 @@ def pbkdf2_hmac(data, salt=b'', hash_name='sha512', iterations=2048):
         (bytes): generated seed, 512-bit seed for BIP39
     '''
     return hashlib.pbkdf2_hmac(hash_name, data, salt, iterations)
+
+
+def hmac(key, msg, digest=hashlib.sha512):
+    return hmac.digest(key, msg, digest)

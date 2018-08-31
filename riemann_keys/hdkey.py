@@ -1,4 +1,4 @@
-import hashlib
+from riemann_keys import utils
 
 
 class HDKey():
@@ -12,31 +12,56 @@ class HDKey():
             (256, 8, 24))
 
     def __init__(self):
-        self.network = None
+        self.path = None
         self.depth = None
         self.index = None
+        self.network = None
         self.address = None
         self.chain_code = None
         self.private_key = None
         self.public_key = None
-        self.fingerprint = None
 
     @staticmethod
-    def from_mnemonic(mnemonic, salt=None):
+    def from_entropy(entropy, network='Bitcoin'):
+        '''
+        Args:
+            entropy (bytes): 128-512 bits
+        '''
+        # TODO: check entropy validity
+        # TODO: get key depending on network
+        I = utils.hmac(key=b'Bitcoin seed', msg=entropy)    # noqa: E741
+
+        # Private key, chain code
+        I_left, I_right = I[:32], I[32:]
+
+        # TODO: get path depending on network
+        path = 'm/0'  # temp
+
+        return HDKey(
+                network=network,
+                private_key=I_left,
+                chain_code=I_right,
+                depth=0,
+                index=0,
+                path=path)
+
+    @staticmethod
+    def from_mnemonic(mnemonic, salt=None, network='Bitcoin'):
         '''Mnemoinc -> HDKey.
         Generates the 512-bit seed as specified in BIP39 given a mnemonic and
         returns a new HDKey object.
-            Args:
-                mnemonic    (str): 12, 15, 18, 21, 24 words from word list
-                salt        (str): 'mnemonic' + optional words for security
-            Returns:
-                (HDKey)
+        Args:
+        mnemonic    (str): 12, 15, 18, 21, 24 words from word list
+        salt        (str): optional words for added security
+        Returns:
+        (HDKey)
         '''
-        # get mnemonic -> check right number of words, words exist in list
-        # handle salt -> check it starts with 'mnemonic'
-        # get 512 bit seed by key stretching (pbkdf2 using HMAC-SHA512 for 2048 rounds)
-        # return call from_entropy with 512 bit seed
-        return HDKey
+        salt = 'mnemonic' + (salt if salt is not None else '')
+        salt_bytes = salt.encode('utf-8')
+        mnemonic_bytes = mnemonic.encode('utf-8')
+        return HDKey.from_entropy(utils.pbkdf2_hmac(
+                data=mnemonic_bytes,
+                salt=salt_bytes))
 
     @staticmethod
     def from_generated_mnemonic(num_words=24):
@@ -49,4 +74,4 @@ class HDKey():
             Returns:
                 (HDKey)
         '''
-        return HDKey
+        pass
