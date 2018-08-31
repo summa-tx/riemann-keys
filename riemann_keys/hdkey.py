@@ -11,13 +11,14 @@ class HDKey():
             (224, 7, 21),
             (256, 8, 24))
 
-    def __init__(self):
-        self.path = None
-        self.depth = None
-        self.index = None
-        self.network = None
+    def __init__(self, private_key, chain_code, depth, index, path, network):
+        self.path = path
+        self.depth = depth 
+        self.index = index
+        self.network = (network if network is not None else 'Bitcoin')
+        self.chain_code = chain_code
+
         self.address = None
-        self.chain_code = None
         self.private_key = None
         self.public_key = None
 
@@ -29,7 +30,7 @@ class HDKey():
         '''
         # TODO: check entropy validity
         # TODO: get key depending on network
-        I = utils.hmac(key=b'Bitcoin seed', msg=entropy)    # noqa: E741
+        I = utils.hmac_sha512(key=b'Bitcoin seed', msg=entropy)    # noqa: E741
 
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]

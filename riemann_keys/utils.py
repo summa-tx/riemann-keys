@@ -1,3 +1,4 @@
+import hmac
 import hashlib
 
 
@@ -14,5 +15,5 @@ def pbkdf2_hmac(data, salt=b'', hash_name='sha512', iterations=2048):
     return hashlib.pbkdf2_hmac(hash_name, data, salt, iterations)
 
 
-def hmac(key, msg, digest=hashlib.sha512):
+def hmac_sha512(key, msg, digest=hashlib.sha512):
     return hmac.digest(key, msg, digest)
