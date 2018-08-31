@@ -16,4 +16,12 @@ def pbkdf2_hmac(data, salt=b'', hash_name='sha512', iterations=2048):
 
 
 def hmac_sha512(key, msg, digest=hashlib.sha512):
+    '''HMAC-SHA512 algorithm to generate master private key and master chain
+    code from the root seed entropy + key phrase
+    Args:
+        key     (bytes): key phrase (ex: 'Bitcoin seed' for Bitcoin network)
+        msg     (bytes): root seed entropy
+    Returns:
+        (bytes): 512-bit hash, I, to get priavte key and chain code
+    '''
     return hmac.digest(key, msg, digest)
