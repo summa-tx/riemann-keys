@@ -6,6 +6,10 @@ name = "pypi"
 [dev-packages]
 pytest = "*"
 flake8 = "*"
+tox = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"
+
+[packages]

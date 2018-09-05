@@ -12,7 +12,7 @@ Install to develop riemann_keys:
 $ git clone git@github.com:summa-tx/riemann-keys.git
 $ cd riemann_keys
 $ pipenv install
-$ pipenv run pytest
+$ pipenv run tox || $ pipenv run pytest
 $ pipenv shell
 ```
 
