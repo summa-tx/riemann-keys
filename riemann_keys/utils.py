@@ -22,6 +22,6 @@ def hmac_sha512(key, msg, digest=hashlib.sha512):
         key     (bytes): key phrase (ex: 'Bitcoin seed' for Bitcoin network)
         msg     (bytes): root seed entropy
     Returns:
-        (bytes): 512-bit hash, I, to get priavte key and chain code
+        (bytes): 512-bit hash, I, to get private key and chain code
     '''
     return hmac.digest(key, msg, digest)

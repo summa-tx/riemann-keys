@@ -53,10 +53,10 @@ class HDKey():
         Generates the 512-bit seed as specified in BIP39 given a mnemonic and
         returns a new HDKey object.
         Args:
-        mnemonic    (str): 12, 15, 18, 21, 24 words from word list
-        salt        (str): optional words for added security
+            mnemonic    (str): 12, 15, 18, 21, 24 words from word list
+            salt        (str): optional words for added security
         Returns:
-        (HDKey)
+            (HDKey)
         '''
         HDKey._validate_mnemonic(mnemonic)
         salt = 'mnemonic' + (salt if salt is not None else '')
@@ -71,9 +71,9 @@ class HDKey():
         '''Mnemonic -> [bytes]
         Args:
             mnemonic    (str): a 12, 15, 18, 21, or 24 word str
-        Retruns
+        Returns:
             (bytes): the entropy bytes
-            (str):   the checksum bits as an bitstring
+              (str): the checksum bits as an bitstring
         '''
         words = mnemonic.split()
         word_list = HDKey._import_word_list()
@@ -113,9 +113,9 @@ class HDKey():
     def _mnemonic_lookup(value, value_index, lookup_index):
         '''MNEMONIC_CODES lookup.
         Args:
-            value         (int): value to lookup in MNEMONIC_CODES tuple
-            value_index   (int): value index of MNEMONIC_CODES tuple
-            lookup_index  (int): lookup index of MNEMONIC_CODES tuple
+            value           (int): value to lookup in MNEMONIC_CODES tuple
+            value_index     (int): value index of MNEMONIC_CODES tuple
+            lookup_index    (int): lookup index of MNEMONIC_CODES tuple
         Returns:
             (int): found value in MNEMONIC_CODES tuple lookup_index
         '''
