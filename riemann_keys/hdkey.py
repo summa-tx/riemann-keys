@@ -12,42 +12,47 @@ class HDKey():
             (224, 7, 21),
             (256, 8, 24))
 
-    def __init__(self, private_key, chain_code, depth, index, path, network):
+    def __init__(self, chain_code, depth, index, path, network):
+        # WIP
         self.path = path
         self.depth = depth
         self.index = index
         self.network = (network if network is not None else 'Bitcoin')
         self.chain_code = chain_code
-
-        self.address = None
         self.private_key = None
         self.public_key = None
 
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
-        Generates an HDKey object given entropy.
-        entropy -> mnemonic -> root seed -> hmac-sha512 -> HD wallets
+        Generates a HDKey object given entropy.
         Args:
-            entropy (bytes): 128-512 bits
+            entropy (bytes): 128, 160, 192, 224, or 256 bits
         Returns:
             (HDKey)
         '''
+        # WIP
         HDKey.validate_entropy(entropy)
 
         # Generate mnemonic to get root seed
         mnemonic = HDKey.mnemonic_from_entropy(entropy)
 
         # Generate root seed to build HDKey
-        root_seed = HDKey.root_from_mnemonic(
-            mnemonic=mnemonic,
-            network=network)
+        root_seed = HDKey.root_from_mnemonic(mnemonic, network)
 
         # Generate master keys and chain code from root_seed
         return HDKey.from_root_seed(root_seed, network)
 
     @staticmethod
     def from_root_seed(root_seed, network='Bitcoin'):
+        '''
+        Generates a HDKey object given the root seed.
+        Args:
+            root_seed (bytes): 128, 256, or 512 bits
+        Returns:
+            (HDKey)
+        '''
+        # WIP
         # TODO: get key depending on network
         I = utils.hmac_sha512(key=b'Bitcoin seed', msg=root_seed)  # noqa: E741
 
@@ -283,4 +288,4 @@ class HDKey():
         if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
             raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
 
-        return True;
+        return True

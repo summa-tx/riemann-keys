@@ -48,7 +48,8 @@ class TestHDKey(unittest.TestCase):
 
         # Test wrong type of entropy.
         with self.assertRaises(ValueError) as context:
-            HDKey.mnemonic_from_entropy('fadc2045e8e7daeae18af522ae500143b20ac86f')
+            HDKey.mnemonic_from_entropy(
+                'fadc2045e8e7daeae18af522ae500143b20ac86f')
         self.assertIn('Entropy must be bytes.', str(context.exception))
 
         # Test wrong length of entropy.
@@ -72,7 +73,6 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 HDKey.segments_to_mnemonic(segments=segments.split()),
                 test_vector['mnemonic'].split())
-
 
     def test_root_seed_from_mnemonic(self):
         # Test Trezor vectors.
