@@ -33,13 +33,7 @@ class HDKey():
         Returns:
             (HDKey)
         '''
-        if not isinstance(entropy, bytes):
-            raise ValueError('Entropy must be bytes.')
-
-        len_e = len(entropy)
-
-        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
-            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
+        HDKey.validate_entropy(entropy)
 
         # Generate mnemonic to get root seed
         mnemonic = HDKey.mnemonic_from_entropy(entropy)
@@ -80,13 +74,7 @@ class HDKey():
         Returns:
             (str): generated mnemonic
         '''
-        if not isinstance(entropy, bytes):
-            raise ValueError('Entropy must be bytes.')
-
-        len_e = len(entropy)
-
-        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
-            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
+        HDKey.validate_entropy(entropy)
 
         # Number of words in mnemonic
         num_mnemonic = HDKey.mnemonic_lookup(
@@ -276,13 +264,7 @@ class HDKey():
         Returns:
             (byte-str): First checksum segment to be appended to entropy
         '''
-        if not isinstance(entropy, bytes):
-            raise ValueError('Entropy must be bytes.')
-
-        len_e = len(entropy)
-
-        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
-            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
+        HDKey.validate_entropy(entropy)
 
         checksum_len = HDKey.mnemonic_lookup(
                 value=len(entropy) * 8,
@@ -291,3 +273,14 @@ class HDKey():
 
         return format(int.from_bytes(
             utils.sha256(entropy), 'big'), '0256b')[:checksum_len]
+
+    @staticmethod
+    def validate_entropy(entropy):
+        if not isinstance(entropy, bytes):
+            raise ValueError('Entropy must be bytes.')
+
+        len_e = len(entropy)
+        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
+            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
+
+        return True;
