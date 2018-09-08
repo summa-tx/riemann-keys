@@ -1,6 +1,5 @@
 # flake8: noqa
 #  https://github.com/trezor/python-mnemonic/blob/master/vectors.json
-secret_phrase = 'fee8019524872275f9c565b674a0dd21'
 trezor_vectors = {
   "english": [
     {

@@ -80,16 +80,19 @@ class HDKey():
         Returns:
             (str): generated mnemonic
         '''
+        if not isinstance(entropy, bytes):
+            raise ValueError('Entropy must be bytes.')
+
+        len_e = len(entropy)
+
+        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
+            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
 
         # Number of words in mnemonic
         num_mnemonic = HDKey.mnemonic_lookup(
             value=len(entropy) * 8,
             value_index=0,
             lookup_index=2)
-        num_mnemonic += HDKey.mnemonic_lookup(
-            value=len(entropy) * 8,
-            value_index=0,
-            lookup_index=1)
 
         # Formatting to convert hex string to binary string
         bit_format = '0{}b'.format(len(entropy) * 8)
@@ -108,17 +111,17 @@ class HDKey():
             int(bit_string[i:i + segment_len])
             for i in range(0, len(bit_string), segment_len)]
 
-        return ' '.join(HDKey._segments2mnemonic(segments))
+        return ' '.join(HDKey.segments_to_mnemonic(segments))
 
     @staticmethod
-    def _segments2mnemonic(segments):
+    def segments_to_mnemonic(segments):
         '''Entropy + Checksum Bit Segments -> Mnemonic List.
         Args:
             segments    (list): random 128, 160, 192, 224, or 256 bit string
         Returns:
             (list): mnemonic list
         '''
-        word_list = HDKey._import_word_list()
+        word_list = HDKey.import_word_list()
         index = list(map(lambda seg: int('0b' + str(seg), 2), segments))
         return list(map(lambda i: word_list[i], index))
 
@@ -149,7 +152,7 @@ class HDKey():
               (str): the checksum bits as an bitstring
         '''
         words = mnemonic.split()
-        word_list = HDKey._import_word_list()
+        word_list = HDKey.import_word_list()
         segments = []
 
         # Convert from mnemonic to entropy + checksum bit-string
@@ -218,7 +221,7 @@ class HDKey():
                     [str(num[value_index]) for num in HDKey.MNEMONIC_CODES])))
 
     @staticmethod
-    def _import_word_list():
+    def import_word_list():
         '''Imports BIP39 word list.
         Returns:
             (list): 2048 words specified in BIP39
@@ -249,7 +252,7 @@ class HDKey():
         # Check the length
         mnem_lens = [c[2] for c in HDKey.MNEMONIC_CODES]
         split = mnemonic.split()
-        words = HDKey._import_word_list()
+        words = HDKey.import_word_list()
         if len(split) not in mnem_lens:
             return False
 

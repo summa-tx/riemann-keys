@@ -31,25 +31,75 @@ class TestHDKey(unittest.TestCase):
     def test_from_root_seed(self):
         pass
 
-    @unittest.skip('wip')
     def test_mnemonic_from_entropy(self):
-        #  entropy = bytes.fromhex('a4e3fc4c0161698a22707cfbf30f7f83')
-        #  salt = None
-        #  mnemonic = 'pilot cable basic actress bird shallow mean auto winner observe that all'   # noqa: E501
-        #  seed = 'af44c7ad86ba0a5f46d4c1e785c846db14e0f3d62b69c2ab7efa012a9c9155c024975d6897e36fe9e9e6f0bde55fdf325ff308914ed1b316da0f755f9dd7347d'   # noqa: E501
-        #  self.assertIn(HDKey.mnemonic_from_entropy(entropy, salt), mnemonic)
-        pass
+        # Test Trezor vectors.
+        for test_vector in self.trezor_vectors['english']:
+            self.assertEqual(
+                    HDKey.mnemonic_from_entropy(
+                        entropy=bytes.fromhex(test_vector['entropy'])),
+                    test_vector['mnemonic'])
+
+        # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            entropy = bytes.fromhex(test_vector['entropy'])
+            self.assertEqual(
+                    HDKey.mnemonic_from_entropy(entropy),
+                    test_vector['mnemonic'])
+
+        # Test wrong type of entropy.
+        with self.assertRaises(ValueError) as context:
+            HDKey.mnemonic_from_entropy('fadc2045e8e7daeae18af522ae500143b20ac86f')
+        self.assertIn('Entropy must be bytes.', str(context.exception))
+
+        # Test wrong length of entropy.
+        with self.assertRaises(ValueError) as context:
+            HDKey.mnemonic_from_entropy(entropy=bytes.fromhex('00000000'))
+        self.assertIn(
+                'Entropy must be 16, 20, 24, 28, or 32 bytes.',
+                str(context.exception))
+
+    def test_segments_to_mnemoinc(self):
+        # Test Trezor vectors.
+        for test_vector in self.test_vectors['english']:
+            segments = test_vector['binary'] + test_vector['checksum']
+            self.assertEqual(
+                HDKey.segments_to_mnemonic(segments=segments.split()),
+                test_vector['mnemonic'].split())
+
+            # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            segments = test_vector['binary'] + test_vector['checksum']
+            self.assertEqual(
+                HDKey.segments_to_mnemonic(segments=segments.split()),
+                test_vector['mnemonic'].split())
+
+
+    def test_root_seed_from_mnemonic(self):
+        # Test Trezor vectors.
+        for test_vector in self.trezor_vectors['english']:
+            self.assertEqual(
+                HDKey.root_seed_from_mnemonic(
+                    test_vector['mnemonic'], 'TREZOR').hex(),
+                test_vector['seed'])
+
+        # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            self.assertEqual(
+                HDKey.root_seed_from_mnemonic(test_vector['mnemonic']).hex(),
+                test_vector['seed'])
 
     def test_mnemonic_to_bytes(self):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
-            entropy_bytes, checksum = HDKey.mnemonic_to_bytes(test_vector['mnemonic'])
+            entropy_bytes, checksum = HDKey.mnemonic_to_bytes(
+                test_vector['mnemonic'])
             self.assertEqual(entropy_bytes.hex(), test_vector['entropy'])
             self.assertEqual(checksum, test_vector['checksum'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
-            entropy_bytes, checksum = HDKey.mnemonic_to_bytes(test_vector['mnemonic'])
+            entropy_bytes, checksum = HDKey.mnemonic_to_bytes(
+                test_vector['mnemonic'])
             self.assertEqual(entropy_bytes.hex(), test_vector['entropy'])
             self.assertEqual(checksum, test_vector['checksum'])
 
@@ -83,10 +133,9 @@ class TestHDKey(unittest.TestCase):
                     lookup_index=1),
                 len_checksum[idx])
 
-
-    def test_import_word_list(self):
+    def testimport_word_list(self):
         # Check length of word list.
-        self.assertEqual(len(HDKey._import_word_list()), 2048)
+        self.assertEqual(len(HDKey.import_word_list()), 2048)
 
     def test_validate_mnemonic(self):
         # Assert False for invalid mnemonics
