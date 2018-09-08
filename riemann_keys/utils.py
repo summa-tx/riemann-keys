@@ -25,3 +25,13 @@ def hmac_sha512(key, msg, digest=hashlib.sha512):
         (bytes): 512-bit hash, I, to get private key and chain code
     '''
     return hmac.digest(key, msg, digest)
+
+
+def sha256(msg):
+    '''SHA256 algorithm
+    Args:
+        msg     (bytes): bytes to hash
+    Returns:
+        (bytes): 256-bit hash
+    '''
+    return hashlib.sha256(msg).digest()

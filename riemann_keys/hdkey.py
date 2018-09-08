@@ -26,12 +26,36 @@ class HDKey():
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
+        Generates an HDKey object given entropy.
+        entropy -> mnemonic -> root seed -> hmac-sha512 -> HD wallets
         Args:
             entropy (bytes): 128-512 bits
+        Returns:
+            (HDKey)
         '''
-        # TODO: check entropy validity
+        if not isinstance(entropy, bytes):
+            raise ValueError('Entropy must be bytes.')
+
+        len_e = len(entropy)
+
+        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
+            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
+
+        # Generate mnemonic to get root seed
+        mnemonic = HDKey.mnemonic_from_entropy(entropy)
+
+        # Generate root seed to build HDKey
+        root_seed = HDKey.root_from_mnemonic(
+            mnemonic=mnemonic,
+            network=network)
+
+        # Generate master keys and chain code from root_seed
+        return HDKey.from_root_seed(root_seed, network)
+
+    @staticmethod
+    def from_root_seed(root_seed, network='Bitcoin'):
         # TODO: get key depending on network
-        I = utils.hmac_sha512(key=b'Bitcoin seed', msg=entropy)    # noqa: E741
+        I = utils.hmac_sha512(key=b'Bitcoin seed', msg=root_seed)  # noqa: E741
 
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]
@@ -48,8 +72,59 @@ class HDKey():
                 path=path)
 
     @staticmethod
-    def from_mnemonic(mnemonic, salt=None, network='Bitcoin'):
-        '''Mnemoinc -> HDKey.
+    def mnemonic_from_entropy(entropy):
+        '''Entropy -> Mnemonic.
+        Args:
+            entropy      (bytes): random 128, 160, 192, 224, or 256 bit string
+            num_mnemonic (int): mnemonic length
+        Returns:
+            (str): generated mnemonic
+        '''
+
+        # Number of words in mnemonic
+        num_mnemonic = HDKey._mnemonic_lookup(
+            value=len(entropy) * 8,
+            value_index=0,
+            lookup_index=2)
+        num_mnemonic += HDKey._mnemonic_lookup(
+            value=len(entropy) * 8,
+            value_index=0,
+            lookup_index=1)
+
+        # Formatting to convert hex string to binary string
+        bit_format = '0{}b'.format(len(entropy) * 8)
+
+        # Convert hex string to binary string
+        bit_string = format(int.from_bytes(entropy, 'big'), bit_format)
+
+        # Append binary string with returned checksum digits
+        bit_string += HDKey._checksum(entropy)
+
+        # Number of segments to split bit_string
+        segment_len = len(bit_string) // num_mnemonic
+
+        # Split bit_string into segements, each index corresponding to a word
+        segments = [
+            int(bit_string[i:i + segment_len])
+            for i in range(0, len(bit_string), segment_len)]
+
+        return ' '.join(HDKey._segments2mnemonic(segments))
+
+    @staticmethod
+    def _segments2mnemonic(segments):
+        '''Entropy + Checksum Bit Segments -> Mnemonic List.
+        Args:
+            segments    (list): random 128, 160, 192, 224, or 256 bit string
+        Returns:
+            (list): mnemonic list
+        '''
+        word_list = HDKey._import_word_list()
+        index = list(map(lambda seg: int('0b' + str(seg), 2), segments))
+        return list(map(lambda i: word_list[i], index))
+
+    @staticmethod
+    def root_seed_from_mnemonic(mnemonic, salt=None, network='Bitcoin'):
+        '''Mnemoinc -> 512-bit root seed
         Generates the 512-bit seed as specified in BIP39 given a mnemonic and
         returns a new HDKey object.
         Args:
@@ -62,9 +137,7 @@ class HDKey():
         salt = 'mnemonic' + (salt if salt is not None else '')
         salt_bytes = salt.encode('utf-8')
         mnemonic_bytes = mnemonic.encode('utf-8')
-        return HDKey.from_entropy(utils.pbkdf2_hmac(
-                data=mnemonic_bytes,
-                salt=salt_bytes))
+        return utils.pbkdf2_hmac(data=mnemonic_bytes, salt=salt_bytes)
 
     @staticmethod
     def _mnemonic_to_bytes(mnemonic):
@@ -153,8 +226,11 @@ class HDKey():
         words = []
 
         # Import mnemonic words
+        #  with open('./data/english.txt', 'r') as f:
+        #      word_list = f.read()
+        # Import mnemonic words
         word_list = pkg_resources.resource_string(
-            'riemann_keys.data', 'english.txt').decode('utf-8')
+            'riemann_keys', 'data/english.txt').decode('utf-8')
 
         # Create mnemonic word list
         for word in word_list.split('\n')[:-1]:
@@ -188,3 +264,27 @@ class HDKey():
             return False
 
         return True
+
+    @staticmethod
+    def _checksum(entropy):
+        '''Determine checksum and return first segment.
+        Args:
+            entropy     (bytes): random 128, 160, 192, 224, or 256 bit string
+        Returns:
+            (byte-str): First checksum segment to be appended to entropy
+        '''
+        if not isinstance(entropy, bytes):
+            raise ValueError('Entropy must be bytes.')
+
+        len_e = len(entropy)
+
+        if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
+            raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
+
+        checksum_len = HDKey._mnemonic_lookup(
+                value=len(entropy) * 8,
+                value_index=0,
+                lookup_index=1)
+
+        return format(int.from_bytes(
+            utils.sha256(entropy), 'big'), '0256b')[:checksum_len]
