@@ -40,21 +40,68 @@ class TestHDKey(unittest.TestCase):
         #  self.assertIn(HDKey.mnemonic_from_entropy(entropy, salt), mnemonic)
         pass
 
-    @unittest.skip('wip')
     def test_mnemonic_to_bytes(self):
-        pass
+        # Test Trezor vectors.
+        for test_vector in self.trezor_vectors['english']:
+            entropy_bytes, checksum = HDKey.mnemonic_to_bytes(test_vector['mnemonic'])
+            self.assertEqual(entropy_bytes.hex(), test_vector['entropy'])
+            self.assertEqual(checksum, test_vector['checksum'])
 
-    @unittest.skip('wip')
+        # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            entropy_bytes, checksum = HDKey.mnemonic_to_bytes(test_vector['mnemonic'])
+            self.assertEqual(entropy_bytes.hex(), test_vector['entropy'])
+            self.assertEqual(checksum, test_vector['checksum'])
+
     def test_mnemonic_lookup(self):
-        pass
+        with self.assertRaises(ValueError) as context:
+            HDKey.mnemonic_lookup('a', 1, 1)
+        self.assertIn(
+            'Mnemonic lookup value must be of integer type.',
+            str(context.exception))
 
-    @unittest.skip('wip')
+        with self.assertRaises(ValueError) as context:
+            HDKey.mnemonic_lookup(1, 'a', 1)
+        self.assertIn(
+            'Mnemonic value index must be of integer type.',
+            str(context.exception))
+
+        with self.assertRaises(ValueError) as context:
+            HDKey.mnemonic_lookup(1, 1, 'a')
+        self.assertIn(
+            'Mnemonic lookup index must be of integer type.',
+            str(context.exception))
+
+        # Test checksum
+        len_entropy = [128, 160, 192, 224, 256]
+        len_checksum = [4, 5, 6, 7, 8]
+        for idx, len_e in enumerate(len_entropy):
+            self.assertEqual(
+                HDKey.mnemonic_lookup(
+                    value=len_e,
+                    value_index=0,
+                    lookup_index=1),
+                len_checksum[idx])
+
+
     def test_import_word_list(self):
-        pass
+        # Check length of word list.
+        self.assertEqual(len(HDKey._import_word_list()), 2048)
 
-    @unittest.skip('wip')
     def test_validate_mnemonic(self):
-        pass
+        # Assert False for invalid mnemonics
+        self.assertFalse(HDKey.validate_mnemonic(' '.join(['about'] * 12)))
+        self.assertFalse(HDKey.validate_mnemonic('hello'))
+        self.assertFalse(HDKey.validate_mnemonic(' '.join(['charlie'] * 12)))
+
+        # Assert True for valid mnemonics
+        # Test Trezor vectors.
+        for test_vector in self.trezor_vectors['english']:
+            self.assertTrue(HDKey.validate_mnemonic(test_vector['mnemonic']))
+
+        # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            self.assertTrue(HDKey.validate_mnemonic(test_vector['mnemonic']))
 
     def test_checksum(self):
         # Raise ValueError if entropy is not bytes
@@ -73,12 +120,12 @@ class TestHDKey(unittest.TestCase):
         for test_vector in self.trezor_vectors['english']:
             entropy = bytes.fromhex(test_vector['entropy'])
             self.assertEqual(
-                HDKey._checksum(entropy=entropy),
+                HDKey.checksum(entropy=entropy),
                 test_vector['checksum'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
             entropy = bytes.fromhex(test_vector['entropy'])
             self.assertEqual(
-                HDKey._checksum(entropy=entropy),
+                HDKey.checksum(entropy=entropy),
                 test_vector['checksum'])

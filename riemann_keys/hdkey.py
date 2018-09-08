@@ -82,11 +82,11 @@ class HDKey():
         '''
 
         # Number of words in mnemonic
-        num_mnemonic = HDKey._mnemonic_lookup(
+        num_mnemonic = HDKey.mnemonic_lookup(
             value=len(entropy) * 8,
             value_index=0,
             lookup_index=2)
-        num_mnemonic += HDKey._mnemonic_lookup(
+        num_mnemonic += HDKey.mnemonic_lookup(
             value=len(entropy) * 8,
             value_index=0,
             lookup_index=1)
@@ -98,7 +98,7 @@ class HDKey():
         bit_string = format(int.from_bytes(entropy, 'big'), bit_format)
 
         # Append binary string with returned checksum digits
-        bit_string += HDKey._checksum(entropy)
+        bit_string += HDKey.checksum(entropy)
 
         # Number of segments to split bit_string
         segment_len = len(bit_string) // num_mnemonic
@@ -133,14 +133,14 @@ class HDKey():
         Returns:
             (HDKey)
         '''
-        HDKey._validate_mnemonic(mnemonic)
+        HDKey.validate_mnemonic(mnemonic)
         salt = 'mnemonic' + (salt if salt is not None else '')
         salt_bytes = salt.encode('utf-8')
         mnemonic_bytes = mnemonic.encode('utf-8')
         return utils.pbkdf2_hmac(data=mnemonic_bytes, salt=salt_bytes)
 
     @staticmethod
-    def _mnemonic_to_bytes(mnemonic):
+    def mnemonic_to_bytes(mnemonic):
         '''Mnemonic -> [bytes]
         Args:
             mnemonic    (str): a 12, 15, 18, 21, or 24 word str
@@ -165,7 +165,7 @@ class HDKey():
         bit_string = ''.join(segments)
 
         # Number of checksum bits determined by number of words in mnemonic
-        checksum_bits = HDKey._mnemonic_lookup(
+        checksum_bits = HDKey.mnemonic_lookup(
             value=len(words), value_index=2, lookup_index=1)
 
         # Checksum bit-string (last bits at end of bit-string)
@@ -183,7 +183,7 @@ class HDKey():
         return (bytes(b), checksum_bits)
 
     @staticmethod
-    def _mnemonic_lookup(value, value_index, lookup_index):
+    def mnemonic_lookup(value, value_index, lookup_index):
         '''MNEMONIC_CODES lookup.
         Args:
             value           (int): value to lookup in MNEMONIC_CODES tuple
@@ -239,7 +239,7 @@ class HDKey():
         return words
 
     @staticmethod
-    def _validate_mnemonic(mnemonic):
+    def validate_mnemonic(mnemonic):
         '''Validates a mnemonic
         Args:
             mnemonic    (string): potential mnemonic string
@@ -259,14 +259,14 @@ class HDKey():
                 return False
 
         # Check the checksum
-        entropy_bytes, checksum = HDKey._mnemonic_to_bytes(mnemonic)
-        if HDKey._checksum(entropy_bytes) != checksum:
+        entropy_bytes, checksum = HDKey.mnemonic_to_bytes(mnemonic)
+        if HDKey.checksum(entropy_bytes) != checksum:
             return False
 
         return True
 
     @staticmethod
-    def _checksum(entropy):
+    def checksum(entropy):
         '''Determine checksum and return first segment.
         Args:
             entropy     (bytes): random 128, 160, 192, 224, or 256 bit string
@@ -281,7 +281,7 @@ class HDKey():
         if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
             raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
 
-        checksum_len = HDKey._mnemonic_lookup(
+        checksum_len = HDKey.mnemonic_lookup(
                 value=len(entropy) * 8,
                 value_index=0,
                 lookup_index=1)
