@@ -13,4 +13,3 @@ pytest-cov = "*"
 python_version = "3.7"
 
 [packages]
-riemann-keys = {editable = true, path = "."}
