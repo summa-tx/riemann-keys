@@ -12,7 +12,7 @@ class HDKey():
             (224, 7, 21),
             (256, 8, 24))
 
-    def __init__(self, chain_code, depth, index, path, network):
+    def __init__(self, chain_code, depth, index, path, network, parent):
         # WIP
         self.path = path
         self.depth = depth
