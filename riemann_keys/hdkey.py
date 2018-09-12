@@ -38,7 +38,7 @@ class HDKey():
         mnemonic = HDKey.mnemonic_from_entropy(entropy)
 
         # Generate root seed to build HDKey
-        root_seed = HDKey.root_from_mnemonic(mnemonic, network)
+        root_seed = HDKey.root_seed_from_mnemonic(mnemonic, network)
 
         # Generate master keys and chain code from root_seed
         return HDKey.from_root_seed(root_seed, network)
@@ -49,6 +49,7 @@ class HDKey():
         Generates a HDKey object given the root seed.
         Args:
             root_seed (bytes): 128, 256, or 512 bits
+            network (WIP)
         Returns:
             (HDKey)
         '''
@@ -69,6 +70,20 @@ class HDKey():
                 depth=0,
                 index=0,
                 path=path)
+
+    @staticmethod
+    def from_mnemonic(mnemonic, salt=None, network='Bitcon'):
+        '''
+        Generate a HDKey object given a mnemonic.
+        Args:
+            mnemonic    (str): 12, 15, 18, 21, 24 words from word list
+            salt        (str): optional words for added security
+            network (WIP)
+        Returns:
+            (HDKey)
+        '''
+        root_seed = HDKey.root_seed_from_mnemonic(mnemonic, salt, network)
+        return HDKey.from_root_seed(root_seed, network)
 
     @staticmethod
     def mnemonic_from_entropy(entropy):
@@ -121,13 +136,12 @@ class HDKey():
     @staticmethod
     def root_seed_from_mnemonic(mnemonic, salt=None, network='Bitcoin'):
         '''Mnemoinc -> 512-bit root seed
-        Generates the 512-bit seed as specified in BIP39 given a mnemonic and
-        returns a new HDKey object.
+        Generates the 512-bit seed as specified in BIP39 given a mnemonic.
         Args:
             mnemonic    (str): 12, 15, 18, 21, 24 words from word list
             salt        (str): optional words for added security
         Returns:
-            (HDKey)
+            (bytes): 512-bit root seed
         '''
         HDKey.validate_mnemonic(mnemonic)
         salt = 'mnemonic' + (salt if salt is not None else '')
