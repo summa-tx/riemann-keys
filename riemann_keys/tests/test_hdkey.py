@@ -31,6 +31,10 @@ class TestHDKey(unittest.TestCase):
     def test_from_root_seed(self):
         pass
 
+    @unittest.skip('wip')
+    def test_from_mnemonic(self):
+        pass
+
     def test_mnemonic_from_entropy(self):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:

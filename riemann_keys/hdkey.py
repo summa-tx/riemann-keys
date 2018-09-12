@@ -1,5 +1,6 @@
+import hmac
+import hashlib
 import pkg_resources
-from riemann_keys import utils
 
 
 class HDKey():
@@ -55,7 +56,11 @@ class HDKey():
         '''
         # WIP
         # TODO: get key depending on network
-        I = utils.hmac_sha512(key=b'Bitcoin seed', msg=root_seed)  # noqa: E741
+        # data/key, msg, digest
+        I = hmac.digest(                                        # noqa: E741
+            b'Bitcoin seed',
+            root_seed,
+            hashlib.sha512)
 
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]
@@ -147,7 +152,7 @@ class HDKey():
         salt = 'mnemonic' + (salt if salt is not None else '')
         salt_bytes = salt.encode('utf-8')
         mnemonic_bytes = mnemonic.encode('utf-8')
-        return utils.pbkdf2_hmac(data=mnemonic_bytes, salt=salt_bytes)
+        return hashlib.pbkdf2_hmac('sha512', mnemonic_bytes, salt_bytes, 2048)
 
     @staticmethod
     def mnemonic_to_bytes(mnemonic):
@@ -291,7 +296,8 @@ class HDKey():
                 lookup_index=1)
 
         return format(int.from_bytes(
-            utils.sha256(entropy), 'big'), '0256b')[:checksum_len]
+            hashlib.sha256(entropy).digest(), 'big'),
+            '0256b')[:checksum_len]
 
     @staticmethod
     def validate_entropy(entropy):
