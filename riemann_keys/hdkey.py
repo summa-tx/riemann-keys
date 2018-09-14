@@ -1,23 +1,25 @@
 import pkg_resources
+import hmac
 from riemann_keys import utils
 
 
-class HDKey():
+class HDKey:
 
     # NB: (bits of entropy, checksum bits, words in mnemonic)
     MNEMONIC_CODES = (
-            (128, 4, 12),
-            (160, 5, 15),
-            (192, 6, 18),
-            (224, 7, 21),
-            (256, 8, 24))
+        (128, 4, 12),
+        (160, 5, 15),
+        (192, 6, 18),
+        (224, 7, 21),
+        (256, 8, 24),
+    )
 
-    def __init__(self, chain_code, depth, index, path, network, parent):
+    def __init__(self, depth, index, path, network, parent, chain_code=None):
         # WIP
         self.path = path
         self.depth = depth
         self.index = index
-        self.network = (network if network is not None else 'Bitcoin')
+        self.network = network if network is not None else "Bitcoin"
         self.chain_code = chain_code
         self.private_key = None
         self.public_key = None
