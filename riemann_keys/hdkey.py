@@ -23,6 +23,15 @@ class HDKey:
         self.chain_code = chain_code
         self.private_key = None
         self.public_key = None
+        self.parent = parent
+
+    def derive_path(self, path):  # m/44/1/1/1/1
+        if len(path) == 0:
+            return self
+
+        path = path.split("/")  # ['m', '44', '1', '1', '1', '1']
+        current_node = path.pop(0)  # pop the first index
+
 
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
