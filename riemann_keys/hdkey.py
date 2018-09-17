@@ -92,6 +92,18 @@ class HDKey:
                 # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. (Note: this has probability lower than 1 in 2127.)
                 return derive_child(index + 1, hardened)
 
+        # Public parent key → public child key
+        else:
+            try:
+                # secp256k1_ec_pubkey_tweak_add(self.public_key, IL)
+                1 + 1  # python doesn't like a block with only comments
+            except:
+                # In case parse256(IL) ≥ n or Ki is the point at infinity, the resulting key is invalid, and one should proceed with the next value for i.
+                return derive_child(index + 1, hardened)
+
+        child.chain_code = IR
+        return child
+
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
