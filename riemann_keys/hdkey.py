@@ -57,6 +57,18 @@ class HDKey:
         return
 
     def derive_child(self, index, hardened):
+        index_serialized_32_bits = (index).to_bytes(4, byteorder="big")
+
+        if hardened:
+            assert (
+                self.private_key
+            ), "Private Key is needed for to derive hardened children"
+
+            # Data = 0x00 || ser256(kpar) || ser32(i) (Note: The 0x00 pads the private key to make it 33 bytes long.)
+            data = b"".join([self.private_key, index_serialized_32_bits])
+        else:
+            # Data = serP(point(kpar)) || ser32(i)).
+            data = b"".join([self.public_key, index_serialized_32_bits])
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
