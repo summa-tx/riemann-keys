@@ -69,6 +69,10 @@ class HDKey:
         else:
             # Data = serP(point(kpar)) || ser32(i)).
             data = b"".join([self.public_key, index_serialized_32_bits])
+
+        # I = HMAC-SHA512(Key = cpar, Data)
+        I = hmac.new(self.chain_code, data=data).digest()
+        IL, IR = I[:32], I[32:]
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
