@@ -48,6 +48,15 @@ class HDKey:
             current_node = int(current_node[:-1]) + 0x80000000  # 0x80000000 == 2^31,
             hardened = True
 
+        child = HDKey.derive_child(current_node, hardened)
+        child.parent = self
+
+        return child.derive_path(path)
+
+    def derive_descendant():
+        return
+
+    def derive_child(self, index, hardened):
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
