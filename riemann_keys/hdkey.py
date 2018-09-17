@@ -42,6 +42,12 @@ class HDKey:
         elif current_node.lower() == "m" or current_node.lower() == "m'":
             return self.derive_path(path)
 
+        hardened = False
+        # if we're here, then we have a path that doesn't start with m
+        if "'" in current_node:
+            current_node = int(current_node[:-1]) + 0x80000000  # 0x80000000 == 2^31,
+            hardened = True
+
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
         '''
