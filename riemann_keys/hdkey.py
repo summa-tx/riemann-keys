@@ -32,6 +32,15 @@ class HDKey:
         path = path.split("/")  # ['m', '44', '1', '1', '1', '1']
         current_node = path.pop(0)  # pop the first index
 
+        if (
+            current_node.lower() == "m"
+            or current_node.lower() == "m'"
+            and len(path) == 1
+        ):
+            # total path is ['m']
+            return self  # total path is ['m']
+        elif current_node.lower() == "m" or current_node.lower() == "m'":
+            return self.derive_path(path)
 
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
