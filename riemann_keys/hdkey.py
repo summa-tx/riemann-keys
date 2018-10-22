@@ -1,5 +1,6 @@
 import pkg_resources
 import hmac
+import hashlib
 import secpy256k1
 # from secpy256k1.lib import SECP256K1_CONTEXT_NONE, SECP256K1_CONTEXT_SIGN, SECP256K1_CONTEXT_VERIFY, SECP256K1_COMPRESSED, SECP256K1_UNCOMPRESSED
 from riemann_keys import utils
