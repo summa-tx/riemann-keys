@@ -8,6 +8,8 @@ pytest = "*"
 flake8 = "*"
 tox = "*"
 pytest-cov = "*"
+ptpython = "*"
+ptpdb = "*"
 
 [requires]
 python_version = "3.7"
