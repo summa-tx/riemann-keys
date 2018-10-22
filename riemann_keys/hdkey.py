@@ -140,6 +140,14 @@ class HDKey:
 
         return HDKey(network=network, private_key=I_left, public_key=public_key, chain_code=I_right, depth=0, index=0, path=path)
 
+    @staticmethod
+    def private_to_public(private_key):
+        #TODO docs
+        ctx = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
+        check, c_public_key = secpy256k1.ec_pubkey_create(ctx=ctx, seckey=private_key)
+        public_key = bytes(c_public_key.data).hex()
+
+        return check, public_key
 
     @staticmethod
     def mnemonic_from_entropy(entropy):
