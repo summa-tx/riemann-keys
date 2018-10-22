@@ -137,7 +137,7 @@ class HDKey:
         I_left, I_right = I[:32], I[32:]
 
         # Public key
-        check, public_key = private_to_public(I_left)
+        check, public_key = HDKey.private_to_public(I_left)
 
         if (check == 0):
             raise ValueError('Private Key is invalid, try another seed')
@@ -152,7 +152,7 @@ class HDKey:
         #TODO docs
         ctx = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
         check, c_public_key = secpy256k1.ec_pubkey_create(ctx=ctx, seckey=private_key)
-        public_key = bytes(c_public_key.data).hex()
+        public_key = bytes(c_public_key.data)
 
         return check, public_key
 
