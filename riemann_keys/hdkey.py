@@ -89,8 +89,8 @@ class HDKey:
     
         # Public parent key -> public child key
         else:
-
-            check, child.private_key = secpy256k1.ec_pubkey_tweak_add(ctx=secpy256k1.lib.SECP256K1_CONTEXT_NONE, pubkey=self.public_key, tweak=IL)
+            ctx = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
+            check, child.public_key = secpy256k1.ec_pubkey_tweak_add(ctx=ctx, pubkey=self.public_key, tweak=IL)
             if (check == 0):
                 # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
                 # (Note: this has probability lower than 1 in 2^127.)
