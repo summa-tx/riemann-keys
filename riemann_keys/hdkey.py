@@ -69,25 +69,18 @@ class HDKey:
         I = hmac.new(self.chain_code, data=data).digest()
         IL, IR = I[:32], I[32:]
 
-        child = HDKey(
-            parent=self,
-            network=self.network,
-            path=self.path + "/" + index,
-            index=self.index,
-            depth=self.depth + 1,
-        )
+        child = HDKey(parent=self, network=self.network, path=self.path + "/" + index, index=self.index, depth=self.depth + 1)
 
         # Private parent key -> private child key
         if self.private_key:
-            try:
-                # secp256k1_ec_privkey_tweak_add(self.private_key, IL)
-                # also derive child public key from parent priv key
-                1 + 1  # python doesn't like a block with only comments
-            except:
-                # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. (Note: this has probability lower than 1 in 2127.)
-                return derive_child(index + 1, hardened)
 
-        # Public parent key → public child key
+            check, child.private_key = secpy256k1.ec_privkey_tweak_add(ctx=secpy256k1.lib.SECP256K1_CONTEXT_NONE, seckey=self.private_key, tweak=IL)
+            if (check == 0):
+                # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
+                # (Note: this has probability lower than 1 in 2^127.)
+                return HDKey.derive_child(index + 1, hardened)
+    
+        # Public parent key -> public child key
         else:
             try:
                 # secp256k1_ec_pubkey_tweak_add(self.public_key, IL)
