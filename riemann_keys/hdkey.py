@@ -129,16 +129,17 @@ class HDKey:
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]
 
+        # Public key
+        check, public_key = private_to_public(I_left)
+
+        if (check == 0):
+            raise ValueError('Private Key is invalid, try another seed')
+        
         # TODO: get path depending on network
         path = 'm/0'  # temp
 
-        return HDKey(
-                network=network,
-                private_key=I_left,
-                chain_code=I_right,
-                depth=0,
-                index=0,
-                path=path)
+        return HDKey(network=network, private_key=I_left, public_key=public_key, chain_code=I_right, depth=0, index=0, path=path)
+
 
     @staticmethod
     def mnemonic_from_entropy(entropy):
