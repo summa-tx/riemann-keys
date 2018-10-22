@@ -82,6 +82,10 @@ class HDKey:
                 # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
                 # (Note: this has probability lower than 1 in 2^127.)
                 return HDKey.derive_child(index + 1, hardened)
+            
+            check, child.public_key = HDKey.private_to_public(child.private_key)
+            if (check == 0):
+                return HDKey.derive_child(index + 1, hardened)
     
         # Public parent key -> public child key
         else:
