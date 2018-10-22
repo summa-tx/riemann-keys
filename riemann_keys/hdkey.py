@@ -161,10 +161,7 @@ class HDKey:
         HDKey.validate_entropy(entropy)
 
         # Number of words in mnemonic
-        num_mnemonic = HDKey.mnemonic_lookup(
-            value=len(entropy) * 8,
-            value_index=0,
-            lookup_index=2)
+        num_mnemonic = HDKey.mnemonic_lookup(value=len(entropy) * 8, value_index=0, lookup_index=2)
 
         # Formatting to convert hex string to binary string
         bit_format = '0{}b'.format(len(entropy) * 8)
@@ -179,9 +176,7 @@ class HDKey:
         segment_len = len(bit_string) // num_mnemonic
 
         # Split bit_string into segements, each index corresponding to a word
-        segments = [
-            int(bit_string[i:i + segment_len])
-            for i in range(0, len(bit_string), segment_len)]
+        segments = [int(bit_string[i:i + segment_len]) for i in range(0, len(bit_string), segment_len)]
 
         return ' '.join(HDKey.segments_to_mnemonic(segments))
 
