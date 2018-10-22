@@ -41,12 +41,7 @@ class HDKey:
         elif current_node.lower() == "m" or current_node.lower() == "m'":
             return self.derive_path(path)
 
-        hardened = False
-        if "'" in current_node:
-            current_node = int(current_node[:-1]) + 0x80000000  # 0x80000000 == 2^31,
-            hardened = True
-
-        child = HDKey.derive_child(current_node, hardened)
+        child = HDKey.derive_child(current_node)
         child.parent = self
 
         return child.derive_path(path)
@@ -54,8 +49,13 @@ class HDKey:
     def derive_descendant():
         return
 
-    def derive_child(self, index, hardened=False):
+    def derive_child(self, index):
         index_serialized_32_bits = (index).to_bytes(4, byteorder="big")
+
+        hardened = False
+        if "'" in str(index):
+            index = int(index) + 0x80000000  # 0x80000000 == 2^31,
+            hardened = True
 
         if hardened:
             assert (self.private_key), "Private Key is needed for to derive hardened children"
