@@ -67,7 +67,9 @@ class HDKey:
             data = b"".join([self.public_key, index_serialized_32_bits])
 
         # I = HMAC-SHA512(Key = cpar, Data)
-        I = hmac.new(self.chain_code, data=data).digest()
+        I = hmac.new(self.chain_code, digestmod=hashlib.sha512)
+        I.update(data)
+        I = I.digest()
         IL, IR = I[:32], I[32:]
 
         child = HDKey(parent=self, network=self.network, path=self.path + "/" + index, index=self.index, depth=self.depth + 1)
