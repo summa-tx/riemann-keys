@@ -1,6 +1,9 @@
 import pkg_resources
 import hmac
+import secpy256k1
+# from secpy256k1.lib import SECP256K1_CONTEXT_NONE, SECP256K1_CONTEXT_SIGN, SECP256K1_CONTEXT_VERIFY, SECP256K1_COMPRESSED, SECP256K1_UNCOMPRESSED
 from riemann_keys import utils
+from ptpdb import set_trace
 
 
 class HDKey:
@@ -14,16 +17,16 @@ class HDKey:
         (256, 8, 24),
     )
 
-    def __init__(self, depth, index, path, network, parent, chain_code=None):
+    def __init__(self, path, depth=0, index=None, network="Bitcoin", parent=None, chain_code=None, private_key=None, public_key=None):
         # WIP
         self.path = path
         self.depth = depth
         self.index = index
-        self.network = network if network is not None else "Bitcoin"
-        self.chain_code = chain_code
-        self.private_key = None
-        self.public_key = None
+        self.network = network
         self.parent = parent
+        self.chain_code = chain_code
+        self.private_key = private_key
+        self.public_key = public_key
 
     def derive_path(self, path):  # m/44/1/1/1/1
         if len(path) == 0:
