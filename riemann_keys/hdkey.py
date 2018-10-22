@@ -72,7 +72,7 @@ class HDKey:
         I = I.digest()
         IL, IR = I[:32], I[32:]
 
-        child = HDKey(parent=self, network=self.network, path=self.path + "/" + index, index=self.index, depth=self.depth + 1)
+        child = HDKey(parent=self, network=self.network, path=self.path + "/" + str(index), index=index, depth=self.depth + 1)
 
         # Private parent key -> private child key
         if self.private_key:
