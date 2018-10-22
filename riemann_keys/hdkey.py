@@ -82,12 +82,12 @@ class HDKey:
     
         # Public parent key -> public child key
         else:
-            try:
-                # secp256k1_ec_pubkey_tweak_add(self.public_key, IL)
-                1 + 1  # python doesn't like a block with only comments
-            except:
-                # In case parse256(IL) ≥ n or Ki is the point at infinity, the resulting key is invalid, and one should proceed with the next value for i.
-                return derive_child(index + 1, hardened)
+
+            check, child.private_key = secpy256k1.ec_pubkey_tweak_add(ctx=secpy256k1.lib.SECP256K1_CONTEXT_NONE, pubkey=self.public_key, tweak=IL)
+            if (check == 0):
+                # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
+                # (Note: this has probability lower than 1 in 2^127.)
+                return HDKey.derive_child(index + 1, hardened)
 
         child.chain_code = IR
         return child
