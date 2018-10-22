@@ -28,25 +28,19 @@ class HDKey:
         self.private_key = private_key
         self.public_key = public_key
 
-    def derive_path(self, path):  # m/44/1/1/1/1
+    def derive_path(self, path):
         if len(path) == 0:
             return self
 
-        path = path.split("/")  # ['m', '44', '1', '1', '1', '1']
-        current_node = path.pop(0)  # pop the first index
+        path = path.split("/")
+        current_node = path.pop(0) 
 
-        if (
-            current_node.lower() == "m"
-            or current_node.lower() == "m'"
-            and len(path) == 1
-        ):
-            # total path is ['m']
-            return self  # total path is ['m']
+        if (current_node.lower() == "m" or current_node.lower() == "m'" and len(path) == 1):
+            return self
         elif current_node.lower() == "m" or current_node.lower() == "m'":
             return self.derive_path(path)
 
         hardened = False
-        # if we're here, then we have a path that doesn't start with m
         if "'" in current_node:
             current_node = int(current_node[:-1]) + 0x80000000  # 0x80000000 == 2^31,
             hardened = True
