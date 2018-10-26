@@ -69,6 +69,27 @@ class HDKey:
 
         self._public_key = pubkey
 
+    @property
+    def private_key(self):
+        return self._private_key
+
+    @private_key.setter
+    def private_key(self, privkey):
+        assert type(privkey) == bytes, "Private key must be of type bytes"
+        assert len(privkey) == 32, "Private key must be 32 bytes"
+        assert secpy256k1.ec_seckey_verify(self.SECP256K1_CONTEXT_SIGN, privkey) == 1, "secp256k1 verify failed"
+
+        self._private_key = privkey
+
+        check, c_unserialized_public_key = secpy256k1.ec_pubkey_create(ctx=self.SECP256K1_CONTEXT_SIGN, seckey=privkey)
+        check, c_public_key, c_public_key_length = secpy256k1.ec_pubkey_serialize(self.SECP256K1_CONTEXT_SIGN, c_unserialized_public_key, self.SECP256K1_EC_COMPRESSED)
+        pubkey = self.convert_to_bytes(c_public_key)
+
+        if self._public_key != None:
+            assert self.public_key == pubkey, "Private key does not match current public key"
+        
+        self.public_key = pubkey
+
     def derive_path(self, path):
         if len(path) == 0:
             return self
