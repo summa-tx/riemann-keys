@@ -110,10 +110,13 @@ class HDKey:
         if len(path) == 0:
             return self
 
-        path = path.split("/")
-        current_node = path.pop(0) 
+        if isinstance(path, str):
+            path = path.split("/")
 
-        if (current_node.lower() == "m" or current_node.lower() == "m'" and len(path) == 1):
+        assert path[-1] != '', "Malformed Path"
+
+        current_node = path.pop(0)
+        if (current_node.lower() == "m" or current_node.lower() == "m'") and len(path) == 0:
             return self
         elif current_node.lower() == "m" or current_node.lower() == "m'":
             return self.derive_path(path)
