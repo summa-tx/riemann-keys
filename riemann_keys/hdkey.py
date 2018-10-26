@@ -17,9 +17,29 @@ class HDKey:
         (224, 7, 21),
         (256, 8, 24),
     )
+    
+    # https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+    NETWORK_CODES = {
+        'Bitcoin': 0,
+        'Testnet': 1,
+        'Litecoin': 2,
+        'Dogecoin': 3,
+        'Dash': 5,
+        'Ethereum': 60,
+    }
 
-    def __init__(self, path, depth=0, index=None, network="Bitcoin", parent=None, chain_code=None, private_key=None, public_key=None):
-        # WIP
+    # https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+    VERSION_BYTES = {
+        "mainnet": {
+            "public" : 0x0488B21E,
+            "private" : 0x0488ADE4,
+
+        },
+        "testnet": {
+            "public" : 0x043587CF,
+            "private": 0x04358394,
+        }
+    }
         self.path = path
         self.depth = depth
         self.index = index
