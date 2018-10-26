@@ -121,17 +121,19 @@ class HDKey:
         elif current_node.lower() == "m" or current_node.lower() == "m'":
             return self.derive_path(path)
 
-        child = HDKey.derive_child(current_node)
+        child = self.derive_child(current_node)
         child.parent = self
 
         return child.derive_path(path)
 
-    def derive_descendant():
-        return
-
     def derive_child(self, index):
-        index_serialized_32_bits = (index).to_bytes(4, byteorder="big")
-
+        """
+            Derives the immediate child to the index provided
+            Args:
+                index: (string)
+            Returns:
+                (HDKey)
+        """
         hardened = False
         if "'" in str(index):
             index = int(index) + 0x80000000  # 0x80000000 == 2^31,
