@@ -160,24 +160,16 @@ class HDKey:
 
         # Private parent key -> private child key
         if self.private_key:
-            ctx = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
-            check, child.private_key = secpy256k1.ec_privkey_tweak_add(ctx=ctx, seckey=self.private_key, tweak=IL)
+            check, child.private_key = secpy256k1.ec_privkey_tweak_add(ctx=self.SECP256K1_CONTEXT_SIGN, seckey=self.private_key, tweak=IL)
             if (check == 0):
                 # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
                 # (Note: this has probability lower than 1 in 2^127.)
-                return HDKey.derive_child(index + 1, hardened)
-            
-            check, child.public_key = HDKey.private_to_public(child.private_key)
-            if (check == 0):
                 return HDKey.derive_child(index + 1, hardened)
     
         # Public parent key -> public child key
         else:
-            ctx = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
-            check, child.public_key = secpy256k1.ec_pubkey_tweak_add(ctx=ctx, pubkey=self.public_key, tweak=IL)
+            check, child.public_key = secpy256k1.ec_pubkey_tweak_add(ctx=self.SECP256K1_CONTEXT_SIGN, pubkey=self.public_key, tweak=IL)
             if (check == 0):
-                # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
-                # (Note: this has probability lower than 1 in 2^127.)
                 return HDKey.derive_child(index + 1, hardened)
 
         child.chain_code = IR
@@ -210,6 +202,7 @@ class HDKey:
         Generates a HDKey object given the root seed.
         Args:
             root_seed (bytes): 128, 256, or 512 bits
+            network (str, Optional): Must be a selection from NETWORK_CODES, defaults to Bitcoin
         Returns:
             (HDKey)
         '''
@@ -220,25 +213,9 @@ class HDKey:
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]
 
-        # Public key
-        check, public_key = HDKey.private_to_public(I_left)
-
-        if (check == 0):
-            raise ValueError('Private Key is invalid, try another seed')
-        
-        # TODO: get path depending on network
-        path = 'm/0'  # temp
-
-        return HDKey(network=network, private_key=I_left, public_key=public_key, chain_code=I_right, depth=0, index=0, path=path)
-
-    @staticmethod
-    def private_to_public(private_key):
-        #TODO docs
-        ctx = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
-        check, c_public_key = secpy256k1.ec_pubkey_create(ctx=ctx, seckey=private_key)
-        public_key = bytes(c_public_key.data)
-
-        return check, public_key
+        root = HDKey(network=network, chain_code=I_right, depth=0, index=0, path='m/')
+        root.private_key=I_left
+        return root
 
     @staticmethod
     def mnemonic_from_entropy(entropy):
