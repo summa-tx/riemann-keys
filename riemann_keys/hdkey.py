@@ -44,14 +44,18 @@ class HDKey:
     SECP256K1_CONTEXT_SIGN = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
     SECP256K1_EC_COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
+    def __init__(self, path, depth=0, index=None, network="Bitcoin", parent=None, chain_code=None, private_key=None, public_key=None, fingerprint=None):
+        self._public_key = None
+        self._private_key = None
         self.path = path
         self.depth = depth
         self.index = index
         self.network = network
         self.parent = parent
         self.chain_code = chain_code
-        self.private_key = private_key
-        self.public_key = public_key
+        self._private_key = private_key
+        self._public_key = public_key
+        self.fingerprint = fingerprint
 
     def derive_path(self, path):
         if len(path) == 0:
