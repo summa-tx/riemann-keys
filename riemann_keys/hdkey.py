@@ -135,9 +135,11 @@ class HDKey:
                 (HDKey)
         """
         hardened = False
-        if "'" in str(index):
-            index = int(index) + 0x80000000  # 0x80000000 == 2^31,
+        if "'" in index:
+            index = int(index[:-1]) + 0x80000000  # 0x80000000 == 2^31,
             hardened = True
+
+        index_serialized_32_bits = int(index).to_bytes(4, byteorder="big")
 
         if hardened:
             assert (self.private_key), "Private Key is needed for to derive hardened children"
