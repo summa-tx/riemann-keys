@@ -57,6 +57,18 @@ class HDKey:
         self._public_key = public_key
         self.fingerprint = fingerprint
 
+    @property
+    def public_key(self):
+        return self._public_key
+    
+    @public_key.setter
+    def public_key(self, pubkey):
+        assert type(pubkey) == bytes, "Public key must be of type bytes"
+        assert len(pubkey) == 33 or len(pubkey) == 65, "Public key must be either 33 or 65 bytes"
+        #TODO ECDSA sig verify
+
+        self._public_key = pubkey
+
     def derive_path(self, path):
         if len(path) == 0:
             return self
