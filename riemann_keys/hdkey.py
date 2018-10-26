@@ -431,3 +431,7 @@ class HDKey:
             raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
 
         return True
+
+    @staticmethod
+    def convert_to_bytes(key):
+        return bytes(secpy256k1.ffi.buffer(key))
