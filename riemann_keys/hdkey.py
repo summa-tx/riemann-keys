@@ -40,6 +40,10 @@ class HDKey:
             "private": 0x04358394,
         }
     }
+
+    SECP256K1_CONTEXT_SIGN = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
+    SECP256K1_EC_COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
+
         self.path = path
         self.depth = depth
         self.index = index
