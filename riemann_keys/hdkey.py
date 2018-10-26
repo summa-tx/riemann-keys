@@ -90,6 +90,22 @@ class HDKey:
         
         self.public_key = pubkey
 
+    @property
+    def extended_private_key(self):
+        return
+
+    @extended_private_key.setter
+    def extended_private_key(self, xpriv):
+        return
+
+    @property
+    def extended_public_key(self):
+        return
+
+    @extended_public_key.setter
+    def extended_public_key(self, xpub):
+        return
+        
     def derive_path(self, path):
         if len(path) == 0:
             return self
