@@ -106,12 +106,12 @@ class HDKey:
 
         # Derive public key from private
         c_unser_public_key = secpy256k1.ec_pubkey_create(
-            ctx=self.CONTEXT_SIGN, 
+            ctx=self.CONTEXT_SIGN,
             seckey=privkey
         )[1]
         c_pubkey = secpy256k1.ec_pubkey_serialize(
-            self.CONTEXT_VERIFY, 
-            c_unser_public_key, 
+            self.CONTEXT_VERIFY,
+            c_unser_public_key,
             self.COMPRESSED
         )[1]
 
@@ -238,8 +238,9 @@ class HDKey:
         '''
         Generates a HDKey object given the root seed.
         Args:
-            root_seed (bytes): 128, 256, or 512 bits
-            network (str, Optional): Must be a selection from NETWORK_CODES, defaults to Bitcoin
+            root_seed (bytes):          128, 256, or 512 bits
+            network (str, Optional):    Must be a selection from NETWORK_CODES,
+                                        defaults to Bitcoin
         Returns:
             (HDKey)
         '''
