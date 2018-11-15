@@ -47,9 +47,11 @@ class HDKey:
     )
     COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
-    def __init__(self, path, depth=0, index=None, network="Bitcoin", parent=None, chain_code=None, private_key=None, public_key=None, fingerprint=None):
-        self._public_key = None
-        self._private_key = None
+    def __init__(self, path, network="Bitcoin", **kwargs):
+        self._c_private_key = None,
+        self._c_public_key = None
+        # self._public_key = None
+        # self._private_key = None
         self.path = path
         self.depth = depth
         self.index = index
@@ -62,19 +64,29 @@ class HDKey:
 
     @property
     def public_key(self):
-        return self._public_key
-    
+        set_trace()
+        c_public_key = secpy256k1.ec_pubkey_serialize(
+            self.CONTEXT_SIGN, self._c_public_key, self.COMPRESSED
+        )[1]
+        
+        return self.convert_to_bytes(c_public_key)
+
     @public_key.setter
     def public_key(self, pubkey):
         assert type(pubkey) == bytes, "Public key must be of type bytes"
         assert len(pubkey) == 33 or len(pubkey) == 65, "Public key must be either 33 or 65 bytes"
         #TODO ECDSA sig verify
 
-        self._public_key = pubkey
+        c_pubkey = secpy256k1.ec_pubkey_parse(self.CONTEXT_VERIFY, pubkey)[1]
+        self._c_public_key = c_pubkey
 
     @property
     def private_key(self):
-        return self._private_key
+        c_private_key = secpy256k1.ecdsa_signature_serialize_compact(
+            self.CONTEXT_SIGN, self._c_private_key, self.COMPRESSED
+        )[1]
+        
+        return self.convert_to_bytes(c_private_key)
 
     @private_key.setter
     def private_key(self, privkey):
@@ -92,6 +104,26 @@ class HDKey:
             assert self.public_key == pubkey, "Private key does not match current public key"
         
         self.public_key = pubkey
+
+        # Convert to secpy256k1 context
+        c_private_key = secpy256k1.ecdsa_signature_parse_compact(
+            self.CONTEXT_VERIFY,
+            privkey
+        )[1]
+        self._c_private_key = c_private_key
+
+        # Derive public key from private
+        c_unser_public_key = secpy256k1.ec_pubkey_create(
+            ctx=self.CONTEXT_SIGN, 
+            seckey=privkey
+        )[1]
+        c_pubkey = secpy256k1.ec_pubkey_serialize(
+            self.CONTEXT_VERIFY, 
+            c_unser_public_key, 
+            self.COMPRESSED
+        )[1]
+
+        self._c_public_key = c_pubkey
 
     @property
     def extended_private_key(self):
