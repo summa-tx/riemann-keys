@@ -39,8 +39,13 @@ class HDKey:
         }
     }
 
-    SECP256K1_CONTEXT_SIGN = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
-    SECP256K1_EC_COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
+    CONTEXT_SIGN = secpy256k1.context_create(
+        secpy256k1.lib.SECP256K1_CONTEXT_SIGN
+    )
+    CONTEXT_VERIFY = secpy256k1.context_create(
+        secpy256k1.lib.SECP256K1_CONTEXT_VERIFY
+    )
+    COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
     def __init__(self, path, depth=0, index=None, network="Bitcoin", parent=None, chain_code=None, private_key=None, public_key=None, fingerprint=None):
         self._public_key = None
