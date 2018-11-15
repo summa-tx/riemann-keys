@@ -68,7 +68,7 @@ class HDKey:
             return None
 
         c_public_key = secpy256k1.ec_pubkey_serialize(
-            self.CONTEXT_SIGN, self._c_public_key, self.COMPRESSED
+            self.CONTEXT_VERIFY, self._c_public_key, self.COMPRESSED
         )[1]
 
         return self.convert_to_bytes(c_public_key)
