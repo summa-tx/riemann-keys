@@ -1,27 +1,225 @@
+
 import hmac
 import hashlib
+import secpy256k1
 import pkg_resources
 
 
-class HDKey():
+class HDKey:
 
     # NB: (bits of entropy, checksum bits, words in mnemonic)
     MNEMONIC_CODES = (
-            (128, 4, 12),
-            (160, 5, 15),
-            (192, 6, 18),
-            (224, 7, 21),
-            (256, 8, 24))
+        (128, 4, 12),
+        (160, 5, 15),
+        (192, 6, 18),
+        (224, 7, 21),
+        (256, 8, 24),
+    )
 
-    def __init__(self, chain_code, depth, index, path, network):
-        # WIP
+    # https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+    NETWORK_CODES = {
+        "Bitcoin": 0,
+        "Testnet": 1,
+        "Litecoin": 2,
+        "Dogecoin": 3,
+        "Dash": 5,
+        "Ethereum": 60,
+    }
+
+    # https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+    VERSION_BYTES = {
+        "mainnet": {
+            "public": 0x0488B21E,
+            "private": 0x0488ADE4,
+
+        },
+        "testnet": {
+            "public": 0x043587CF,
+            "private": 0x04358394,
+        }
+    }
+
+    CONTEXT_SIGN = secpy256k1.context_create(
+        secpy256k1.lib.SECP256K1_CONTEXT_SIGN
+    )
+    CONTEXT_VERIFY = secpy256k1.context_create(
+        secpy256k1.lib.SECP256K1_CONTEXT_VERIFY
+    )
+    COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
+
+    def __init__(self, path, network="Bitcoin", **kwargs):
+        self._c_private_key = None,
+        self._c_public_key = None
+        # self._public_key = None
+        # self._private_key = None
         self.path = path
-        self.depth = depth
-        self.index = index
-        self.network = (network if network is not None else 'Bitcoin')
-        self.chain_code = chain_code
-        self.private_key = None
-        self.public_key = None
+        self.depth = kwargs.get("depth", 0)
+        self.index = kwargs.get("index")
+        self.network = network
+        self.parent = kwargs.get("parent")
+        self.chain_code = kwargs.get("chain_code")
+        # self._private_key = kwargs.get("private_key")
+        # self._public_key = kwargs.get("public_key")
+        self.fingerprint = kwargs.get("fingerprint")
+
+    @property
+    def public_key(self):
+        if self._c_public_key is None:
+            return None
+
+        c_public_key = secpy256k1.ec_pubkey_serialize(
+            self.CONTEXT_VERIFY, self._c_public_key, self.COMPRESSED
+        )[1]
+
+        return self.convert_to_bytes(c_public_key)
+
+    @public_key.setter
+    def public_key(self, pubkey):
+        if type(pubkey) != bytes:
+            raise TypeError("Public key must be of type bytes")
+        if len(pubkey) != 33 or len(pubkey) != 65:
+            raise ValueError("Public key must be either 33 or 65 bytes")
+
+        c_pubkey = secpy256k1.ec_pubkey_parse(self.CONTEXT_VERIFY, pubkey)[1]
+        self._c_public_key = c_pubkey
+
+    @property
+    def private_key(self):
+        if self._c_private_key is None:
+            return None
+
+        return self.convert_to_bytes(self._c_private_key, True)
+
+    @private_key.setter
+    def private_key(self, privkey):
+        if type(privkey) != bytes:
+            raise TypeError("Private key must be of type bytes")
+        if len(privkey) != 32:
+            raise ValueError("Private key must be 32 bytes")
+        if secpy256k1.ec_seckey_verify(self.CONTEXT_SIGN, privkey) != 1:
+            raise Exception("Secp256k1 verify failed")
+
+        # store in c buffer
+        c_private_key = secpy256k1.ffi.new("char[]", privkey)
+        self._c_private_key = c_private_key
+
+        # Derive public key from private
+        c_unser_public_key = secpy256k1.ec_pubkey_create(
+            ctx=self.CONTEXT_SIGN,
+            seckey=privkey
+        )[1]
+
+        self._c_public_key = c_unser_public_key
+
+    @property
+    def extended_private_key(self):
+        return
+
+    @extended_private_key.setter
+    def extended_private_key(self, xpriv):
+        return
+
+    @property
+    def extended_public_key(self):
+        return
+
+    @extended_public_key.setter
+    def extended_public_key(self, xpub):
+        return
+
+    def derive_path(self, path):
+        if len(path) == 0:
+            return self
+
+        if isinstance(path, str):
+            path = path.split("/")
+
+        assert path[-1] != '', "Malformed Path"
+
+        current_node = path.pop(0)
+        if (
+            (
+                current_node.lower() == "m"
+                or current_node.lower() == "m'"
+            )
+            and len(path) == 0
+        ):
+            return self
+        elif current_node.lower() == "m" or current_node.lower() == "m'":
+            return self.derive_path(path)
+
+        child = self.derive_child(current_node)
+        child.parent = self
+
+        return child.derive_path(path)
+
+    def derive_child(self, index):
+        """
+            Derives the immediate child to the index provided
+            Args:
+                index: (string)
+            Returns:
+                (HDKey)
+        """
+        hardened = False
+        if "'" in index:
+            index = int(index[:-1]) + 0x80000000  # 0x80000000 == 2^31,
+            hardened = True
+
+        index_serialized_32_bits = int(index).to_bytes(4, byteorder="big")
+
+        if hardened:
+            if (self.private_key is None):
+                raise Exception(
+                    "Private Key is needed for to derive hardened children"
+                )
+
+            # Data = 0x00 || ser256(kpar) || ser32(i)
+            # (Note: The 0x00 pads the private key to make it 33 bytes long.)
+            data = b"".join([b"\x00"+self.private_key, index_serialized_32_bits])
+        else:
+            # Data = serP(point(kpar)) || ser32(i)).
+            data = b"".join([self.public_key, index_serialized_32_bits])
+
+        # I = HMAC-SHA512(Key = cpar, Data)
+        I = hmac.new(self.chain_code, digestmod=hashlib.sha512)
+        I.update(data)
+        I = I.digest()
+        IL, IR = I[:32], I[32:]
+
+        child = HDKey(
+            parent=self,
+            network=self.network,
+            path=self.path + "/" + str(index),
+            index=index,
+            depth=self.depth + 1
+        )
+
+        # Private parent key -> private child key
+        if self.private_key:
+            check, child.private_key = secpy256k1.ec_privkey_tweak_add(
+                ctx=self.CONTEXT_SIGN,
+                seckey=self.private_key,
+                tweak=IL
+            )
+            if (check == 0):
+                # In case parse256(IL) ≥ n or ki = 0, the resulting key is
+                # invalid, and one should proceed with the next value for i.
+                # (Note: this has probability lower than 1 in 2^127.)
+                return HDKey.derive_child(index + 1, hardened)
+
+        # Public parent key -> public child key
+        else:
+            check, child.public_key = secpy256k1.ec_pubkey_tweak_add(
+                ctx=self.CONTEXT_SIGN,
+                pubkey=self.public_key,
+                tweak=IL
+            )
+            if (check == 0):
+                return HDKey.derive_child(index + 1, hardened)
+
+        child.chain_code = IR
+        return child
 
     @staticmethod
     def from_entropy(entropy, network='Bitcoin'):
@@ -49,8 +247,9 @@ class HDKey():
         '''
         Generates a HDKey object given the root seed.
         Args:
-            root_seed (bytes): 128, 256, or 512 bits
-            network (WIP)
+            root_seed (bytes):          128, 256, or 512 bits
+            network (str, Optional):    Must be a selection from NETWORK_CODES,
+                                        defaults to Bitcoin
         Returns:
             (HDKey)
         '''
@@ -65,16 +264,15 @@ class HDKey():
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]
 
-        # TODO: get path depending on network
-        path = 'm/0'  # temp
-
-        return HDKey(
-                network=network,
-                private_key=I_left,
-                chain_code=I_right,
-                depth=0,
-                index=0,
-                path=path)
+        root = HDKey(
+            network=network,
+            chain_code=I_right,
+            depth=0,
+            index=0,
+            path='m/'
+        )
+        root.private_key = I_left
+        return root
 
     @staticmethod
     def from_mnemonic(mnemonic, salt=None, network='Bitcon'):
@@ -105,7 +303,8 @@ class HDKey():
         num_mnemonic = HDKey.mnemonic_lookup(
             value=len(entropy) * 8,
             value_index=0,
-            lookup_index=2)
+            lookup_index=2
+        )
 
         # Formatting to convert hex string to binary string
         bit_format = '0{}b'.format(len(entropy) * 8)
@@ -120,9 +319,7 @@ class HDKey():
         segment_len = len(bit_string) // num_mnemonic
 
         # Split bit_string into segements, each index corresponding to a word
-        segments = [
-            int(bit_string[i:i + segment_len])
-            for i in range(0, len(bit_string), segment_len)]
+        segments = [int(bit_string[i:i + segment_len]) for i in range(0, len(bit_string), segment_len)]
 
         return ' '.join(HDKey.segments_to_mnemonic(segments))
 
@@ -309,3 +506,11 @@ class HDKey():
             raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
 
         return True
+
+    @staticmethod
+    def convert_to_bytes(key, pop_newline=False):
+        byte_form = bytes(secpy256k1.ffi.buffer(key))
+        if pop_newline:
+            return byte_form[:-1]
+
+        return byte_form
