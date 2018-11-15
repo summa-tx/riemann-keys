@@ -108,13 +108,8 @@ class HDKey:
             ctx=self.CONTEXT_SIGN,
             seckey=privkey
         )[1]
-        c_pubkey = secpy256k1.ec_pubkey_serialize(
-            self.CONTEXT_VERIFY,
-            c_unser_public_key,
-            self.COMPRESSED
-        )[1]
 
-        self._c_public_key = c_pubkey
+        self._c_public_key = c_unser_public_key
 
     @property
     def extended_private_key(self):
