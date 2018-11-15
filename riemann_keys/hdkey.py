@@ -88,11 +88,7 @@ class HDKey:
         if self._c_private_key is None:
             return None
 
-        c_private_key = secpy256k1.ecdsa_signature_serialize_compact(
-            self.CONTEXT_SIGN, self._c_private_key, self.COMPRESSED
-        )[1]
-
-        return self.convert_to_bytes(c_private_key)
+        return self.convert_to_bytes(self._c_private_key, True)
 
     @private_key.setter
     def private_key(self, privkey):
@@ -103,11 +99,8 @@ class HDKey:
         if secpy256k1.ec_seckey_verify(self.CONTEXT_SIGN, privkey) != 1:
             raise Exception("Secp256k1 verify failed")
 
-        # Convert to secpy256k1 context
-        c_private_key = secpy256k1.ecdsa_signature_parse_compact(
-            self.CONTEXT_VERIFY,
-            privkey
-        )[1]
+        # store in c buffer
+        c_private_key = secpy256k1.ffi.new("char[]", privkey)
         self._c_private_key = c_private_key
 
         # Derive public key from private
