@@ -176,7 +176,7 @@ class HDKey:
 
             # Data = 0x00 || ser256(kpar) || ser32(i)
             # (Note: The 0x00 pads the private key to make it 33 bytes long.)
-            data = b"".join([self.private_key, index_serialized_32_bits])
+            data = b"".join([b"\x00"+self.private_key, index_serialized_32_bits])
         else:
             # Data = serP(point(kpar)) || ser32(i)).
             data = b"".join([self.public_key, index_serialized_32_bits])
