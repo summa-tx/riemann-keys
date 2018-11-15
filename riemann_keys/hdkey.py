@@ -64,6 +64,9 @@ class HDKey:
 
     @property
     def public_key(self):
+        if self._c_public_key is None:
+            return None
+
         c_public_key = secpy256k1.ec_pubkey_serialize(
             self.CONTEXT_SIGN, self._c_public_key, self.COMPRESSED
         )[1]
@@ -82,6 +85,9 @@ class HDKey:
 
     @property
     def private_key(self):
+        if self._c_private_key is None:
+            return None
+
         c_private_key = secpy256k1.ecdsa_signature_serialize_compact(
             self.CONTEXT_SIGN, self._c_private_key, self.COMPRESSED
         )[1]
