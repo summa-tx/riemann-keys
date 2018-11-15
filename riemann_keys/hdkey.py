@@ -2,8 +2,8 @@
 import hmac
 import hashlib
 import secpy256k1
-from riemann_keys import utils
 import pkg_resources
+
 
 class HDKey:
 
@@ -64,11 +64,10 @@ class HDKey:
 
     @property
     def public_key(self):
-        set_trace()
         c_public_key = secpy256k1.ec_pubkey_serialize(
             self.CONTEXT_SIGN, self._c_public_key, self.COMPRESSED
         )[1]
-        
+
         return self.convert_to_bytes(c_public_key)
 
     @public_key.setter
@@ -86,7 +85,7 @@ class HDKey:
         c_private_key = secpy256k1.ecdsa_signature_serialize_compact(
             self.CONTEXT_SIGN, self._c_private_key, self.COMPRESSED
         )[1]
-        
+
         return self.convert_to_bytes(c_private_key)
 
     @private_key.setter
@@ -146,7 +145,7 @@ class HDKey:
         current_node = path.pop(0)
         if (
             (
-                current_node.lower() == "m" 
+                current_node.lower() == "m"
                 or current_node.lower() == "m'"
             )
             and len(path) == 0
@@ -176,9 +175,13 @@ class HDKey:
         index_serialized_32_bits = int(index).to_bytes(4, byteorder="big")
 
         if hardened:
-            assert (self.private_key), "Private Key is needed for to derive hardened children"
+            if (self.private_key is None):
+                raise Exception(
+                    "Private Key is needed for to derive hardened children"
+                )
 
-            # Data = 0x00 || ser256(kpar) || ser32(i) (Note: The 0x00 pads the private key to make it 33 bytes long.)
+            # Data = 0x00 || ser256(kpar) || ser32(i)
+            # (Note: The 0x00 pads the private key to make it 33 bytes long.)
             data = b"".join([self.private_key, index_serialized_32_bits])
         else:
             # Data = serP(point(kpar)) || ser32(i)).
