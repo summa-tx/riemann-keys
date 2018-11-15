@@ -166,7 +166,7 @@ class HDKey:
             index = int(index[:-1]) + 0x80000000  # 0x80000000 == 2^31,
             hardened = True
 
-        index_serialized_32_bits = int(index).to_bytes(4, byteorder="big")
+        index_serialized_32 = int(index).to_bytes(4, byteorder="big")
 
         if hardened:
             if (self.private_key is None):
@@ -176,10 +176,10 @@ class HDKey:
 
             # Data = 0x00 || ser256(kpar) || ser32(i)
             # (Note: The 0x00 pads the private key to make it 33 bytes long.)
-            data = b"".join([b"\x00"+self.private_key, index_serialized_32_bits])
+            data = b"".join([b"\x00" + self.private_key, index_serialized_32])
         else:
             # Data = serP(point(kpar)) || ser32(i)).
-            data = b"".join([self.public_key, index_serialized_32_bits])
+            data = b"".join([self.public_key, index_serialized_32])
 
         # I = HMAC-SHA512(Key = cpar, Data)
         I = hmac.new(self.chain_code, digestmod=hashlib.sha512)
@@ -319,7 +319,10 @@ class HDKey:
         segment_len = len(bit_string) // num_mnemonic
 
         # Split bit_string into segements, each index corresponding to a word
-        segments = [int(bit_string[i:i + segment_len]) for i in range(0, len(bit_string), segment_len)]
+        segments = [
+            int(bit_string[i:i + segment_len]) 
+            for i in range(0, len(bit_string), segment_len)
+        ]
 
         return ' '.join(HDKey.segments_to_mnemonic(segments))
 
