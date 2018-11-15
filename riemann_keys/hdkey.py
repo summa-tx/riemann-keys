@@ -73,9 +73,10 @@ class HDKey:
 
     @public_key.setter
     def public_key(self, pubkey):
-        assert type(pubkey) == bytes, "Public key must be of type bytes"
-        assert len(pubkey) == 33 or len(pubkey) == 65, "Public key must be either 33 or 65 bytes"
-        #TODO ECDSA sig verify
+        if type(pubkey) != bytes:
+            raise TypeError("Public key must be of type bytes")
+        if len(pubkey) != 33 or len(pubkey) != 65:
+            raise ValueError("Public key must be either 33 or 65 bytes")
 
         c_pubkey = secpy256k1.ec_pubkey_parse(self.CONTEXT_VERIFY, pubkey)[1]
         self._c_public_key = c_pubkey
@@ -90,20 +91,12 @@ class HDKey:
 
     @private_key.setter
     def private_key(self, privkey):
-        assert type(privkey) == bytes, "Private key must be of type bytes"
-        assert len(privkey) == 32, "Private key must be 32 bytes"
-        assert secpy256k1.ec_seckey_verify(self.SECP256K1_CONTEXT_SIGN, privkey) == 1, "secp256k1 verify failed"
-
-        self._private_key = privkey
-
-        check, c_unserialized_public_key = secpy256k1.ec_pubkey_create(ctx=self.SECP256K1_CONTEXT_SIGN, seckey=privkey)
-        check, c_public_key, c_public_key_length = secpy256k1.ec_pubkey_serialize(self.SECP256K1_CONTEXT_SIGN, c_unserialized_public_key, self.SECP256K1_EC_COMPRESSED)
-        pubkey = self.convert_to_bytes(c_public_key)
-
-        if self._public_key != None:
-            assert self.public_key == pubkey, "Private key does not match current public key"
-        
-        self.public_key = pubkey
+        if type(privkey) != bytes:
+            raise TypeError("Private key must be of type bytes")
+        if len(privkey) != 32:
+            raise ValueError("Private key must be 32 bytes")
+        if secpy256k1.ec_seckey_verify(self.CONTEXT_SIGN, privkey) != 1:
+            raise Exception("Secp256k1 verify failed")
 
         # Convert to secpy256k1 context
         c_private_key = secpy256k1.ecdsa_signature_parse_compact(
@@ -140,7 +133,7 @@ class HDKey:
     @extended_public_key.setter
     def extended_public_key(self, xpub):
         return
-        
+
     def derive_path(self, path):
         if len(path) == 0:
             return self
