@@ -201,7 +201,7 @@ class HDKey:
                 ctx=self.CONTEXT_SIGN,
                 seckey=self.private_key,
                 tweak=IL
-                )
+            )
             if (check == 0):
                 # In case parse256(IL) ≥ n or ki = 0, the resulting key is
                 # invalid, and one should proceed with the next value for i.
@@ -508,5 +508,9 @@ class HDKey:
         return True
 
     @staticmethod
-    def convert_to_bytes(key):
-        return bytes(secpy256k1.ffi.buffer(key))
+    def convert_to_bytes(key, pop_newline=False):
+        byte_form = bytes(secpy256k1.ffi.buffer(key))
+        if pop_newline:
+            return byte_form[:-1]
+
+        return byte_form
