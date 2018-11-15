@@ -53,14 +53,14 @@ class HDKey:
         # self._public_key = None
         # self._private_key = None
         self.path = path
-        self.depth = depth
-        self.index = index
+        self.depth = kwargs.get("depth", 0)
+        self.index = kwargs.get("index")
         self.network = network
-        self.parent = parent
-        self.chain_code = chain_code
-        self._private_key = private_key
-        self._public_key = public_key
-        self.fingerprint = fingerprint
+        self.parent = kwargs.get("parent")
+        self.chain_code = kwargs.get("chain_code")
+        # self._private_key = kwargs.get("private_key")
+        # self._public_key = kwargs.get("public_key")
+        self.fingerprint = kwargs.get("fingerprint")
 
     @property
     def public_key(self):
