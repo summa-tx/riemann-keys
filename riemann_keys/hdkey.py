@@ -144,7 +144,13 @@ class HDKey:
         assert path[-1] != '', "Malformed Path"
 
         current_node = path.pop(0)
-        if (current_node.lower() == "m" or current_node.lower() == "m'") and len(path) == 0:
+        if (
+            (
+                current_node.lower() == "m" 
+                or current_node.lower() == "m'"
+            )
+            and len(path) == 0
+        ):
             return self
         elif current_node.lower() == "m" or current_node.lower() == "m'":
             return self.derive_path(path)
@@ -188,15 +194,15 @@ class HDKey:
 
         # Private parent key -> private child key
         if self.private_key:
-            check, child.private_key = secpy256k1.ec_privkey_tweak_add(ctx=self.SECP256K1_CONTEXT_SIGN, seckey=self.private_key, tweak=IL)
+            check, child.private_key = secpy256k1.ec_privkey_tweak_add(ctx=self.CONTEXT_SIGN, seckey=self.private_key, tweak=IL)
             if (check == 0):
-                # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i. 
+                # In case parse256(IL) ≥ n or ki = 0, the resulting key is invalid, and one should proceed with the next value for i.
                 # (Note: this has probability lower than 1 in 2^127.)
                 return HDKey.derive_child(index + 1, hardened)
-    
+
         # Public parent key -> public child key
         else:
-            check, child.public_key = secpy256k1.ec_pubkey_tweak_add(ctx=self.SECP256K1_CONTEXT_SIGN, pubkey=self.public_key, tweak=IL)
+            check, child.public_key = secpy256k1.ec_pubkey_tweak_add(ctx=self.CONTEXT_SIGN, pubkey=self.public_key, tweak=IL)
             if (check == 0):
                 return HDKey.derive_child(index + 1, hardened)
 
