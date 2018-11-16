@@ -147,6 +147,17 @@ class HDKey:
 
     @property
     def extended_public_key(self):
+        xpub = b""
+        if self.network == "Testnet":
+            xpub += b"\x04\x35\x87\xCF"
+        else:
+            xpub += b"\x04\x88\xB2\x1E"
+
+        xpub += chr(self.depth)
+        xpub += self.fingerprint
+        xpub += int(self.index).to_bytes(4, byteorder="big")
+        xpub += self.chain_code
+        xpub += self.private_key
         return
 
     @extended_public_key.setter
