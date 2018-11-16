@@ -3,6 +3,7 @@ import hmac
 import hashlib
 import secpy256k1
 import pkg_resources
+from base58 import b58decode
 
 
 class HDKey:
