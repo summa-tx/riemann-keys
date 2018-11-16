@@ -114,7 +114,18 @@ class HDKey:
 
     @property
     def extended_private_key(self):
-        return
+        xpriv = b""
+        if self.network == "Testnet":
+            xpriv += b"\x04\x35\x83\x94"
+        else:
+            xpriv += b"\x04\x88\xAD\xE4"
+
+        xpriv += chr(self.depth)
+        xpriv += self.fingerprint
+        xpriv += int(self.index).to_bytes(4, byteorder="big")
+        xpriv += self.chain_code
+        xpriv += self.private_key
+        return xpriv
 
     @extended_private_key.setter
     def extended_private_key(self, xpriv):
