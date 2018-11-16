@@ -370,7 +370,7 @@ class HDKey:
 
         # Split bit_string into segements, each index corresponding to a word
         segments = [
-            int(bit_string[i:i + segment_len]) 
+            int(bit_string[i:i + segment_len])
             for i in range(0, len(bit_string), segment_len)
         ]
 
