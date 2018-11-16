@@ -162,7 +162,20 @@ class HDKey:
 
     @extended_public_key.setter
     def extended_public_key(self, xpub):
-        return
+        if type(xpub) != bytes:
+            raise TypeError("Xpub must be of type bytes")
+
+        decoded_xpub = b58decode(xpub)
+        if decoded_xpub[:4] == b"\x04\x35\x87\xCF":
+            self.network = "Testnet"
+        elif (decoded_xpub[:4] == b"\x04\x88\xAD\xE4"
+                or decoded_xpub[:4] == b"\x04\x35\x83\x94"):
+            raise ValueError("Xpriv provided instead of xpub")
+
+        self.depth = decoded_xpub[4]
+        self.fingerprint = decoded_xpub[5:9]
+        self.chain_code = decoded_xpub[13:45]
+        self.public_key = decoded_xpub[45:78]
 
     def derive_path(self, path):
         if len(path) == 0:
