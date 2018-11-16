@@ -129,7 +129,21 @@ class HDKey:
 
     @extended_private_key.setter
     def extended_private_key(self, xpriv):
-        return
+        if type(xpriv) != bytes:
+            raise TypeError("Xpriv must be of type bytes")
+
+        decoded_xpriv = b58decode(xpriv)
+        if decoded_xpriv[:4] == b"\x04\x35\x83\x94":
+            self.network = "Testnet"
+        elif (decoded_xpriv[:4] == b"\x04\x88\xB2\x1E"
+                or decoded_xpriv[:4] == b"\x04\x35\x87\xCF"):
+            raise ValueError("Xpub provided instead of xpriv")
+
+        self.depth = decoded_xpriv[4]
+        self.fingerprint = decoded_xpriv[5:9]
+        self.index = decoded_xpriv[9:13].hex()
+        self.chain_code = decoded_xpriv[13:45]
+        self.private_key = decoded_xpriv[45:78]
 
     @property
     def extended_public_key(self):
