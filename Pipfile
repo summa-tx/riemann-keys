@@ -3,6 +3,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[packages]
+riemann-keys = {editable = true, path = "."}
+secpy256k1 = "*"
+
 [dev-packages]
 pytest = "*"
 flake8 = "*"
@@ -11,6 +15,3 @@ pytest-cov = "*"
 
 [requires]
 python_version = "3.7"
-
-[packages]
-riemann-keys = {editable = true, path = "."}
