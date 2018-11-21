@@ -185,6 +185,25 @@ class HDKey:
         self.chain_code = decoded_xpub[13:45]
         self.public_key = decoded_xpub[45:78]
 
+    @property
+    def fingerprint(self):
+        """ Returns fingerprint as 4 byte hex """
+        if self._fingerprint is None:
+            self._fingerprint = self.hash160(self.public_key)[:4]
+
+        return self._fingerprint
+
+    @fingerprint.setter
+    def fingerprint(self, fingerprint):
+        """ Stores fingerprint as bytes """
+        if ((type(fingerprint) == bytes and len(fingerprint) == 4)
+                or fingerprint is None):
+            self._fingerprint = fingerprint
+        elif type(fingerprint) == int:
+            self._fingerprint = (fingerprint).to_bytes(4, byteorder='big')
+        else:
+            raise TypeError("Fingerprint must be either int or bytes")
+
     def derive_path(self, path):
         if len(path) == 0:
             return self
