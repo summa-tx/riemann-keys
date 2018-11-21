@@ -156,8 +156,8 @@ class HDKey:
         else:
             xpub += b"\x04\x88\xB2\x1E"
 
-        xpub += chr(self.depth)
-        xpub += self.fingerprint
+        xpub += bytes(chr(self.depth), 'utf8')
+        xpub += self.parent.fingerprint if self.parent else b"\x00\x00\x00\00"
         xpub += int(self.index).to_bytes(4, byteorder="big")
         xpub += self.chain_code
         xpub += self.private_key
