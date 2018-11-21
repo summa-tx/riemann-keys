@@ -55,11 +55,9 @@ class HDKey:
         self.path = kwargs.get("path", "m")
         self.depth = kwargs.get("depth", 0)
         self.index = kwargs.get("index")
-        self.network = network
+        self.network = kwargs.get("network", "Bitcoin")
         self.parent = kwargs.get("parent")
         self.chain_code = kwargs.get("chain_code")
-        # self._private_key = kwargs.get("private_key")
-        # self._public_key = kwargs.get("public_key")
         self.fingerprint = kwargs.get("fingerprint")
 
     @property
