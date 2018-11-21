@@ -227,6 +227,7 @@ class HDKey:
         child = self.derive_child(current_node)
         child.path = self.path + "/" + str(current_node)
         child.parent = self
+        self.child = child
 
         return child.derive_path(path)
 
