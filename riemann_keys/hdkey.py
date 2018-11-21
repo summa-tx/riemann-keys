@@ -48,7 +48,7 @@ class HDKey:
     )
     COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
-    def __init__(self, path, network="Bitcoin", **kwargs):
+    def __init__(self, path, **kwargs):
         self._c_private_key = None,
         self._c_public_key = None
         # self._public_key = None
