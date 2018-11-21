@@ -160,8 +160,13 @@ class HDKey:
         xpub += self.parent.fingerprint if self.parent else b"\x00\x00\x00\00"
         xpub += int(self.index).to_bytes(4, byteorder="big")
         xpub += self.chain_code
-        xpub += self.private_key
-        return
+        xpub += self.public_key
+
+        # checksum
+        sha1 = hashlib.sha256(xpub).digest()
+        sha2 = hashlib.sha256(sha1).digest()
+        xpub += sha2[:4]
+        return b58encode(xpub).decode("utf-8")
 
     @extended_public_key.setter
     def extended_public_key(self, xpub):
