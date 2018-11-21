@@ -595,3 +595,7 @@ class HDKey:
             return byte_form[:-1]
 
         return byte_form
+
+    @staticmethod
+    def hash160(x):
+        return hashlib.new('ripemd160', hashlib.sha256(x).digest()).digest()
