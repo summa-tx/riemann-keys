@@ -51,9 +51,8 @@ class HDKey:
     def __init__(self, path, **kwargs):
         self._c_private_key = None,
         self._c_public_key = None
-        # self._public_key = None
-        # self._private_key = None
-        self.path = path
+        self.child = None
+        self.path = kwargs.get("path", "m")
         self.depth = kwargs.get("depth", 0)
         self.index = kwargs.get("index")
         self.network = network
