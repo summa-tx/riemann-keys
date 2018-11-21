@@ -117,8 +117,8 @@ class HDKey:
         else:
             xpriv += b"\x04\x88\xAD\xE4"
 
-        xpriv += chr(self.depth)
-        xpriv += self.fingerprint
+        xpriv += bytes(chr(self.depth), 'utf8')
+        xpriv += self.parent.fingerprint if self.parent else b"\x00\x00\x00\00"
         xpriv += int(self.index).to_bytes(4, byteorder="big")
         xpriv += self.chain_code
         xpriv += self.private_key
