@@ -207,7 +207,6 @@ class HDKey:
     def derive_path(self, path):
         if len(path) == 0:
             return self
-
         if isinstance(path, str):
             path = path.split("/")
 
@@ -226,6 +225,7 @@ class HDKey:
             return self.derive_path(path)
 
         child = self.derive_child(current_node)
+        child.path = self.path + "/" + str(current_node)
         child.parent = self
 
         return child.derive_path(path)
