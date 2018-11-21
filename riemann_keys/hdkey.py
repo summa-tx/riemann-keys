@@ -121,8 +121,14 @@ class HDKey:
         xpriv += self.parent.fingerprint if self.parent else b"\x00\x00\x00\00"
         xpriv += int(self.index).to_bytes(4, byteorder="big")
         xpriv += self.chain_code
-        xpriv += self.private_key
-        return xpriv
+        xpriv += b"\x00" + self.private_key
+
+        # checksum
+        sha1 = hashlib.sha256(xpriv).digest()
+        sha2 = hashlib.sha256(sha1).digest()
+        xpriv += sha2[:4]
+
+        return b58encode(xpriv).decode("utf-8")
 
     @extended_private_key.setter
     def extended_private_key(self, xpriv):
