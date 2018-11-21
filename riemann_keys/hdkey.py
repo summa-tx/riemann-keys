@@ -146,7 +146,7 @@ class HDKey:
         self.fingerprint = decoded_xpriv[5:9]
         self.index = decoded_xpriv[9:13].hex()
         self.chain_code = decoded_xpriv[13:45]
-        self.private_key = decoded_xpriv[45:78]
+        self.private_key = decoded_xpriv[46:79]
 
     @property
     def extended_public_key(self):
