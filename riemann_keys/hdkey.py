@@ -48,7 +48,7 @@ class HDKey:
     )
     COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
-    def __init__(self, path, **kwargs):
+    def __init__(self, **kwargs):
         self._c_private_key = None,
         self._c_public_key = None
         self.child = None
@@ -59,6 +59,7 @@ class HDKey:
         self.parent = kwargs.get("parent")
         self.chain_code = kwargs.get("chain_code")
         self.fingerprint = kwargs.get("fingerprint")
+        # self.extended_private_key = kwargs.get("extended_private_key")
 
     @property
     def public_key(self):
