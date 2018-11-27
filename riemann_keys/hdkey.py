@@ -335,10 +335,11 @@ class HDKey:
         # WIP
         # TODO: get key depending on network
         # data/key, msg, digest
-        I = hmac.digest(                                        # noqa: E741
-            b'Bitcoin seed',
-            root_seed,
-            hashlib.sha512)
+        I = hmac.new(                                                   # noqa: E741
+            key=b'Bitcoin seed',
+            msg=root_seed,
+            digestmod=hashlib.sha512
+        ).digest()
 
         # Private key, chain code
         I_left, I_right = I[:32], I[32:]
