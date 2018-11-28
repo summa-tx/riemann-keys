@@ -93,6 +93,8 @@ class HDKey:
 
     @private_key.setter
     def private_key(self, privkey):
+        if privkey is None:
+            return
         if type(privkey) != bytes:
             raise TypeError("Private key must be of type bytes")
         if len(privkey) != 32:
@@ -149,7 +151,7 @@ class HDKey:
         self.fingerprint = decoded_xpriv[5:9]
         self.index = decoded_xpriv[9:13].hex()
         self.chain_code = decoded_xpriv[13:45]
-        self.private_key = decoded_xpriv[46:79]
+        self.private_key = decoded_xpriv[46:78]  # skip 45 since it's a pad
 
     @property
     def extended_public_key(self):
