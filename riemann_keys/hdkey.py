@@ -74,6 +74,8 @@ class HDKey:
 
     @public_key.setter
     def public_key(self, pubkey):
+        if pubkey is None:
+            return
         if type(pubkey) != bytes:
             raise TypeError("Public key must be of type bytes")
         if len(pubkey) != 33 or len(pubkey) != 65:
