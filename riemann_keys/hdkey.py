@@ -187,6 +187,7 @@ class HDKey:
 
         self.depth = decoded_xpub[4]
         self.fingerprint = decoded_xpub[5:9]
+        self.index = decoded_xpub[9:13].hex()
         self.chain_code = decoded_xpub[13:45]
         self.public_key = decoded_xpub[45:78]
 
