@@ -49,7 +49,7 @@ class HDKey:
     COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
     def __init__(self, **kwargs):
-        self._c_private_key = None,
+        self._c_private_key = None
         self._c_public_key = None
         self.child = None
         self.path = kwargs.get("path", "m")
