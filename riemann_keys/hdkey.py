@@ -78,7 +78,7 @@ class HDKey:
             return
         if type(pubkey) != bytes:
             raise TypeError("Public key must be of type bytes")
-        if len(pubkey) != 33 or len(pubkey) != 65:
+        if len(pubkey) != 33 and len(pubkey) != 65:
             raise ValueError("Public key must be either 33 or 65 bytes")
 
         c_pubkey = secpy256k1.ec_pubkey_parse(self.CONTEXT_VERIFY, pubkey)[1]
