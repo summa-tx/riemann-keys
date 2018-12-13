@@ -205,13 +205,13 @@ class TestHDKey(unittest.TestCase):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
             node = HDKey()
-            node.private_key = test_vector['root']['public_key']
+            node.public_key = bytes.fromhex(test_vector['root']['public_key'])
             self.assertEqual(node.public_key.hex(), test_vector['root']['public_key'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
             node = HDKey()
-            node.private_key = test_vector['root']['public_key']
+            node.public_key = bytes.fromhex(test_vector['root']['public_key'])
             self.assertEqual(node.public_key.hex(), test_vector['root']['public_key'])
 
     def test_private_key_generation(self):
@@ -235,13 +235,13 @@ class TestHDKey(unittest.TestCase):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
             node = HDKey()
-            node.private_key = test_vector['root']['private_key']
+            node.private_key = bytes.fromhex(test_vector['root']['private_key'])
             self.assertEqual(node.private_key.hex(), test_vector['root']['private_key'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
             node = HDKey()
-            node.private_key = test_vector['root']['private_key']
+            node.private_key = bytes.fromhex(test_vector['root']['private_key'])
             self.assertEqual(node.private_key.hex(), test_vector['root']['private_key'])
 
     def test_xpub_generation(self):
@@ -265,7 +265,7 @@ class TestHDKey(unittest.TestCase):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
             node = HDKey()
-            node.extended_public_key = test_vector['root']['xpub']
+            node.extended_public_key = bytes(test_vector['root']['xpub'], "utf8")
             self.assertEqual(
                 node.extended_public_key, test_vector['root']['xpub'])
             self.assertEqual(
@@ -273,7 +273,7 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 node.index, test_vector['root']['index'])
             self.assertEqual(
-                node.fingerprint, test_vector['root']['fingerprint'])
+                node.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
             self.assertEqual(
                 node.chain_code, test_vector['root']['chaincode'])
             self.assertEqual(node.depth, test_vector['root']['depth'])
@@ -281,7 +281,7 @@ class TestHDKey(unittest.TestCase):
         # Test vectors.
         for test_vector in self.test_vectors['english']:
             node = HDKey()
-            node.extended_public_key = test_vector['root']['xpub']
+            node.extended_public_key = bytes(test_vector['root']['xpub'], "utf8")
             self.assertEqual(
                 node.extended_public_key, test_vector['root']['xpub'])
             self.assertEqual(
@@ -289,7 +289,7 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 node.index, test_vector['root']['index'])
             self.assertEqual(
-                node.fingerprint, test_vector['root']['fingerprint'])
+                node.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
             self.assertEqual(
                 node.chain_code, test_vector['root']['chaincode'])
             self.assertEqual(node.depth, test_vector['root']['depth'])
@@ -317,7 +317,7 @@ class TestHDKey(unittest.TestCase):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
             node = HDKey()
-            node.extended_private_key = test_vector['root']['xpriv']
+            node.extended_private_key = bytes(test_vector['root']['xpriv'], "utf8")
             self.assertEqual(
                 node.extended_private_key, test_vector['root']['xpriv'])
             self.assertEqual(
@@ -325,7 +325,7 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 node.index, test_vector['root']['index'])
             self.assertEqual(
-                node.fingerprint, test_vector['root']['fingerprint'])
+                node.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
             self.assertEqual(
                 node.chain_code, test_vector['root']['chaincode'])
             self.assertEqual(node.depth, test_vector['root']['depth'])
@@ -333,7 +333,7 @@ class TestHDKey(unittest.TestCase):
         # Test vectors.
         for test_vector in self.test_vectors['english']:
             node = HDKey()
-            node.extended_private_key = test_vector['root']['xpriv']
+            node.extended_private_key = bytes(test_vector['root']['xpriv'], "utf8")
             self.assertEqual(
                 node.extended_private_key, test_vector['root']['xpriv'])
             self.assertEqual(
@@ -341,7 +341,7 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 node.index, test_vector['root']['index'])
             self.assertEqual(
-                node.fingerprint, test_vector['root']['fingerprint'])
+                node.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
             self.assertEqual(
                 node.chain_code, test_vector['root']['chaincode'])
             self.assertEqual(node.depth, test_vector['root']['depth'])
@@ -354,7 +354,7 @@ class TestHDKey(unittest.TestCase):
             root = HDKey.from_root_seed(
                 root_seed=root_seed)
             self.assertEqual(
-                root.fingerprint, test_vector['root']['fingerprint'])
+                root.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
@@ -363,28 +363,29 @@ class TestHDKey(unittest.TestCase):
             root = HDKey.from_root_seed(
                 root_seed=root_seed)
             self.assertEqual(
-                root.fingerprint, test_vector['root']['fingerprint'])
+                root.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
 
     def test_fingerprint_setting(self):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
             node = HDKey()
-            node.fingerprint = test_vector['root']['fingerprint']
+            node.fingerprint = bytes.fromhex(test_vector['root']['fingerprint'])
             self.assertEqual(
-                node.fingerprint, test_vector['root']['fingerprint'])
+                node.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
             node = HDKey()
-            node.fingerprint = test_vector['root']['fingerprint']
+            node.fingerprint = bytes.fromhex(test_vector['root']['fingerprint'])
             self.assertEqual(
-                node.fingerprint, test_vector['root']['fingerprint'])
+                node.fingerprint, bytes.fromhex(test_vector['root']['fingerprint']))
 
     def test_node_path_derivation(self):
         # Test Trezor vectors.
         for test_vector in self.trezor_vectors['english']:
             root_seed = HDKey.root_seed_from_mnemonic(
                 mnemonic=test_vector['mnemonic'])
+            # set_trace()
             root = HDKey.from_root_seed(
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
@@ -403,7 +404,7 @@ class TestHDKey(unittest.TestCase):
                 node.index, test_vector['derived_node']['index'])
             self.assertEqual(
                 node.fingerprint, 
-                test_vector['derived_node']['fingerprint'])
+                bytes.fromhex(test_vector['derived_node']['fingerprint']))
             self.assertEqual(
                 node.chain_code, test_vector['derived_node']['chaincode'])
             self.assertEqual(
@@ -431,7 +432,7 @@ class TestHDKey(unittest.TestCase):
                 node.index, test_vector['derived_node']['index'])
             self.assertEqual(
                 node.fingerprint, 
-                test_vector['derived_node']['fingerprint'])
+                bytes.fromhex(test_vector['derived_node']['fingerprint']))
             self.assertEqual(
                 node.chain_code, test_vector['derived_node']['chaincode'])
             self.assertEqual(
@@ -534,7 +535,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.public_key.hex(), test_vector['derived_node']['fingerprint'])
+                node.public_key.hex(), bytes.fromhex(test_vector['derived_node']['fingerprint']))
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
@@ -544,7 +545,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.public_key.hex(), test_vector['derived_node']['fingerprint'])
+                node.fingerprint.hex(), bytes.fromhex(test_vector['derived_node']['fingerprint']))
 
     @unittest.skip('wip')
     def test_convert_to_bytes(self):
