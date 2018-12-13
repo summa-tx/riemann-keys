@@ -20,14 +20,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m",
-        "public_key": "03d902f35f560e0470c63313c7369168d9d7df2d49bf295fd9fb7cb109ccee0494",
-        "private_key": "1837c1be8e2995ec11cda2b066151be2cfb48adf9e47b151d46adab3a21cdf67",
-        "xpub": "xpub661MyMwAqRbcFkPHucMnrGNzDwb6teAX1RbKQmqtEF8kK3Z7LZ59qafCjB9eCRLiTVG3uxBxgKvRgbubRhqSKXnGGb1aoaqLrpMBDrVxga8",
-        "xpriv": "xprv9s21ZrQH143K3GJpoapnV8SFfukcVBSfeCficPSGfubmSFDxo1kuHnLisriDvSnRRuL2Qrg5ggqHKNVpxR86QEC8w35uxmGoggxtQTPvfUu",
-        "fingerprint": "73c5da0a",
-        "depth": 0,
-        "index": 0
+        "path": "m/20'/84/99/18'/42/26'/63/25'",
+        "public_key": "026ed05449c4ef8df35047d9b4f6ae0f697d3294b581459efc365570b698971514",
+        "private_key": "79dfa5085b108e065365f4cd49079c5956df2c31a7bc7249d4a8625ab062180a",
+        "xpub": "xpub6NagZTJ973ziynG62nM3Vf9jXTFrufvaRXQhbN4vP2h5WU6THuXdqwgNxEUxNMjKBoNCZaM1wxV9xUnsFRTcViVseZgc4SK2Wo3oGfaRjkG",
+        "xpriv": "xprvA9bL9wmFGgSRmJBcvkp38XCzyRRNWDCj4JV6nyfJphA6dfmJkNDPJ9Mu6yY4SCxsbyAFjrrdEccYavdHnhkuFAG7ps7WhSZ4EKGtMy9WHCN",
+        "fingerprint": "27312430",
+        "depth": 8,
+        "index": 2147483673
       }
     },
     {
@@ -48,14 +48,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/57'/44'/19'/86'/39",
-        "public_key": "0206f1b254139b612f6dd495b1e322790322354639846e22107272c7ddf5286a62",
-        "private_key": "bd9557722809a83e56664af9156a787c27bdf4d8428ac131f0dd13a3ea62d8d0",
-        "xpub": "xpub6GrAMprWUh68nqFWVNSTAa37q17B7mrT3A9k6YF3ufUh3VppX55fuWhRS7qb5SZvbZGuovoDFeq7N2UKLPPfzcngAuH6UpmB2rNGSojtJn1",
-        "xpriv": "xprvA3roxKKceKXqaMB3PLuSoS6PGyGgiK8bfwE9J9qSMKwiAhVfyXmRMiNwatCFuhyYLs9R7MgFGLn4GomarRqP4qmLQBwoC2LvndUYVzoyZwX",
-        "fingerprint": "26e38fc4",
-        "depth": 5,
-        "index": 39
+        "path": "m/57/87/4/26'",
+        "public_key": "02e36e7a3a2ca47e5ddb7da54e96608ce3d5241ba05a99c15a7cf21f76e196bc86",
+        "private_key": "f33b37c85f33ee545055457d3bb3318e07ad5b8b231cf3a056d3b331b3aa8ef4",
+        "xpub": "xpub6DqjxBP9fEVDGMyCNiEdJE6heMHx7K57AwFy3Z6cMEbiHJ9hfDavREN3mV2m1ja8PQMJpeqeBZfK8U3gdsT5qzNzL9RnVamYD8UL4pQ99KU",
+        "xpriv": "xprv9zrPYfrFprvv3stjGghcw69y6KTThrMFoiLNFAgznu4jQVpZ7gGfsS3ZvE7x9xc5DdHQQowdRkYR6sDr5MZeHwn3ZAEG6JZEB1cE16n67F9",
+        "fingerprint": "1f991f3d",
+        "depth": 4,
+        "index": 2147483674
       }
     },
     {
@@ -76,14 +76,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/67/72/67'/75'/69'",
-        "public_key": "0391ccd2fa12d82540eb60e9a3ecb1e4c8449d2c199a9e9dd4302df88ce9d90591",
-        "private_key": "dcef9e534957838cccc57c1891a0081a95e62126649005f4990b8bd094bf827d",
-        "xpub": "xpub6FnwRXQpDypjnNCPAfQG6pvK6jMVrYyjes64nchwSjFhda4rEgkWMU4ZAS51L2BiYKtU89UUWcQWPTefiBwRWhsTKgEsKJCvRNDQHWCVmvf",
-        "xpriv": "xprvA2ob21svPcGSZt7v4dsFjgyaYhX1T6FtHeATzEJKtPiikmjhh9SFofk5K9faxRcwQGXDmAZAyP4kvViD52NrXnF3Ljc5DRwByCKhn2QvbNC",
-        "fingerprint": "e462f88f",
-        "depth": 5,
-        "index": 2147483717
+        "path": "m/61'/28'/80/77/52'/55'/76/64'/13",
+        "public_key": "02eade8dcbbbf2703608027ba30c93524c85a05c6834f5eeb4046ba2adaf56148f",
+        "private_key": "e9ef0077d3a2f3f6ac14c4ef0d0e60af5fbe353e47e75dd8cabad1088a5159a3",
+        "xpub": "xpub6QSTK1RxULUSivLXy5MP4yGnDPxkK4KsCt5UmdaNy4JTndE856xWBXho8oRC59joxorrXABgt88KvKxZ9Gm8P5kgWrY3aRTJuxoDXkcn5XR",
+        "xpriv": "xprvABT6uVu4dxv9WSG4s3pNhqL3fN8Fubc1qf9syFAmQimUuptyXZeFdjPKHYP1jAjhSpuZBCdVpTyedJQZTMVquXdyg342qDzxG73esvQtm6e",
+        "fingerprint": "5bfc0119",
+        "depth": 9,
+        "index": 13
       }
     },
     {
@@ -104,14 +104,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/91'/36'/29/34/64/24/21'/50/52",
-        "public_key": "03316e9016d10b37ecc8278420c0b980b9802bca6e098d1bd8939ab705bcb550dd",
-        "private_key": "0c6b4e10a6c879025221791a6db8c816f61cbc538cf4f6567f11c5773cc49d06",
-        "xpub": "xpub6Qcm34C5H5h8THJ3vEGR7aXFHBHFrCLV46GQSVPhSAfp6XAcnFim2pG92nGStMNCDd39x2C7nF3Yzfx5ZnwXSfUA9hToQXBVHD86W34NJ2W",
-        "xpriv": "xprvABdQdYfBSi8qEoDapCjQkSaWj9SmSjcdgsLoe6z5sq8qDiqUEiQWV1wfBV1dpwKNe6xcaex5u2BdpA862Q8nCprwQRFNd9NgHoFgYVMeXj4",
-        "fingerprint": "9b1d5b42",
-        "depth": 9,
-        "index": 52
+        "path": "m",
+        "public_key": "02e01aa32243f6744a2607466304e326adc7cb77e67363341967bf4700be45391d",
+        "private_key": "f1897f8c5fd5e11814f80c63eb21cc0c63d1623008f895e83c0e9a770fb66544",
+        "xpub": "xpub661MyMwAqRbcEsjq2muW5PYkDikFgHuWJGzu1WrZiQgHUsgEeKMtGducsZe1iRsGAGNGDzmWYDM69ya24LMyR7mDhtzqQsc286XEQfM2kkV",
+        "xpriv": "xprv9s21ZrQH143K2PfMvkNViFc1fgumGqBew45JD8SxA59Jc5M66n3diqb92JjvaR61zT9P89Grys12kdtV4EFVo6tMwER7U2hcUmZ9VfMYPLC",
+        "fingerprint": "3f635a63",
+        "depth": 0,
+        "index": 0
       }
     },
     {
@@ -132,14 +132,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/99'/66/15/72'",
-        "public_key": "0395bf735d6bbd263dd997fe2bbae67a1e1f0dc5213a603fccbeefa1e37e04b9f6",
-        "private_key": "683f2c636c4118b9f2673fdca4ad0ff11e8c321048da2b40ee880382683decf5",
-        "xpub": "xpub6Eg8cG2uscWPcvafJgX7bAQFD9XxeusZ8NXZ2p9oAfVuvjMqMhBwSkkV3RtuYBJp4RxKec1c4S3qbpjoNCBQSRGZ5dW2Ayfk7HMwxY28ANB",
-        "xpriv": "xprvA1gnCkW23Ex6QSWCCez7E2TWf7hUFT9hm9bxERkBcKxw3w2gp9sgtxS1C8aMezPgQjfTn4gSswG6cm8DAtyMCf1Y7p8e55E6QphnXzJKNHA",
-        "fingerprint": "962fd2e3",
-        "depth": 4,
-        "index": 2147483720
+        "path": "m/30'/50/85'/18'/15/96'/32",
+        "public_key": "03028d4a992078f106e0b062cbd1dc381d4025623a73e3ff11cabd7db4cf0bf7b9",
+        "private_key": "a5585a258fa9eb803cb6ea8e8851178729be3ff8b71d0183a9c8b7f545c688d8",
+        "xpub": "xpub6LBZAdZkCa2LD3pgMrhNFW91a93h4wow31kUJTTfxQQhKPEKjQXJncpSkm93DQwnz5vhSBMP842FaRExW4gn3A3TYMdMrn4HnUVmWrra8cg",
+        "xpriv": "xprvA7CCm82rNCU2zZkDFqAMtNCH27DCfV65fnpsW544Q4siSauBBsD4EpVxuVQDvussozZUAua7EhtrApxv81GkQfaBU2t72L8f3UcRHvSbhDf",
+        "fingerprint": "6c35154b",
+        "depth": 7,
+        "index": 32
       }
     },
     {
@@ -160,14 +160,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/19'/90/75'/45/66'/24'/18'",
-        "public_key": "022c2cc174693c3b59c0824743c01e803cb6dfdcf13fb6e23fe862953c3ce20038",
-        "private_key": "e149de30c8ea504e5ea31057e0d72c48bfe5a0215878dc4efbc21cb17ac793eb",
-        "xpub": "xpub6KaCitW1yp6Z2LfdWXBZwFA3pwWF3vVjEkKcVXXwmXWTftgSdzqHhWW2by5FTX4YVXNJf2kRm3CRUA1FPmvoELrBKccquM2vp2mqBZ3SNDq",
-        "xpriv": "xprvA6arKNy89SYForbAQVeZa7DKGufkeTmssXQ1h98LDByUo6MJ6TX39iBYkjRFKgPpAvwQGsCKwx6A4Th549xJZ9i3ErmsNuDrmzVB6J6GtY7",
-        "fingerprint": "52fd221c",
-        "depth": 7,
-        "index": 2147483666
+        "path": "m/99/51/57'",
+        "public_key": "021323481606aa130dc5ee26fb5db5f5ee6ec090ef459fd3b51840318aa1e78725",
+        "private_key": "0be7ee70639c39b72b6f4fd45dfc56b935cad6b9fcd4d0fd253f927662f7bf61",
+        "xpub": "xpub6BvG4bvfPHwXFfJf6VRgExry94fCxUG8XMD73akeMBr3WL11bSTFL4A1mMqSBGa9FzBT1ZsJuAKH2hzfotTjQbJN6PMzT3A4c7yXQLk4qQK",
+        "xpriv": "xprv9xvuf6PmYvPE3BEBzTtfspvEb2piZ1YHA8HWFCM2nrK4dXfs3u8znFqXv6kV1S1ZjxsuFZq1k9XBBaZjUitCYR6v8fHmNzY6YM4GRxcY5Gs",
+        "fingerprint": "184463ee",
+        "depth": 3,
+        "index": 2147483705
       }
     },
     {
@@ -188,14 +188,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/47/90/63/34'/20",
-        "public_key": "030ecb18a064425319bcf3b2f8557b45acf32b0150ee9d0510005ec323001b6a76",
-        "private_key": "ed94af7fe21252dff2e0e4fd768437555f40284813755eafe95e6f3cc1659448",
-        "xpub": "xpub6GpvFExDZY9W3dK68hojnjw8qLL9oTonsqomeiWTrdC5bwyxYT2MtZgUWUWSaGkRiHN37DAq1NgbBqdFSKWPjf2D6RBimEfSxhaZfQpHKU7",
-        "xpriv": "xprvA3qZqjRKjAbCq9Ed2gGjRbzQHJVfQ15wWctArL6rJHf6j9eozui7LmMzfDE3mBhT6FyktR45fv39ff4S6bKSrMkYVSq12Autgd3ZGSS6yhK",
-        "fingerprint": "564abe18",
-        "depth": 5,
-        "index": 20
+        "path": "m/64'/82'/53/74/89/39'/46/9'",
+        "public_key": "02830b6ca4b1eee91c589426958b7c2ad7d45f32fc64a225f8dffe0cf2a79c472a",
+        "private_key": "f7807d5aec5a5210976e21ba62c3b57b7cfce78bf097271987d377e1d189de42",
+        "xpub": "xpub6N282j7Lm2QpFKSBEHLTJyt3Xw8EgebSeknKvtye8J9zqk63Ap8u183dFkWtkqWsXXiQRVporZKvTjA825imw1o5gYmCMHS7x4gRoAYZDby",
+        "xpriv": "xprvA92mdDaSverX2qMi8FoSwqwJyuHkHBsbHXrj8Wa2Zxd1xwktdGpeTKj9QWNR4QuJrm3Sy7kqfWGR29nY1SGnoPMtaYLDwHJavqduXL65Pyn",
+        "fingerprint": "58c5d706",
+        "depth": 8,
+        "index": 2147483657
       }
     },
     {
@@ -216,14 +216,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/57'/38'/66/3/72/31'/56'/49'",
-        "public_key": "039876433346a28bbe1915538dab8105c8add4e05b821ffe1d7bb8db4eb96601fb",
-        "private_key": "3465cb83b1d465e29f97f19992aeb6726d39621eaad3a7dfc2f76426a3b33278",
-        "xpub": "xpub6N3Yp8MSg9krTx5ekeMC6CnFHstmEW1tw9Epjgm3Nvh75m6RwHSf946doVjVEwupRCxNiBXdCKpxR3VagvEvkB6E7yi7dnqhovp498hgDVy",
-        "xpriv": "xprvA94CQcpYqnCZFU1BecpBj4qWjr4Gq3J3ZvKDwJMRpbA8CxmHPk8QbFn9xBzucZRwHWNi5Z2AF5wJ2mev53Gz6AEZqNcXGq4kS2JQFUSwZ6h",
-        "fingerprint": "d3ef529a",
-        "depth": 8,
-        "index": 2147483697
+        "path": "m/48'/51/38'/66/38'",
+        "public_key": "02ec8810f479049b80181c2a412009c7e7710e29bc59bca04d4bc4f520f8ec8cd3",
+        "private_key": "77bf86d3337b881dee098ee2c453e13401ac7d3e0259822ec439e2726d44373c",
+        "xpub": "xpub6FvW5iKaVZDHEnTPyngNrH43SAXQmmxjCuYoJr9upM3gYgYaH9H437m59gZNXU3oRU2aWc4kRkH72UYvrsak9ud2pNpzQAczsGGWGuperXx",
+        "xpriv": "xprvA2w9gCngfBez2JNvsm9NV97Jt8gvNKEsqgdCWTkJG1WhftDRjbxoVKSbJQeB1Xd19fiaMVA52szF1AJTyrdtU58RZSofQjMgFPtc2rPJJ7J",
+        "fingerprint": "9340cbe1",
+        "depth": 5,
+        "index": 2147483686
       }
     },
     {
@@ -244,14 +244,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/57",
-        "public_key": "02889f56a8212df9ad54826f5f11dd9d8ffdf1d47c0ed8848376dc2ccc000588d3",
-        "private_key": "da80b3f795aca4cde26a67efe8c108318bb331a8a742a4b716bc357dd6798ac5",
-        "xpub": "xpub68WQ7Ui7dHT3dL3G4E9LbEw2bM7nmeYZrJiaFWp8hLXsHFrUUh3SeajaCvDkzgU6B4dU9Ranuyebg37mfghNk5s459swuudgJ9cVtooMLws",
-        "xpriv": "xprv9uX3hyBDnutkQqxnxCcLE6zJ3KHJNBpiV5nyT8QX8zztQTXKw9jC6nR6Mfp45PFac5KvhmdYERUvf6zaDEhsG49FMrf4VAP9ci7quntiHJ6",
-        "fingerprint": "2579a6dc",
-        "depth": 1,
-        "index": 57
+        "path": "m/76/65'",
+        "public_key": "03f708d09f7b5f846d229fc4c4910739ca12ac8bcf552923aebd5115bb8dc524f1",
+        "private_key": "374f467498ae2f9e83221a183908b6713aeb77c914b85a58421e3e003102893e",
+        "xpub": "xpub6AfLCk342TLNkYEHJDcujt6FECuASemNGAy5JYufezSBaudXeDQYkp7BHGAvSoBirGfwwQLzSfQpcZodMfYrCFQCC6X6mLC6XdEsr18JDeL",
+        "xpriv": "xprv9wfyoEWAC5n5Y49pCC5uNk9WgB4g3C3Wtx3UWAW46euCi7JP6g6JD1nhRwjyUXH1mJmXCkeWVUXMCy716q36iKNCSG9jHZFyHzR3Y18xDHW",
+        "fingerprint": "91d723ff",
+        "depth": 2,
+        "index": 2147483713
       }
     },
     {
@@ -267,19 +267,19 @@ trezor_vectors = {
         "public_key": "029466171e75e35eabe7f7a3e4cc8aa5c035553fcd08b9990085878d40dc0af743",
         "xpub": "xpub661MyMwAqRbcGf4bJ6AT4rMVgxJEukeuiEBNo2ujYe3VbKbk59CJi3WqdeEtrKeMeaZUa8sGnC3bDSia2hUTuwTamHvJe5Avm6fYp1EUwJo",
         "xpriv": "xprv9s21ZrQH143K4Az8C4dShiQm8vTkWHw4M1FmzeW7zJWWiXGbXbt4AFCMnPpoZL3r1MbMJX269yKRzd1uRb6j8Vxq8BFiCWssGtspW7Yxz7J",
-        "fingerprint": "d9250da",
+        "fingerprint": "0d9250da",
         "depth": 0,
         "index": 0
       },
       "derived_node": {
-        "path": "m/65'/5/53'/32'",
-        "public_key": "02805e1e877cde0455275503ccf95db1ee5e59675e553de9775d6c11dd5d5be295",
-        "private_key": "15e6f785f36054fbb6864fef6918f9486e6d93e40ab4d2424574b39e55329095",
-        "xpub": "xpub6EmtUhCQZzDn8gBFyGqic3kydxSA9HCZJDNi8K4MNdCYwfxfPANfnnhjp3cuu3xTrGrRcVQ4qZsuVW19W1u39RGxcVfthEy2tKjyfDHhMV1",
-        "xpriv": "xprvA1nY5BfWjcfUvC6nsFJiEupF5vbfjpUhvzT7KvejpHfa4sdWqd4REzPFxmnFwSaVRbiNQUMwhRtdA4Ftjrt8niUKf1mb3kYjiWmEp9SyibW",
-        "fingerprint": "15f0c4e5",
-        "depth": 4,
-        "index": 2147483680
+        "path": "m/18'/47'",
+        "public_key": "03dc6ad92d95df3bf1b452ef2d80a9759123cbf4e8af2fb592eea6bab8114490eb",
+        "private_key": "291d0b9b9fce546f8609c98da754dcccaeeddf2c58101477716292471f09b446",
+        "xpub": "xpub6AhbEWAtHcsS6qwYsyPnyZ4sAeivFWcTQQGNrkBfuhdbagrYRhMTgUjG7LhGUjqmoULhQ8ejjrf6RxrjvyZUepu1efieoYHeCmecmPgkQDe",
+        "xpriv": "xprv9wiEpzdzTFK8tMs5mwrncR88cctRr3tc3BLn4Mn4MN6chtXPtA3D8gQnG2MnnMBDYP71EBtBJnrPgTWPk9hyZW28TTQTuMr7WENbmfWUCJR",
+        "fingerprint": "146f5077",
+        "depth": 2,
+        "index": 2147483695
       }
     },
     {
@@ -300,14 +300,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/95/40/30/50",
-        "public_key": "029cd12f01008d4140ffcf03c4298b042ecb571a3276d55111f1118c5c7b222f5c",
-        "private_key": "5fad7d67d722d980324a4e8514c2ad105b44037bba1d1326da136c624cdb6e2b",
-        "xpub": "xpub6E8UDzNyeFArkNFRJtscY7Qb443mcTyd13ayHJ16SuCFNGpCUvJP4djPpUM9D38NerXEX2AX4XsWXUJMiEx2oMkngA5eRFmfLdme5ypoxGd",
-        "xpriv": "xprvA197pUr5oscZXtAxCsLcAyTrW2DHD1FmdpfNUubUtZfGVUV3wNz8WqQuyCrT3NNCnGD7D1KAy6nsxWLYEgCd29YGxdWGAGuELEJHjP2JgSB",
-        "fingerprint": "13b5c9f5",
-        "depth": 4,
-        "index": 50
+        "path": "m/96'/22'/89/93'/77'/99/0/44/50'",
+        "public_key": "03e3615f1433bdead9bdb692f8889f63422b9d5bb40b2b1774453e380c54888b29",
+        "private_key": "732cf3ddbf0a5392b064d4f8c0c85e3782375938107ff3f8e161de03bbea337f",
+        "xpub": "xpub6PCAAKFZGVdxKyNAQxhze7EpngyLRZMbkVv447mXqbZ5RxZzDFiWdmhM5WF39yviMBoiCyYGaHayphkHEtfNVp1ixQHGXM9Na6T5P8SSBfc",
+        "xpriv": "xprvAACokoifS85f7VHhJwAzGyJ6Ef8r26dkPGzTFjMvHG26ZAEqfiQG5yNsECR7R9g24N6NWEa88JUMTvCN3S62fNtYM1xiu2hdrPzNgNHT2Ku",
+        "fingerprint": "4d9beb7b",
+        "depth": 9,
+        "index": 2147483698
       }
     },
     {
@@ -328,14 +328,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/20",
-        "public_key": "0394b4bd90c865b32096f662cc434bfc890f51ac4c47311bb59cd62782573b7ed1",
-        "private_key": "7e22db10af92297e5350f6b64ece0f126ce30659af4bf7d3798322e74b97d1d9",
-        "xpub": "xpub689yKeToBNMdbwb9kLbkLY1B1FF1UAfQMUe7ceHTfTtcyUqfWqVjf2JpPGwnpzCAwnxpwQuP7k9CCmCvHEXBLh7J3V8GUrFTCoqKBsxj8PL",
-        "xpriv": "xprv9uAcv8vuLzoLPTWgeK4jyQ4STDQX4hwYzFiWpFsr78Me6gWWyJBV7DzLXyoLh93LvT2a63wZoHni3G6mEuTvc8iaoie5JqZWFcNyQvp5t3m",
-        "fingerprint": "a93d8635",
-        "depth": 1,
-        "index": 20
+        "path": "m/11'/6/54'/73/91'/62'/15'/15'",
+        "public_key": "036a576923979b1cdd9cc86bf8544eac3bc0c12a58e3d3f8568687b54ec16a7e84",
+        "private_key": "a35aea8cc101748808f4fe67d13650a4167a5e85cca4dbdccabafaa0b3c8c347",
+        "xpub": "xpub6MpmB8gkCma1NHqpjSHs8svvLWHV1ToMvS2eBu4vfpGeNHKdAYdn4yCKzhtWUiTLKS8jYVXdFtqfERpJFgSrzuZpNva1g9p7iNMoCNrbdYa",
+        "xpriv": "xprvA8qQmd9rNQ1i9omMdQkrmjzBnUSzc15WZD73PWfK7UjfVUzUd1KXXAsr9RM7CTve8NmPhhxi8UvLHTS1xnYoQ8ugDzBfdszzXcpURNC1mrb",
+        "fingerprint": "2304d802",
+        "depth": 8,
+        "index": 2147483663
       }
     },
     {
@@ -356,14 +356,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/6'/44/47'/30'",
-        "public_key": "030d03985c95cb32c6de3d1973e4731ccc274c7bbebdc14b13fa85195c780d1ae4",
-        "private_key": "40d1dbc88ceedd2e8a25e881aa11186bc8459e5eb80cf2244b586a2df28a8a31",
-        "xpub": "xpub6EgsTHbsYpVpi4wktp3LRR5iQKw8fcNHGftCRjGAXJYngh9AqVQux5gb22pqb5uvyxb6MjGJAAc3fpm7UpH7L6LxoHgeKTDtkwJnJFXVwgg",
-        "xpriv": "xprvA1hX3n4yiSwXVasHnnWL4H8yrJ6eG9eRuSxbdLrYxy1ootp2Hx6fQHN7AkF9H3pYShxBNjCTwmpzfq4qhuhenSSZv4FvKCARBXsG4HU9Xk2",
-        "fingerprint": "78e3c31",
+        "path": "m/10'/85/65/49'",
+        "public_key": "0308a8aea86529fd8f7d05d052116489c9fc4867ba2e079f5f4b1dfc0630bd2276",
+        "private_key": "024f338178b6d8d42138a3973410a4071c4ecf64eee31434f440fcb6e9a52df4",
+        "xpub": "xpub6F1LUSVGNELerSBbtvsWJV62XvXAKWDWsUeF7rPDGFAij6CCV5wvYVk5UQiSwBbmfWJBVLcFZBJMAQ4q9PujoWwFWQVRGKBPQnz2GN4kvDH",
+        "xpriv": "xprvA21z4vxNXrnMdx78nuLVwM9Hytgfv3VfWFieKTybhudjrHs3wYdfzhRbd7h98GjbJHDrG3tNhBTLbw8bSPnoRASTqYRmHpCtJKFjxkBrR4x",
+        "fingerprint": "7f672f01",
         "depth": 4,
-        "index": 2147483678
+        "index": 2147483697
       }
     },
     {
@@ -384,14 +384,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m",
-        "public_key": "0358690658ba05ca89f9e94db587b9b61a0a02b86b1cba9e0f6c8c340c8ac1b8d3",
-        "private_key": "59304faa4a770231b74cf725837276f9fee2128a8622c95298fec06bad239e35",
-        "xpub": "xpub661MyMwAqRbcGCUsNoBRcPxEd3PXaRoHDs3fmyELhKSEJ6sN2CXKpypw78TDYZrDDuXS72QXFLz33cxXMfaX95zoKdLGjjFkzj3erDT2gCd",
-        "xpriv": "xprv9s21ZrQH143K3iQQGmeRFG1W51Z3Ay5Rre84yapj8yuFRJYDUfD5HBWTFqV3p1kgkHR2u8opVj8AtZtgm6SBLnSLXiAAaUfcR7zjSj59eT3",
-        "fingerprint": "86d722c6",
-        "depth": 0,
-        "index": 0
+        "path": "m/87/9'",
+        "public_key": "0389eabab07139050526e1ff06b67c0aaa1b1b9ae2104dfe93cca4c267bf50880b",
+        "private_key": "239f5f4cf02a47f4ab36fecaa317fb586b4392507236b1bdecedb095435e969a",
+        "xpub": "xpub6AfjwHUMLELhPezuGDxWvxjzcbWdHKsVifxM8atZ9brDZJ57E3nk2ySDHQhJzkPeM5qdLvwJm7z5YMV534mR9ieb83W231E61MKDtpNphvu",
+        "xpriv": "xprv9wgPXmwTVrnQBAvSACRWZpoG4Zg8ss9eMT2kLCUwbGKEgVjxgWUVVB7jS6wkQVN7GjtraMc4WyiRpdKtK5mrH9w9veQeB1ummcD697y8tLX",
+        "fingerprint": "b8301383",
+        "depth": 2,
+        "index": 2147483657
       }
     },
     {
@@ -412,14 +412,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/8'/52'/54/88'/72/44'/76/59'",
-        "public_key": "03150d662d76cd7ed7f22b08654f057ef2972d5ef94545515d23148aef8b4722a3",
-        "private_key": "7e7e409a78467e96ab575bd0c4f4b6c220352073734255979b868ca3a817285c",
-        "xpub": "xpub6MSdrFVi16T2FWS4feF2oUEHkZGb7LriTnA6kHNzP89s4SaGWHtB5S8dHYtn3HbY5oazBrd5ync7KU5JqH3itdoFUHqxbJsjSbKPZNokQbL",
-        "xpriv": "xprvA8THSjxpAitj32MbZci2SLHZCXS6ht8s6ZEVwtyNpnctBeF7xkZvXdp9SGihmQCgHoTJt94nPLT4Vq1TkQZkMgofeJge3ddUGR2LCDYKwLG",
-        "fingerprint": "340fe8a6",
-        "depth": 8,
-        "index": 2147483707
+        "path": "m/91'/25'/0'/41/59/36'",
+        "public_key": "03011e9b1a3c145f6627e7afbca2a4fdcbf7daeff0ade09284c45975328d7f5dad",
+        "private_key": "98712b166794a5fa7766c6e0edc146b03bf5a43e6cae82e600cd6d1f0deb67d3",
+        "xpub": "xpub6JDoMuqNuYhbs5P8HjjnQxCHg5zGTDDToE28TyUwqoTVoErz1HL4Myx6ZtQ7rjDsjw5WxYCY2DzEEsYvBDLED911j7udFSAMVYzVYcysEd1",
+        "xpriv": "xprvA5ESxQJV5B9JebJfBiCn3pFZ849n3kVcS16Xfb5LHTvWvSXqTk1opBdcicaFa2E7SfCSSJ8dXamgKYyQrjHap9m3QKsui79E3FGTDhBxWej",
+        "fingerprint": "ab8c1fdf",
+        "depth": 6,
+        "index": 2147483684
       }
     },
     {
@@ -440,14 +440,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/80/52'/23",
-        "public_key": "03446d0ef80c8fbdc3ec0498c82c95149c0d2a930073bc691bf445d012fa01d458",
-        "private_key": "84054006b2722973ef88d399270932c1c66f4c3988b0b99a3893139d66d0bed9",
-        "xpub": "xpub6DJnCJPD3s7k7PXWZgVTsYGWMCsRbdXsWxeVHZLZBtpeuHsFHUniJK1U8Sx3gA17w8da5Afj8mMZ1Jp1JkVgj7Q9STue3LihuzoXRxNi7VR",
-        "xpriv": "xprv9zKRnnrKDVZStuT3TexTWQKmoB2wCAp29jitVAvwdZHg2VY6jwUTkWgzHATYVabFimk2tPe6u5kYKf7BFYBrfAwWYddajfdPxr22JEhFrGL",
-        "fingerprint": "56f138",
-        "depth": 3,
-        "index": 23
+        "path": "m",
+        "public_key": "03abac7ca093217d71acb20ca3237a9522eb3ab0efd9765256c42594fd12273673",
+        "private_key": "41a3d77dc7ee50b24a3dae1748dfee068a950de5e8a60619bde6265bab05f81c",
+        "xpub": "xpub661MyMwAqRbcFMyehHM87uz9uSbkyCCh1cjqRTbbWLkp86kevB9WQKfn7jPQ1GtP67BL5CsFsVviprV4j1rcWJhADEZ8dTwFssydWEpi1vn",
+        "xpriv": "xprv9s21ZrQH143K2suBbFp7kn3RMQmGZjUqePpEd5Byx1DqFJRWNdqFrXMJGRcBtxu9zYw974W3d8YbHUPGFfnFghaY3cgXMM1bgkqrSpUpnFy",
+        "fingerprint": "b760aecd",
+        "depth": 0,
+        "index": 0
       }
     },
     {
@@ -468,14 +468,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/55'/55",
-        "public_key": "02a2be2a5c3223f08d9cd9d2ed1a91b1a20e7ea229f93a234a60aefa6829d7f96a",
-        "private_key": "15ef114e42c667ddf2787686542367bd5af616615b8e46ba2a3a01250351e196",
-        "xpub": "xpub6AoRKvnos2RrCK9NUnaALBN91xLJzsANmqf5RozWD2Wc9DJkLZ37U2JNjuCaCaFHbwVX1HxtmKJpuVy2eWMcPQiGdg1RFj2TwwRJx72Trmq",
-        "xpriv": "xprv9wp4vRFv2esYyq4uNm39y3RQTvVpbQSXQcjUdRategydGQybo1irvDyttd6nyuhhxgLimNoVsmmWqKgnmS8hVWuXqgMK2A1xpKbss5SG9pm",
-        "fingerprint": "fe06ced8",
-        "depth": 2,
-        "index": 55
+        "path": "m/68'/64'/70'/77'",
+        "public_key": "028538387da3e3d662837bfba022674f787fd8c55d1314a6422b746d04c753cf3b",
+        "private_key": "325f571dc84a8d01abdccc05e00fd174b08f5baf3ecc7a0748408ed96cb09d3c",
+        "xpub": "xpub6DoDCmCjrfpKEJoC4AvYS1pAA5hS3URUm6opL28hiPB16y9Y1sthmV9mab2nrfBawVtbPWEt68maevQQzR7VwacNDbN5eQYqsEgPww5M3hD",
+        "xpriv": "xprv9zoroFfr2JG21piix9PY4ssRc3rwe1hdPstDXdj6A3e2EApPULaTDgqHjKNYCFDk1wKRLxYuAMCkertT8bYepTAK28Sz47kXdZ9M11j15BX",
+        "fingerprint": "c8965cdd",
+        "depth": 4,
+        "index": 2147483725
       }
     },
     {
@@ -496,14 +496,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/22'/7/12/10'/12'",
-        "public_key": "02651d0920fadfb671e8398ddcdbf1fb12f19aa36d373eb6f988b68e0ab561d956",
-        "private_key": "fea9c6402d5dfc01476830ff655c017aa638d17896a6255fa400cde73e65c864",
-        "xpub": "xpub6GvDnp5gkHEb3XtbASdBo23vmqXkRMTp6qJj1BoxJfUaWy2jNW8D71swVHbhRHrbT5pHoLp9nwrsSZVSGxZuKEmaKeo6mBrdqYqyoNvSE8h",
-        "xpriv": "xprvA3vsPJYnuugHq3p84R6BRt7CDohG1tjxjcP8CoQLkKwbeAhapxoxZDZTe3jZCZUkz26fSXjknLgBfMKUaEtDXZ6wBLCGjNnRJz5xrrCpDRF",
-        "fingerprint": "4fdee727",
-        "depth": 5,
-        "index": 2147483660
+        "path": "m/0/44/45/38'/50/22/29'/18'",
+        "public_key": "02f93808b612538b46cda5ee9d4c2e72e87118e191d49e9ac7435518b0c1dc3186",
+        "private_key": "8ec751b6b8eb025118cc94e396d635b1b306026c7be714360a54d6b093538175",
+        "xpub": "xpub6MGjAESEFFuk2ABT7WiLjbUXTWQioaj8BWQxSuVHtc1qAysLpiKn2VqPeWQeXz4WaGRuWQab4Ejbi6xCWBHKcx2kYS4ziMYkQuiqaXgyqce",
+        "xpriv": "xprvA8HNkiuLQtMSog6z1VBLNTXnuUaEQ81GpHVMeX5gLGUrJBYCHB1XUhWuoEa1DdW6rbLgavEZnKY44qByKmyaGjS56HQMUFpsjWGw99apW9W",
+        "fingerprint": "5b015efc",
+        "depth": 8,
+        "index": 2147483666
       }
     },
     {
@@ -524,14 +524,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/0/25/20'/39'/45'/76'/61'/1'",
-        "public_key": "03b4151e822504600db0c26e4d97433dda6042199f5d37e8d672388bd6a869573b",
-        "private_key": "aa61f01ac92162fb108d984fcffbfee5fd6d79e877f619bfa615545a3f14347a",
-        "xpub": "xpub6Mfa4XDMBFuPB3M3ZimgR7iy5cUC8Dgn4pdEjU14444kKzFh3HiC6Hf2yHTUuwpHGNna3uh9gyxyPjkEVZLp8r6WtqeviiMX8vji7AnNLsJ",
-        "xpriv": "xprvA8gDf1gTLtM5xZGaThEg3ynEXadhikxvhbhdw5bSViXmTBvYVkPwYVLZ7zQhXKcsLoh3PEksLtRu1PJSGLiseNSjPRXEVUA1F23Ch5jKkWh",
-        "fingerprint": "b6121804",
-        "depth": 8,
-        "index": 2147483649
+        "path": "m/17/12/71/41/67/31'/21",
+        "public_key": "02ccf377c4d0719be5435acc3a308cf8b3e6657a894ee75d8c87197a6b7b603ae8",
+        "private_key": "e0885fd87686f6f413fdea0056f779a4a6120405c04ad32c2b476d298fa4132a",
+        "xpub": "xpub6LChru6y7YnUBpyUbFbafaWZFk3HCkDMBgeoss1hDVRqtUMyXYtptfCwmNHBALd4XPBqdJeKWCkRv59cp8KP6DcF6oFinahPhmjaBVy2iiB",
+        "xpriv": "xprvA7DMTPa5HBEAyLu1VE4aJSZphiCnoHVVpTjD5Uc5f9ts1g2pz1aaLrtTv7Q2uZvsfKzamcdN6HukYVge5PYW9UHCF8dNgcCuDWudPYKHNTT",
+        "fingerprint": "af3e036c",
+        "depth": 7,
+        "index": 21
       }
     },
     {
@@ -552,14 +552,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/44/98'/15",
-        "public_key": "0382eeb208246a17759d7be3800073c1531e23e49aa2ef233008104774cca4423a",
-        "private_key": "070592ac0a6817efae078f3d663f07ee851f5a13c76be867f4bc14798192582d",
-        "xpub": "xpub6D4sX61WUrPv46JUdpiuSQNXmQMbAZQ7tLZLHiVuNL5tL1mbfrrEf6tx1CY3faxU42Ws5AZ6Eiopf6jSyNdFnTWZP5mb3QXMzZaUUTz8D3s",
-        "xpriv": "xprv9z5X7aUceUqcqcE1XoBu5GRoDNX6m6gGX7djVL6HozYuTDST8KXz7JaU9tcxv8FYuv4tXg3kk4BkSzC8d4ok2YYfApWS3DZjAPrkuUdcXKd",
-        "fingerprint": "12733f98",
-        "depth": 3,
-        "index": 15
+        "path": "m/48/36'/17'/76",
+        "public_key": "02c929cb9d564149d80121b3000f25a07539e7725dfd9fec00077f3ae067ac36a3",
+        "private_key": "1ea55c246fccdb3eeeafd0297892fea38eaa084cbf0167f523cc07e9570b45f0",
+        "xpub": "xpub6ENcUR8WSEVP8D19poTGRuNStn4sRhGfBqTaXoXxFd91K4ewPwhqKEJSkDQf1kP211heQkMdheLiAfmAqZJLHRqBefiEBtXpEXJjLDrT8Kv",
+        "xpriv": "xprvA1PG4ubcbrw5uivgimvG4mRiLkEP2EYopcXyjR8LhHc2SGKnrQPamRyxtw5nwD3mfoRLtd8UuQMuub7ADX3x4hx7VzwM5rKaSVNs4CGNvi5",
+        "fingerprint": "d6781b58",
+        "depth": 4,
+        "index": 76
       }
     },
     {
@@ -580,14 +580,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/87'",
-        "public_key": "02816479e37d1c90c3eea919ae8976981ca6a4a1dea0bc45017db4fc8c83ce3172",
-        "private_key": "0898bacd3599164b281cf615c8e9dd9221592220db02842bfe01c563a90ebf37",
-        "xpub": "xpub68BjfutLj9SRxXoTjTB8XyV2aJ9Bnc5NWJnPNzm619yiUPiaKGRYruywPAzUXw1R7iYUKtiu4tMUSS4R7ngsXP9riy5zB5FqCfUkQCahP2N",
-        "xpriv": "xprv9uCPGQMStmt8k3izdRe8AqYJ2GJhP9MX95rnacMUSpSjbbPRmj7JK7fTXu3WXJhtAAiT65E3ReChWVpjGBMZpez46YqqeQ5j49sGg9i2jii",
-        "fingerprint": "52e527c6",
-        "depth": 1,
-        "index": 2147483735
+        "path": "m/73'/33'/4'/54'",
+        "public_key": "024c20717abc45db28212f641313775e0d0a8605c3d5ec8595ccbda74771ed2e14",
+        "private_key": "6c794a623831a11d125a689d2112249acf836a8e62acd735e0d69920b2bfdc8f",
+        "xpub": "xpub6EyatJA2nPZjMCGgLmD3Cap2g4aAx83Mov8Kv8y4QTumdPPjbGdsAqwYMg5QSt8ZeBc4P2TBevVuAELtLGaKr6QzEFsDLLKfY9PsFkg4NaY",
+        "xpriv": "xprvA1zEUnd8x21S8iCDEjg2qSsJ82jgYfKWShCj7kZSr8Nnkb4b3jKcd3d4WRHtGTDGLkanFML5KzYSpE8JktUQLHgcwk12fqbC4RLCMeRQhrJ",
+        "fingerprint": "1e0deb36",
+        "depth": 4,
+        "index": 2147483702
       }
     },
     {
@@ -608,14 +608,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/62'",
-        "public_key": "03c76c53aa5d33059a152229f1707418262bf51cebff7e522e89027a9d136aba4b",
-        "private_key": "b75ae10dedcad570f48d034ac04812ad02f8f214805d2faa6697d91899a2fb80",
-        "xpub": "xpub69GiX9v5CudvPjSckF9a3Kp6o58p4ckZ2jZZGfQv7yrYvPUmiptt6ULVKryVGDbxJTibHvBLxX4kCQNVnFP2TZUh3wk3jdspHbdEvsxghRy",
-        "xpriv": "xprv9vHN7ePBNY5dBFN9eDcZgBsNF3JKfA2hfWdxUH1JZeKa3b9dBHadYg21UZsuCrnBveNsBRNTtqt5hT4NzMnKSTTewbTzp5cYVVLhEiD2tcp",
-        "fingerprint": "5042fa7b",
-        "depth": 1,
-        "index": 2147483710
+        "path": "m",
+        "public_key": "03eeb4806b8b6253dc3dff8de042fa5f02c29e96215187239fd7df0353b244255e",
+        "private_key": "f68fa9b9e403e493f68657b10197d6ff482942eb78042461ae6cf1f1c4c7505b",
+        "xpub": "xpub661MyMwAqRbcGmUVLfXuFvHjFXic6Cx8z577jWvAk3jtQo9Berw4AindkcW3Nqf5xVQ4G9ksujKjRmNdkz5YcvKyPAqqRuRyM1749LQpEdQ",
+        "xpriv": "xprv9s21ZrQH143K4HQ2EdzttnLzhVt7gkEHcrBWw8WZBiCuXzp37KcocvU9uKazS2qSqSVDp1e9d5F1PMyMs5dTGxSamJWXeMfEmyKGxtMGzKU",
+        "fingerprint": "bc2b7c36",
+        "depth": 0,
+        "index": 0
       }
     },
     {
@@ -636,14 +636,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/76'/21/70/90'/25",
-        "public_key": "0276fb4c4f892142f6fce08b0e06ab43b1c43ca9dfe99eac40eefee0f841436f18",
-        "private_key": "384a7f78e129898480e6c0f27ba3ddad03ba7e87c0db3b37179e52c21f634273",
-        "xpub": "xpub6HFYi947fLHVuoMB5QpaWynnWwhL1fA85g4iQXZu4veqGzfet7HXesPoPo7vJktoqxuxpsuW5zD9HoSwt46sgTG816cxRJ4reKoLNjghtsU",
-        "xpriv": "xprvA4GCJdXDpxjChKGhyPHa9qr3xurqcCSGiT97c9AHWb7rQCLWLZyH755KYXcYWwYTbpofBGkoBBjtxcffTLRnFPr6zg4PZYqbRXtWLJ4yn7R",
-        "fingerprint": "46d29e56",
-        "depth": 5,
-        "index": 25
+        "path": "m/37'/12'/77'/23",
+        "public_key": "03e5e4941d5e79f76ff12ce888c48e50cc9543875ecf3a3cc84f4e20d7f324cde7",
+        "private_key": "cd78b565e27f3049753db5522ce1a91c572c335be55d8863d81d730560850817",
+        "xpub": "xpub6DknMy5b3mi4SQtsnbPzxHXdFBvSccGKVFuXckFbq9c5sEV7cwM9HeEXbPq3ZHYoz8bnpFiS9Z75XwtQz9PkBMZfkruiHFXLjbDYCVZMgCf",
+        "xpriv": "xprv9zmRxTYhDQ9mDvpQgZrzb9athA5xD9YU82yvpMqzGp56zS9y5Q2tjqv3k6fn8NhCX1dV4oKDj4DeWuiE9LsEB3L7EyHdnbaXJrviQtH4JXP",
+        "fingerprint": "cdaedb5f",
+        "depth": 4,
+        "index": 23
       }
     },
     {
@@ -664,14 +664,14 @@ trezor_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/78'/45'/23/82/53/86/32'",
-        "public_key": "02b1e3ac2dd0f1570e89046772a79bfced5a0c2f4226807a462c34234830edac77",
-        "private_key": "60d1e90929144a54a5f8ea11d245732549a3bbba4568f32cd26985a952a30681",
-        "xpub": "xpub6LtB4NvDQeC2deu7rAQ7Ea1oNMqkwwrtR8ocKTM3je4xRJY9PBkLY4HMvz11WhHcb11mExgC8AB8k2hg8JNDarWo8vabtTeoQQxE4LkvXSP",
-        "xpriv": "xprvA7tpesPKaGdjRApek8s6sS54pL1GYV933ut1X4wSBJXyYWCzqeS5zFxt5iMYGA6QQxSTUhzedmjtAd7SzT7CjroXatkCZttDkumySjrCEBp",
-        "fingerprint": "714ffffb",
-        "depth": 7,
-        "index": 2147483680
+        "path": "m/47",
+        "public_key": "03a9d2c20a1c523139caf7a99990de8146bfc1f31e1c8a71212e22bee505ef6d2e",
+        "private_key": "cafe5e11facec22e77456012e40bb8a6d93fa5f890b6c1638ca96e54706a224f",
+        "xpub": "xpub69h9z6XysswTNJpDmWYSk6jbMMKHXF9jJktp7geBgb5aqFBJVncYWXTbZmUYPuuMVbxDzYeVU2HuvR75S4u3ZC7hZ6wCMfay9NWPGa1wttu",
+        "xpriv": "xprv9vhoab163WPA9pjkfV1SNxnroKUo7nRswXyDKJEa8FYbxSr9xFJHxj97iUke4yuGEkV8nKU3m8iCUkJtgQV8MVhEnWAesTtcLtFfA2yJuwy",
+        "fingerprint": "f524de5",
+        "depth": 1,
+        "index": 47
       }
     }
   ]
@@ -698,14 +698,14 @@ test_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m",
-        "public_key": "029cfe11e5f33a2601083ff5e29d9b7f134f5edc6b7636674a7286ecf6d23804df",
-        "private_key": "c6796958d07afe0af1ba9a11da2b7a22d6226b4ff7ff5324c7c876cfc1ea0f1c",
-        "xpub": "xpub661MyMwAqRbcFXwuU8c1uEfmER2GW8A7XfaR9Cw41RCGr1xmr4WaLdU9cGPvcJXaaNYLFuu9bMimhKmGgaFja9BxcBAo98Eim1UuUu1dXAn",
-        "xpriv": "xprv9s21ZrQH143K33sSN751Y6j2gPBn6fSGASepLpXST5fHyDddJXCKnq9fm1gRmHk4CPPcEF9gBmJvPBf74ExYM6Ybe6zwA7HfX8dQkRFY9S4",
-        "fingerprint": "f3ac0f3f",
-        "depth": 0,
-        "index": 0
+        "path": "m/66'/27'/7",
+        "public_key": "026840e8cfd1af7e86e4fdc9725f358989a52abb7c6f7ebd29610613d57bc160b3",
+        "private_key": "1ce677d2e16043cb6e306978026cd886b346eb94a28d851194655ae57d4a8359",
+        "xpub": "xpub6DBxmR6LjRLWae6FLeThrkL62EkaLtdMdfUWHqzYggvcXttfDXtjPvG2dG3UKfJ9ATcnXUC9n1KZKZ3Z1S7CA5LyNFy4XHjg3M1TptaGn9L",
+        "xpriv": "xprv9zCcMuZSu3nDNA1nEcvhVcPMUCv5wRuWGSYuVTaw8MPdf6ZWfzaUr7wYmzSX5hrpUJaioHZQxEk2ZrEmZvMdwhjTLnj4qUYq2P62JJsUNhL",
+        "fingerprint": "c4f788c0",
+        "depth": 3,
+        "index": 7
       }
     },
     {
@@ -726,14 +726,14 @@ test_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/51'/93'/88/9/29",
-        "public_key": "02f8e18a47b27ca40908532de12935d2e98ece4333e4075a66b45a50dcd047d93a",
-        "private_key": "b07f09954064cb5e84472ab9e506b766e8d2991c5bc2425fedadd42fd420f36a",
-        "xpub": "xpub6FWBNhcwJXuDcgXfnj9DVXAnfmvVE3FCeDMexDS1w44tQKT2AF58oPuRi1v5atg5dh1VvYme3Patu3eb7LZHs11qgXXGGsKKsEbfh5ZZWWZ",
-        "xpriv": "xprvA2WpyC63UALvQCTCghcD8PE47k5zpaXMGzS49q2QNiXuXX7schktFbawrkLSAsxZyp5XPN4zhZcbHooB4VKEQ6NfJnDtT811zQJMvT9MxHa",
-        "fingerprint": "a37a75bf",
-        "depth": 5,
-        "index": 29
+        "path": "m/80'/39/65'/73/58'/1/0'/84/43",
+        "public_key": "02fa226372161be3f56f8c96a4658bfcd32de35bc9795821cf7598161af4f40570",
+        "private_key": "54dca7416c5b95e935bd753221b90a5a1da2649e66a17090dcf3a7c8f5e1c643",
+        "xpub": "xpub6Nyk3ZrNWTGmKxnXkDVonUMV25Rg3ZAftxemHoZ4nkA2DY7CYkenzWZ1qKpPQA2K9F3r7BkcZe6xubfuDCginQJuWaLm1P4uLH7KwHpAPY3",
+        "xpriv": "xprvA9zPe4KUg5iU7Ui4eBxoRLQkU3bBe6SpXjjAVR9TEQd3Ljn41DLYSiEXz3XqJ8yyxTthoWQ6uuynsmPJaqXm9rGNzyrymhHskPyya2uaiMD",
+        "fingerprint": "d5465df9",
+        "depth": 9,
+        "index": 43
       }
     },
     {
@@ -754,14 +754,14 @@ test_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/58'/43/87'/73",
-        "public_key": "026bfb70d65c86189e5249f2c18691bfd511f11e449039896bc788c243b0ff8497",
-        "private_key": "74c391bad085140e182281452958d0fb7ea572c5aeb27cc85e7d258dcc2c101c",
-        "xpub": "xpub6DvK6TkCLhshhNeF7t5Rna21K8j8VKkaXfTkYptvqY99CE2VJn5R1PifN27ourGXf7ZvfGZCuVmH8iUYAoRGywwaVwMqYyixLGzgCTTYBJC",
-        "xpriv": "xprv9zvxgxDJWLKQUtZn1rYRRS5Gm6te5s2jASY9kSVKHCcAKRhLmEmATbQBWm9unfCLoPBZgwD1TYJugJZJawoCMCFaUVUJVXakdbQopchCgqb",
-        "fingerprint": "6b062af1",
-        "depth": 4,
-        "index": 73
+        "path": "m/41/69/24'/32/52'/59/21/96'",
+        "public_key": "03ee0968db09338c318fc7c7a7972028e6bd630d22a9b0709aee2b75822aa6b0ad",
+        "private_key": "06e1fb71a2ec02d92900a74cb4de419559524ea4bb4aa0755520ab4c478ad956",
+        "xpub": "xpub6MaP5bjC1T3Vxw3JuF293XN6ZELa39ZvSnqHEREaXxMHUECDn7jfW1d2PYf87kqudyVLPXp3GpTQwoH7AvAcVZY72VSXa5Np7UAVUogUHed",
+        "xpriv": "xprvA8b2g6CJB5VCkSxqoDV8gPRN1CW5dgr55ZugS2pxycpJbRs5EaRQxDJYYDvoynLsovDAwt1bA2F7bCFR9mnf2rzfp2wkCSQzafa3z9J9V46",
+        "fingerprint": "314a54b1",
+        "depth": 8,
+        "index": 2147483744
       }
     },
     {
@@ -777,19 +777,19 @@ test_vectors = {
         "public_key": "031225fa5e457da949ab1021931887131c7a53c06df0fce4d6a3dd5819aa5776e0",
         "xpub": "xpub661MyMwAqRbcFJsyHbfuQsjnh3qjSfXkxkEXa5JHoSbyU7UNoiXU3FXfcKUbdFqC5cyxexpUAYPZP6K9AU9C4FjfuiX743buQgF5k7BwUND",
         "xpriv": "xprv9s21ZrQH143K2poWBa8u3jo4921F3CoubXJvmgtgF74zbK9EGBDDVTDBm3acAnd1cvowkj1pvi7PK3Ab6XrwYfJPWmQtCp5kor3tbqkreJ6",
-        "fingerprint": "56dd4ec",
+        "fingerprint": "056dd4ec",
         "depth": 0,
         "index": 0
       },
       "derived_node": {
-        "path": "m/85'/44/34'/38'/41'/48/59'/77/6",
-        "public_key": "028e56b1417c4813b9e8b8ff1887e0704edd3bbe5fe4f22a853ae662babfd05f70",
-        "private_key": "63a153ca061f7306bf14121eb3c44b45f61ce29d4b71f59efa619068b4970bc1",
-        "xpub": "xpub6PUEDdKLn5aqe1q6cw6zY9aPy4nFJLTfW4bg854W29TfRvwEkfq2ppbHyDJYx1PdYtcxndDsS6G8BM57LkZbgbDbtdZTVYFKU2X2XYbo3er",
-        "xpriv": "xprvAAUsp7nSwi2YRXkdWuZzB1dfR2wktsjp8qg5KgetTovgZ8c6D8WnH2Gp7wwyaR52K3qz1FhzFqr3xLi7UDtyuMicqd8Zdo2e62FoJY3CdcS",
-        "fingerprint": "a0acf90b",
-        "depth": 9,
-        "index": 6
+        "path": "m/24",
+        "public_key": "03e7df9436c7ff6abf1df4b9ec76c53e782774f4a4ac755e7ef5dfe4a8ab8cbf60",
+        "private_key": "5ce86b5c5dfb56c9baa0b2eb0fa210e2b6750db7cb505386749747b2825a5c7e",
+        "xpub": "xpub67vp4xvfzKfFt4BydgUCcnF9xhiGBSApmFhcWAX3Ur3nHt2TUaySQD4bQr7tQyD6rcySM9c7PSGseQkhjU5PoT2JFGgpXP1aU16T4YMS6yR",
+        "xpriv": "xprv9twTfTPn9x6xfa7WXewCFeJRQfsmmySyQ2n1hn7RvWWoR5hJw3fBrQk7ZY6B7Hr2sqbiHaMwUTrYejTiYMRYh4jy2WCFG86A5Cp2kF5ThBn",
+        "fingerprint": "813f5812",
+        "depth": 1,
+        "index": 24
       }
     },
     {
@@ -810,14 +810,14 @@ test_vectors = {
         "index": 0
       },
       "derived_node": {
-        "path": "m/62/89'/50/92'/44/82/43'/99",
-        "public_key": "0309f06d3f10474307ab02be1feb00357fd0707f59b569ed1b30680931d39b96c0",
-        "private_key": "dbc17468a366cb147d869300faf82d3ba5c6c4f70e87e8e798dd30a8da2f1aaf",
-        "xpub": "xpub6MKnN4j7wxRJptuHg9AEJgaGHQVAS26NNzX4Kz2kedE3BacaEsvzpHnMCePPuzHLBemB2ddpzbRpaEwpqXyuLvzfC5Kw5AbMpVTXSweqseb",
-        "xpriv": "xprvA8LRxZCE7as1cQppa7dDwYdXjNeg2ZNX1mbTXbd96Hh4JnHRhLckGVTsMP1Hn2qJJaN7CED7Fj87UspAJRZNjES3uFLtHbbi8xQ8F4yvFWq",
-        "fingerprint": "6a85f1d3",
-        "depth": 8,
-        "index": 99
+        "path": "m/9'/87'/66/48'/67/15'",
+        "public_key": "03affe31a52eec0a3fac9e26d4a69e6054d738c712d5e38c7eb70ea9234a8a79ac",
+        "private_key": "c6607f621ae4364b9c8fa446beb7886080ed1f80e754ffea97976b59ecf7ed65",
+        "xpub": "xpub6JpPFsmemRzhCUcvvMwEU8qyQ5VLpaRUKFKDwgEsnrED4deasc2Xiq5mmtXum4bmDWsxs7jn6Mk9omLojVjhkHF6U7yFBSH2fo3fPZnwJnf",
+        "xpriv": "xprvA5q2rNEkw4SPyzYTpLQE6zuEr3erR7hcx2Pd9HqGEWhEBqKSL4iHB2mHvbjFuohzr5P3tgzLScX1jEamvoQSReUysu1a8RUTdLAoMc9ce1i",
+        "fingerprint": "ea80b950",
+        "depth": 6,
+        "index": 2147483663
       }
     }
   ]
