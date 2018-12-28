@@ -5,7 +5,7 @@ import secpy256k1
 import pkg_resources
 from base58 import b58decode, b58encode
 
-
+ 
 class HDKey:
 
     # NB: (bits of entropy, checksum bits, words in mnemonic)
@@ -199,7 +199,7 @@ class HDKey:
     @fingerprint.setter
     def fingerprint(self, fingerprint):
         """ Stores fingerprint as hex bytes """
-        if ((type(fingerprint) == bytes and len(fingerprint) <= 4) 
+        if ((type(fingerprint) == bytes and len(fingerprint) <= 4)
                 or fingerprint is None):
             if fingerprint and len(fingerprint) < 4:
                 fingerprint = b'\x00' * (4 - len(fingerprint)) + fingerprint
