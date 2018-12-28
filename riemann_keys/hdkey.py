@@ -340,7 +340,7 @@ class HDKey:
         # WIP
         # TODO: get key depending on network
         # data/key, msg, digest
-        I = hmac.new(                                                   # noqa: E741
+        I = hmac.new(                                     # noqa: E741
             key=b'Bitcoin seed',
             msg=root_seed,
             digestmod=hashlib.sha512
