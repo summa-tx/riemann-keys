@@ -54,18 +54,17 @@ class HDKey:
         self.child = None
         self.path = kwargs.get("path", "m")
         self.depth = kwargs.get("depth", 0)
-        self.index = kwargs.get("index")
+        self.index = kwargs.get("index", b'\x00\x00\x00\x00')  # 4 hex bytes
         self.network = kwargs.get("network", "Bitcoin")
         self.parent = kwargs.get("parent")
         self.chain_code = kwargs.get("chain_code")
         self.fingerprint = kwargs.get("fingerprint")
-        # self.extended_private_key = kwargs.get("extended_private_key")
 
     @property
     def public_key(self):
         if self._c_public_key is None:
             return None
-
+            
         c_public_key = secpy256k1.ec_pubkey_serialize(
             self.CONTEXT_VERIFY, self._c_public_key, self.COMPRESSED
         )[1]
