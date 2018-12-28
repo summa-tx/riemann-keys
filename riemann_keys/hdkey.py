@@ -271,11 +271,13 @@ class HDKey:
         I = I.digest()                                            # noqa: E741
         IL, IR = I[:32], I[32:]
 
+        path_array = self.path.split("/")
+        path_array.append(str(index))
         child = HDKey(
             parent=self,
             network=self.network,
-            path=self.path + "/" + str(index),
-            index=index,
+            path="/".join(path_array),
+            index=index_serialized_32,
             depth=self.depth + 1
         )
 
