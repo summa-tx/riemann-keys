@@ -132,7 +132,7 @@ class HDKey:
         sha2 = hashlib.sha256(sha1).digest()
         xpriv += sha2[:4]
 
-        return b58encode(xpriv).decode("utf-8")
+        return b58encode(xpriv)
 
     @extended_private_key.setter
     def extended_private_key(self, xpriv):
