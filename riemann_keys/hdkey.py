@@ -355,7 +355,7 @@ class HDKey:
             network=network,
             chain_code=I_right,
             depth=0,
-            index=0,
+            index=b'\x00\x00\x00\x00',
             path='m/'
         )
         root.private_key = I_left
