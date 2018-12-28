@@ -208,7 +208,7 @@ class HDKey:
         elif type(fingerprint) == int:
             self._fingerprint = (fingerprint).to_bytes(4, byteorder='big')
         else:
-            raise TypeError("Fingerprint must be either int or bytes")
+            raise TypeError("Fingerprint must be either int or bytes (4)")
 
     def derive_path(self, path):
         if len(path) == 0:
