@@ -198,9 +198,12 @@ class HDKey:
 
     @fingerprint.setter
     def fingerprint(self, fingerprint):
-        """ Stores fingerprint as bytes """
-        if ((type(fingerprint) == bytes and len(fingerprint) == 4)
+        """ Stores fingerprint as hex bytes """
+        if ((type(fingerprint) == bytes and len(fingerprint) <= 4) 
                 or fingerprint is None):
+            if fingerprint and len(fingerprint) < 4:
+                fingerprint = b'\x00' * (4 - len(fingerprint)) + fingerprint
+                pass
             self._fingerprint = fingerprint
         elif type(fingerprint) == int:
             self._fingerprint = (fingerprint).to_bytes(4, byteorder='big')
