@@ -147,8 +147,7 @@ class HDKey:
             raise ValueError("Xpub provided instead of xpriv")
 
         self.depth = decoded_xpriv[4]
-        self.fingerprint = decoded_xpriv[5:9]
-        self.index = decoded_xpriv[9:13].hex()
+        self.index = decoded_xpriv[9:13]
         self.chain_code = decoded_xpriv[13:45]
         self.private_key = decoded_xpriv[46:78]  # skip 45 since it's a pad
 
@@ -162,7 +161,7 @@ class HDKey:
 
         xpub += bytes(chr(self.depth), 'utf8')
         xpub += self.parent.fingerprint if self.parent else b"\x00\x00\x00\00"
-        xpub += int(self.index).to_bytes(4, byteorder="big")
+        xpub += self.index
         xpub += self.chain_code
         xpub += self.public_key
 
@@ -185,8 +184,7 @@ class HDKey:
             raise ValueError("Xpriv provided instead of xpub")
 
         self.depth = decoded_xpub[4]
-        self.fingerprint = decoded_xpub[5:9]
-        self.index = decoded_xpub[9:13].hex()
+        self.index = decoded_xpub[9:13]
         self.chain_code = decoded_xpub[13:45]
         self.public_key = decoded_xpub[45:78]
 
