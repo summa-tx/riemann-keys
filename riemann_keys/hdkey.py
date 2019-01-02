@@ -169,7 +169,7 @@ class HDKey:
         sha1 = hashlib.sha256(xpub).digest()
         sha2 = hashlib.sha256(sha1).digest()
         xpub += sha2[:4]
-        return b58encode(xpub).decode("utf-8")
+        return b58encode(xpub)
 
     @extended_public_key.setter
     def extended_public_key(self, xpub):
