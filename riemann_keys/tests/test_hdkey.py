@@ -1,7 +1,6 @@
 import unittest
 from riemann_keys.hdkey import HDKey
 from riemann_keys.tests import bip39_test_vectors
-from ptpdb import set_trace
 
 
 class TestHDKey(unittest.TestCase):
