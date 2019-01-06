@@ -340,7 +340,7 @@ class HDKey:
         # WIP
         # TODO: get key depending on network
         # data/key, msg, digest
-        I = hmac.new(                                                   # noqa: E741
+        I = hmac.new(  # noqa: E741
             key=b'Bitcoin seed',
             msg=root_seed,
             digestmod=hashlib.sha512
@@ -576,9 +576,9 @@ class HDKey:
         HDKey.validate_entropy(entropy)
 
         checksum_len = HDKey.mnemonic_lookup(
-                value=len(entropy) * 8,
-                value_index=0,
-                lookup_index=1)
+            value=len(entropy) * 8,
+            value_index=0,
+            lookup_index=1)
 
         return format(int.from_bytes(
             hashlib.sha256(entropy).digest(), 'big'),
