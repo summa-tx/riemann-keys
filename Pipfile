@@ -6,16 +6,14 @@ name = "pypi"
 [packages]
 riemann-keys = {editable = true, path = "."}
 secpy256k1 = "*"
+base58 = "*"
 
 [dev-packages]
 pytest = "*"
 flake8 = "*"
 tox = "*"
 pytest-cov = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.7"
-
-[packages]
-riemann-keys = {editable = true, path = "."}
-"base58" = "*"
