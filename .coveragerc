@@ -1,0 +1,11 @@
+[run]
+source = riemann_keys/
+omit =
+    riemann_keys/tests/*
+
+[report]
+show_missing = True
+sort = Name
+
+[html]
+directory = htmlcov/

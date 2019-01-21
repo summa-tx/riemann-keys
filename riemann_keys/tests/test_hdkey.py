@@ -1,7 +1,6 @@
 import unittest
 from riemann_keys.hdkey import HDKey
 from riemann_keys.tests import bip39_test_vectors
-from ptpdb import set_trace
 
 
 class TestHDKey(unittest.TestCase):
@@ -389,20 +388,20 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.extended_private_key, 
+                node.extended_private_key,
                 test_vector['derived_node']['xpriv'])
             self.assertEqual(
-                node.extended_public_key, 
+                node.extended_public_key,
                 test_vector['derived_node']['xpub'])
             self.assertEqual(
-                node.private_key.hex(), 
+                node.private_key.hex(),
                 test_vector['derived_node']['private_key'])
             self.assertEqual(
                 node.public_key.hex(), test_vector['derived_node']['public_key'])
             self.assertEqual(
                 node.index, test_vector['derived_node']['index'])
             self.assertEqual(
-                node.fingerprint, 
+                node.fingerprint,
                 test_vector['derived_node']['fingerprint'])
             self.assertEqual(
                 node.chain_code, test_vector['derived_node']['chaincode'])
@@ -417,20 +416,20 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.extended_private_key, 
+                node.extended_private_key,
                 test_vector['derived_node']['xpriv'])
             self.assertEqual(
-                node.extended_public_key, 
+                node.extended_public_key,
                 test_vector['derived_node']['xpub'])
             self.assertEqual(
-                node.private_key.hex(), 
+                node.private_key.hex(),
                 test_vector['derived_node']['private_key'])
             self.assertEqual(
                 node.public_key.hex(), test_vector['derived_node']['public_key'])
             self.assertEqual(
                 node.index, test_vector['derived_node']['index'])
             self.assertEqual(
-                node.fingerprint, 
+                node.fingerprint,
                 test_vector['derived_node']['fingerprint'])
             self.assertEqual(
                 node.chain_code, test_vector['derived_node']['chaincode'])
