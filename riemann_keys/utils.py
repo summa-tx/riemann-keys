@@ -1,0 +1,75 @@
+import hashlib
+import secpy256k1
+
+from typing import Dict, Tuple
+
+BIP32_HARDEN: int = 0x80000000
+
+# NB: (bits of entropy, checksum bits, words in mnemonic)
+MNEMONIC_CODES: Tuple[Tuple[int, int, int], ...] = (
+    (128, 4, 12),
+    (160, 5, 15),
+    (192, 6, 18),
+    (224, 7, 21),
+    (256, 8, 24),
+)
+
+# https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+NETWORK_CODES: Dict[str, int] = {
+    "Bitcoin": 0,
+    "Testnet": 1,
+    "Litecoin": 2,
+    "Dogecoin": 3,
+    "Dash": 5,
+    "Ethereum": 60,
+}
+
+# https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+VERSION_BYTES = {
+    "mainnet": {
+        "public": 0x0488B21E,
+        "private": 0x0488ADE4,
+
+    },
+    "testnet": {
+        "public": 0x043587CF,
+        "private": 0x04358394,
+    }
+}
+
+CONTEXT_SIGN = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
+CONTEXT_VERIFY = secpy256k1.context_create(
+    secpy256k1.lib.SECP256K1_CONTEXT_VERIFY)
+COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
+
+
+def rmd160(msg: bytes):
+    '''
+    byte-like -> bytes
+    '''
+    h = hashlib.new('ripemd160')
+    h.update(msg)
+    return h.digest()
+
+
+def sha256(msg: bytes):
+    '''
+    byte-like -> bytes
+    '''
+    return hashlib.sha256(msg).digest()
+
+
+def hash160(msg: bytes):
+    '''
+    byte-like -> bytes
+    '''
+    h = hashlib.new('ripemd160')
+    h.update(sha256(msg))
+    return h.digest()
+
+
+def hash256(msg: bytes):
+    '''
+    byte-like -> bytes
+    '''
+    return hashlib.sha256(hashlib.sha256(msg).digest()).digest()
