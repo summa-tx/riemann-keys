@@ -9,6 +9,10 @@ class TestHDKey(unittest.TestCase):
     def setUp(self):
         self.trezor_vectors = bip39_test_vectors.trezor_vectors
         self.test_vectors = bip39_test_vectors.test_vectors
+    #
+    # def assertEqual(*args):
+    #     print(*args)
+    #     super().assertEqual(*args)
 
     @unittest.skip('wip')
     def test_init(self):
@@ -72,7 +76,7 @@ class TestHDKey(unittest.TestCase):
             root = HDKey.from_root_seed(
                 root_seed=root_seed)
             self.assertEqual(
-                root.xpub, bytes(test_vector['root']['xpub'], 'utf8'))
+                root.xpub, test_vector['root']['xpub'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
@@ -81,7 +85,7 @@ class TestHDKey(unittest.TestCase):
             root = HDKey.from_root_seed(
                 root_seed=root_seed)
             self.assertEqual(
-                root.xpub, bytes(test_vector['root']['xpub'], 'utf8'))
+                root.xpub, test_vector['root']['xpub'])
 
     def test_xpriv_generation(self):
         # Test Trezor vectors.
@@ -92,7 +96,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             self.assertEqual(
                 root.xpriv,
-                bytes(test_vector['root']['xpriv'], 'utf8'))
+                test_vector['root']['xpriv'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
@@ -102,7 +106,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             self.assertEqual(
                 root.xpriv,
-                bytes(test_vector['root']['xpriv'], 'utf8'))
+                test_vector['root']['xpriv'])
 
     def test_fingerprint_generation(self):
         # Test Trezor vectors.
@@ -135,10 +139,10 @@ class TestHDKey(unittest.TestCase):
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
                 node.xpriv,
-                bytes(test_vector['derived_node']['xpriv'], 'utf8')),
+                test_vector['derived_node']['xpriv'])
             self.assertEqual(
                 node.xpub,
-                bytes(test_vector['derived_node']['xpub'], 'utf8'))
+                test_vector['derived_node']['xpub'])
             self.assertEqual(
                 node.privkey.hex(),
                 test_vector['derived_node']['private_key'])
@@ -147,7 +151,7 @@ class TestHDKey(unittest.TestCase):
                 test_vector['derived_node']['public_key'])
             self.assertEqual(
                 node.index,
-                int(test_vector['derived_node']['index']).to_bytes(4, "big"))
+                test_vector['derived_node']['index'])
             self.assertEqual(
                 node.fingerprint,
                 bytes.fromhex(test_vector['derived_node']['fingerprint']))
@@ -166,10 +170,10 @@ class TestHDKey(unittest.TestCase):
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
                 node.xpriv,
-                bytes(test_vector['derived_node']['xpriv'], 'utf8')),
+                test_vector['derived_node']['xpriv'])
             self.assertEqual(
                 node.xpub,
-                bytes(test_vector['derived_node']['xpub'], 'utf8')),
+                test_vector['derived_node']['xpub'])
             self.assertEqual(
                 node.privkey.hex(),
                 test_vector['derived_node']['private_key'])
@@ -178,7 +182,7 @@ class TestHDKey(unittest.TestCase):
                 test_vector['derived_node']['public_key'])
             self.assertEqual(
                 node.index,
-                int(test_vector['derived_node']['index']).to_bytes(4, "big"))
+                test_vector['derived_node']['index'])
             self.assertEqual(
                 node.fingerprint,
                 bytes.fromhex(test_vector['derived_node']['fingerprint']))
@@ -247,7 +251,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.xpub, bytes(test_vector['derived_node']['xpub'], 'utf8'))
+                node.xpub, test_vector['derived_node']['xpub'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
@@ -257,7 +261,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.xpub, bytes(test_vector['derived_node']['xpub'], 'utf8'))
+                node.xpub, test_vector['derived_node']['xpub'])
 
     def test_xpriv_when_derived(self):
         # Test Trezor vectors.
@@ -269,7 +273,7 @@ class TestHDKey(unittest.TestCase):
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
                 node.xpriv,
-                bytes(test_vector['derived_node']['xpriv'], "utf8"))
+                test_vector['derived_node']['xpriv'])
 
         # Test vectors.
         for test_vector in self.test_vectors['english']:
@@ -280,7 +284,7 @@ class TestHDKey(unittest.TestCase):
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
                 node.xpriv,
-                bytes(test_vector['derived_node']['xpriv'], "utf8"))
+                test_vector['derived_node']['xpriv'])
 
     def test_fingerprint_when_derived(self):
         # Test Trezor vectors.

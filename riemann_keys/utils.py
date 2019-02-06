@@ -27,13 +27,12 @@ NETWORK_CODES: Dict[str, int] = {
 # https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
 VERSION_BYTES = {
     "mainnet": {
-        "public": 0x0488B21E,
-        "private": 0x0488ADE4,
-
+        "public": b'\x04\x88\xb2\x1e',
+        "private": b'\x04\x88\xad\xe4',
     },
     "testnet": {
-        "public": 0x043587CF,
-        "private": 0x04358394,
+        "public": b'\x04\x35\x87\xcf',
+        "private": b'\x04\x35\x83\x94',
     }
 }
 

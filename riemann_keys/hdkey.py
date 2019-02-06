@@ -80,9 +80,9 @@ class HDKey(Immutable):
         xpub_bytes = base58.decode(xpub)
         pubkey = xpub_bytes[45:78]
 
-        if xpub_bytes[0:4] == b'\x04\x88\xb2\x1e':
+        if xpub_bytes[0:4] == utils.VERSION_BYTES['mainnet']['public']:
             network = 'Bitcoin'
-        elif xpub_bytes[0:4] == b'\x04\x35\x87\xcf':
+        elif xpub_bytes[0:4] == utils.VERSION_BYTES['testnet']['public']:
             network = 'Testnet'
         else:
             raise ValueError('unrecognized version bytes. Is this an xpub?')
@@ -118,9 +118,9 @@ class HDKey(Immutable):
         privkey = xpriv_bytes[46:78]
         pubkey = simple.priv_to_pub(privkey)
 
-        if xpriv_bytes[0:4] == b'\x04\x88\xad\xe4':
+        if xpriv_bytes[0:4] == utils.VERSION_BYTES['mainnet']['private']:
             network = 'Bitcoin'
-        elif xpriv_bytes[0:4] == b'\x04\x35\x83\x94':
+        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:
             network = 'Testnet'
         else:
             raise ValueError('unrecognized version bytes. Is this an xpriv?')
@@ -148,7 +148,7 @@ class HDKey(Immutable):
             chain_code: bytes) -> str:
         xpub = bytearray()
         xpub.extend(base58.decode(cast(str, self.xpub))[0:4])
-        xpub.extend([cast(int, self.depth)])
+        xpub.extend([cast(int, self.depth) + 1])
         xpub.extend(self.fingerprint)
         xpub.extend(index.to_bytes(4, byteorder='big'))
         xpub.extend(chain_code)
@@ -162,7 +162,7 @@ class HDKey(Immutable):
             chain_code: bytes) -> str:
         xpriv = bytearray()
         xpriv.extend(base58.decode(cast(str, self.xpriv))[0:4])
-        xpriv.extend([cast(int, self.depth)])
+        xpriv.extend([cast(int, self.depth) + 1])
         xpriv.extend(self.fingerprint)
         xpriv.extend(index.to_bytes(4, byteorder='big'))
         xpriv.extend(chain_code)
@@ -175,12 +175,12 @@ class HDKey(Immutable):
         xpub = bytearray()
         xpriv_bytes = base58.decode(xpriv)
 
-        if xpriv_bytes[0:4] == b'\x04\x88\xad\xe4':
+        if xpriv_bytes[0:4] == utils.VERSION_BYTES['mainnet']['private']:
             # mainnet
-            xpub.extend(b'\x04\x88\xb2\x1e')
-        elif xpriv_bytes[0:4] == b'\x04\x35\x83\x94':
+            xpub.extend(utils.VERSION_BYTES['mainnet']['public'])
+        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:
             # testnet
-            xpub.extend(b'\x04\x35\x87\xcf')
+            xpub.extend(utils.VERSION_BYTES['testnet']['public'])
         else:
             raise ValueError('unrecognized version bytes. Is this an xpub?')
 
@@ -197,9 +197,9 @@ class HDKey(Immutable):
         xpub_bytes = base58.decode(xpub)
         pubkey = xpub_bytes[45:78]
 
-        if xpub_bytes[0:4] == b'\x04\x88\xb2\x1e':
+        if xpub_bytes[0:4] == utils.VERSION_BYTES['mainnet']['public']:
             network = 'Bitcoin'
-        elif xpub_bytes[0:4] == b'\x04\x35\x87\xcf':
+        elif xpub_bytes[0:4] == utils.VERSION_BYTES['testnet']['public']:
             network = 'Testnet'
         else:
             raise ValueError('unrecognized version bytes. Is this an xpub?')
@@ -226,9 +226,9 @@ class HDKey(Immutable):
         privkey = xpriv_bytes[46:78]
         pubkey = simple.priv_to_pub(privkey)
 
-        if xpriv_bytes[0:4] == b'\x04\x88\xad\xe4':
+        if xpriv_bytes[0:4] == utils.VERSION_BYTES['mainnet']['private']:
             network = 'Bitcoin'
-        elif xpriv_bytes[0:4] == b'\x04\x35\x83\x94':
+        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:
             network = 'Testnet'
         else:
             raise ValueError('unrecognized version bytes. Is this an xpriv?')
@@ -342,8 +342,9 @@ class HDKey(Immutable):
             network: str) -> str:
         # TODO: support other networks
         xpriv = bytearray()
-        version = b'\x04\x88\xad\xe4' if network == 'Bitcoin' \
-                  else b'\x04\x35\x83\x94'
+        version = utils.VERSION_BYTES['mainnet']['private'] \
+            if network == 'Bitcoin' \
+            else utils.VERSION_BYTES['testnet']['private']
         xpriv.extend(version)
         xpriv.extend(b'\x00' * 9)  # no depth, no parent, no index
         xpriv.extend(chain_code)
