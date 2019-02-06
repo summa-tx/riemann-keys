@@ -74,7 +74,7 @@ def root_seed_from_mnemonic(
     return hashlib.pbkdf2_hmac('sha512', mnemonic_bytes, salt_bytes, 2048)
 
 
-def mnemonic_to_bytes(mnemonic: str) -> Tuple[bytes, bytes]:
+def mnemonic_to_bytes(mnemonic: str) -> Tuple[bytes, str]:
     '''Mnemonic -> [bytes]
     Args:
         mnemonic    (str): a 12, 15, 18, 21, or 24 word str
@@ -99,11 +99,11 @@ def mnemonic_to_bytes(mnemonic: str) -> Tuple[bytes, bytes]:
     bit_string = ''.join(segments)
 
     # Number of checksum bits determined by number of words in mnemonic
-    checksum_bits = mnemonic_lookup(
+    checksum_bit_num = mnemonic_lookup(
         value=len(words), value_index=2, lookup_index=1)
 
     # Checksum bit-string (last bits at end of bit-string)
-    checksum_idx = -1 * checksum_bits
+    checksum_idx = -1 * checksum_bit_num
     checksum_bits = bit_string[checksum_idx:]
 
     # Entropy bit-string
@@ -170,7 +170,7 @@ def import_word_list() -> List[str]:
     return words
 
 
-def validate_mnemonic(mnemonic: str) -> bool:
+def validate_mnemonic(mnemonic: str) -> None:
     '''Validates a mnemonic
     Args:
         mnemonic    (str): potential mnemonic string
@@ -178,26 +178,24 @@ def validate_mnemonic(mnemonic: str) -> bool:
         (bool): true if the string is a valid mnemonic, otherwise false
     '''
     # Check the length
-    mnem_lens = [c[2] for c in utils.MNEMONIC_CODES]
     split = mnemonic.split()
-    words = import_word_list()
+    mnem_lens = [c[2] for c in utils.MNEMONIC_CODES]
     if len(split) not in mnem_lens:
-        return False
-
-    # Check each word against the list
-    for word in split:
-        if word not in words:
-            return False
+        raise ValueError('invalid number of words')
 
     # Check the checksum
-    entropy_bytes, checksum = mnemonic_to_bytes(mnemonic)
-    if checksum(entropy_bytes) != checksum:
-        return False
+    entropy_bytes, checksum_bytes = mnemonic_to_bytes(mnemonic)
+    if checksum(entropy_bytes) != checksum_bytes:
+        raise ValueError('invalid checksum')
 
-    return True
+    # Check each word against the list
+    words = import_word_list()
+    for word in split:
+        if word not in words:
+            raise ValueError('invalid word in mnemonic')
 
 
-def checksum(entropy: bytes) -> bytes:
+def checksum(entropy: bytes) -> str:
     '''Determine checksum and return first segment.
     Args:
         entropy     (bytes): random 128, 160, 192, 224, or 256 bit string
@@ -216,12 +214,12 @@ def checksum(entropy: bytes) -> bytes:
         '0256b')[:checksum_len]
 
 
-def validate_entropy(entropy: bytes) -> bool:
+def validate_entropy(entropy: bytes) -> None:
+    '''
+    Error if entropy is not valid
+    '''
     if not isinstance(entropy, bytes):
         raise ValueError('Entropy must be bytes.')
 
-    len_e = len(entropy)
-    if len_e not in list(map(lambda x: x // 8, [128, 160, 192, 224, 256])):
+    if len(entropy) not in [16, 20, 24, 28, 32]:
         raise ValueError('Entropy must be 16, 20, 24, 28, or 32 bytes.')
-
-    return True
