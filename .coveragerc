@@ -2,6 +2,7 @@
 source = riemann_keys/
 omit =
     riemann_keys/tests/*
+    riemann_keys/base58.py
 
 [report]
 show_missing = True

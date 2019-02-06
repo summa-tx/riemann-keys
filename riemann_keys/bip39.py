@@ -183,16 +183,16 @@ def validate_mnemonic(mnemonic: str) -> None:
     if len(split) not in mnem_lens:
         raise ValueError('invalid number of words')
 
-    # Check the checksum
-    entropy_bytes, checksum_bytes = mnemonic_to_bytes(mnemonic)
-    if checksum(entropy_bytes) != checksum_bytes:
-        raise ValueError('invalid checksum')
-
     # Check each word against the list
     words = import_word_list()
     for word in split:
         if word not in words:
             raise ValueError('invalid word in mnemonic')
+
+    # Check the checksum
+    entropy_bytes, checksum_bytes = mnemonic_to_bytes(mnemonic)
+    if checksum(entropy_bytes) != checksum_bytes:
+        raise ValueError('invalid checksum')
 
 
 def checksum(entropy: bytes) -> str:
