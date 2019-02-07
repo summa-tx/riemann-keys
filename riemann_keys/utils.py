@@ -16,23 +16,23 @@ MNEMONIC_CODES: Tuple[Tuple[int, int, int], ...] = (
 
 # https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 NETWORK_CODES: Dict[str, int] = {
-    "Bitcoin": 0,
-    "Testnet": 1,
-    "Litecoin": 2,
-    "Dogecoin": 3,
-    "Dash": 5,
-    "Ethereum": 60,
+    'Bitcoin': 0,
+    'Testnet': 1,
+    'Litecoin': 2,
+    'Dogecoin': 3,
+    'Dash': 5,
+    'Ethereum': 60,
 }
 
 # https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
 VERSION_BYTES = {
-    "mainnet": {
-        "public": b'\x04\x88\xb2\x1e',
-        "private": b'\x04\x88\xad\xe4',
+    'mainnet': {
+        'public': b'\x04\x88\xb2\x1e',
+        'private': b'\x04\x88\xad\xe4',
     },
-    "testnet": {
-        "public": b'\x04\x35\x87\xcf',
-        "private": b'\x04\x35\x83\x94',
+    'testnet': {
+        'public': b'\x04\x35\x87\xcf',
+        'private': b'\x04\x35\x83\x94',
     }
 }
 
@@ -42,7 +42,7 @@ CONTEXT_VERIFY = secpy256k1.context_create(
 COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
 
-def rmd160(msg: bytes):
+def rmd160(msg: bytes):  # pragma: nocover
     '''
     byte-like -> bytes
     '''

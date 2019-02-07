@@ -66,7 +66,7 @@ class HDKey(Immutable):
             setattr(self, k, key_dict[k])  # type: ignore
         self._make_immutable()
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: nocover
         return '{}{}'.format(
             self.xpub if self.xpub else self.pubkey.hex(),
             ' with privkey' if self.privkey is not None else '')
@@ -397,14 +397,18 @@ class HDKey(Immutable):
         '''
         if not self.path:
             raise ValueError('current key\'s path is unknown')
+
         own_path = cast(str, self.path)
-        if path.find(own_path) == -1:
-            raise ValueError('requested child not in descendant branches')
         path_nodes = self._parse_derivation(path)
         my_nodes = self._parse_derivation(own_path)
 
+        for i in range(len(my_nodes)):
+            if my_nodes[i] != path_nodes[i]:
+                raise ValueError('requested child not in descendant branches')
+
         current_node = self
         for i in range(len(my_nodes), len(path_nodes)):
+            print(i, current_node)
             current_node = current_node.derive_child(path_nodes[i])
         return current_node
 
@@ -440,6 +444,7 @@ class HDKey(Immutable):
         IL, IR = I[:32], I[32:]
 
         try:
+            child_privkey: Optional[bytes]
             if self.privkey:
                 child_privkey = simple.tweak_privkey_add(self.privkey, IL)
             else:
@@ -450,7 +455,7 @@ class HDKey(Immutable):
 
         if child_privkey:
             xpriv = self._make_child_xpriv(
-                child_privkey, index=index, chain_code=IR)
+                cast(bytes, child_privkey), index=index, chain_code=IR)
             return self._child_from_xpriv(index=index, xpriv=xpriv)
         else:
             xpub = self._make_child_xpub(
