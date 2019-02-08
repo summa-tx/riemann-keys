@@ -478,3 +478,16 @@ class HDKey(Immutable):
             child_xpub = self._make_child_xpub(
                 child_pubkey, index=index, chain_code=IR)
             return self._child_from_xpub(index=index, child_xpub=child_xpub)
+
+    def sign(self, msg: bytes, hash_func=utils.sha256) -> bytes:
+        return simple.sign(self.privkey, msg, hash_func)
+
+    def sign_hash(self, digest: bytes) -> bytes:
+        return simple.sign_hash(self.privkey, digest)
+
+    def verify(self, sig: bytes, msg: bytes, hash_func=utils.sha256) -> bool:
+        return simple.verify(self.pubkey, sig, msg, hash_func)
+
+    def verify_hash(self, sig: bytes, digest: bytes) -> bool:
+        # NB: ECDSA is NOT SECURE unless the verifier calculates the hash
+        return simple.verify_hash(self.pubkey, sig, digest)

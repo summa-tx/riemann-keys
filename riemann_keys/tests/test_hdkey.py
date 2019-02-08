@@ -218,10 +218,6 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 node.depth, test_vector['derived_node']['depth'])
 
-    @unittest.skip('wip')
-    def test_node_child_derivation(self):
-        ...
-
     def test_public_keys_when_derived(self):
         # Test vectors.
         for test_vector in self.english_vectors:
