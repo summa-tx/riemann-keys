@@ -321,7 +321,6 @@ class HDKey(Immutable):
         # Private key, chain code
         privkey, chain_code = I[:32], I[32:]
         pubkey = simple.priv_to_pub(privkey)
-        print(pubkey)
         xpriv = HDKey._make_master_xpriv(privkey, chain_code, network)
         xpub = HDKey._xpriv_to_xpub(xpriv)
         root = HDKey(
