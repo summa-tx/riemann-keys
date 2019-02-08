@@ -6,7 +6,7 @@ from secpy256k1 import simple
 
 from riemann_keys import base58, bip39, utils
 
-from typing import cast, List, Optional
+from typing import cast, List, Optional, Union
 from mypy_extensions import TypedDict
 
 
@@ -71,21 +71,23 @@ class HDKey(Immutable):
             self.xpub if self.xpub else self.pubkey.hex(),
             ' with privkey' if self.privkey is not None else '')
 
-    def _child_from_xpub(self, index: int, xpub: str) -> 'HDKey':
+    def _child_from_xpub(self, index: int, child_xpub: str) -> 'HDKey':
         path: Optional[str]
         if self.path:
             path = '{}/{}'.format(self.path, str(index))
         else:
             path = None
-        xpub_bytes = base58.decode(xpub)
+        xpub_bytes = base58.decode(child_xpub)
         pubkey = xpub_bytes[45:78]
 
         if xpub_bytes[0:4] == utils.VERSION_BYTES['mainnet']['public']:
             network = 'Bitcoin'
-        elif xpub_bytes[0:4] == utils.VERSION_BYTES['testnet']['public']:
-            network = 'Testnet'
+        elif xpub_bytes[0:4] == utils.VERSION_BYTES['testnet']['public']:    # pragma: nocover  # noqa: E501
+            network = 'Testnet'  # pragma: nocover
         else:
-            raise ValueError('unrecognized version bytes. Is this an xpub?')
+            raise ValueError(
+                'unrecognized version bytes.'
+                ' Is this an xpub?')  # pragma: nocover
 
         return HDKey(
             key_dict=KeyDict(
@@ -98,12 +100,12 @@ class HDKey(Immutable):
                 chain_code=xpub_bytes[13:45],
                 fingerprint=utils.hash160(pubkey)[:4],
                 xpriv=None,
-                xpub=xpub,
+                xpub=child_xpub,
                 privkey=None,
                 pubkey=pubkey),
             _error_on_call=False)
 
-    def _child_from_xpriv(self, index: int, xpriv: str) -> 'HDKey':
+    def _child_from_xpriv(self, index: int, child_xpriv: str) -> 'HDKey':
         path: Optional[str]
         if self.path:
             if index >= utils.BIP32_HARDEN:
@@ -114,16 +116,18 @@ class HDKey(Immutable):
         else:
             path = None
 
-        xpriv_bytes = base58.decode(xpriv)
+        xpriv_bytes = base58.decode(child_xpriv)
         privkey = xpriv_bytes[46:78]
         pubkey = simple.priv_to_pub(privkey)
 
         if xpriv_bytes[0:4] == utils.VERSION_BYTES['mainnet']['private']:
             network = 'Bitcoin'
-        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:
-            network = 'Testnet'
+        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:  # pragma: nocover  # noqa: E501
+            network = 'Testnet'  # pragma: nocover
         else:
-            raise ValueError('unrecognized version bytes. Is this an xpriv?')
+            raise ValueError(
+                'unrecognized version bytes. '
+                'Is this an xpriv?')  # pragma: nocover
 
         return HDKey(
             key_dict=KeyDict(
@@ -135,8 +139,8 @@ class HDKey(Immutable):
                 parent=self,
                 chain_code=xpriv_bytes[13:45],
                 fingerprint=utils.hash160(pubkey)[:4],
-                xpriv=xpriv,
-                xpub=HDKey._xpriv_to_xpub(xpriv),
+                xpriv=child_xpriv,
+                xpub=HDKey._xpriv_to_xpub(child_xpriv),
                 privkey=privkey,
                 pubkey=pubkey),
             _error_on_call=False)
@@ -178,11 +182,13 @@ class HDKey(Immutable):
         if xpriv_bytes[0:4] == utils.VERSION_BYTES['mainnet']['private']:
             # mainnet
             xpub.extend(utils.VERSION_BYTES['mainnet']['public'])
-        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:
+        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:  # pragma: nocover  # noqa: E501
             # testnet
-            xpub.extend(utils.VERSION_BYTES['testnet']['public'])
+            xpub.extend(utils.VERSION_BYTES['testnet']['public'])  # pragma: nocover  # noqa: E501
         else:
-            raise ValueError('unrecognized version bytes. Is this an xpub?')
+            raise ValueError(
+                'unrecognized version bytes. '
+                'Is this an xpub?')  # pragma: nocover
 
         # verbatim
         xpub.extend(xpriv_bytes[4:45])
@@ -199,10 +205,10 @@ class HDKey(Immutable):
 
         if xpub_bytes[0:4] == utils.VERSION_BYTES['mainnet']['public']:
             network = 'Bitcoin'
-        elif xpub_bytes[0:4] == utils.VERSION_BYTES['testnet']['public']:
-            network = 'Testnet'
+        elif xpub_bytes[0:4] == utils.VERSION_BYTES['testnet']['public']:  # pragma: nocover  # noqa: E501
+            network = 'Testnet'  # pragma: nocover
         else:
-            raise ValueError('unrecognized version bytes. Is this an xpub?')
+            raise ValueError('unrecognized version bytes. Is this an xpub?')  # pragma: nocover  # noqa: E501
 
         return HDKey(
             key_dict=KeyDict(
@@ -228,10 +234,10 @@ class HDKey(Immutable):
 
         if xpriv_bytes[0:4] == utils.VERSION_BYTES['mainnet']['private']:
             network = 'Bitcoin'
-        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:
-            network = 'Testnet'
+        elif xpriv_bytes[0:4] == utils.VERSION_BYTES['testnet']['private']:  # pragma: nocover  # noqa: E501
+            network = 'Testnet'  # pragma: nocover
         else:
-            raise ValueError('unrecognized version bytes. Is this an xpriv?')
+            raise ValueError('unrecognized version bytes. Is this an xpriv?')  # pragma: nocover  # noqa: E501
 
         return HDKey(
             key_dict=KeyDict(
@@ -372,6 +378,7 @@ class HDKey(Immutable):
             network: str = 'Bitcoin') -> 'HDKey':
         # Lazy
         root_seed = bip39.root_seed_from_mnemonic(mnemonic, salt, network)
+        print(root_seed.hex())
         return HDKey.from_root_seed(root_seed, network)
 
     @staticmethod
@@ -408,14 +415,23 @@ class HDKey(Immutable):
 
         current_node = self
         for i in range(len(my_nodes), len(path_nodes)):
-            print(i, current_node)
             current_node = current_node.derive_child(path_nodes[i])
         return current_node
 
-    def derive_child(self, index: int):
+    @staticmethod
+    def _normalize_index(idx: Union[int, str]) -> int:
+        if type(idx) is int:
+            return cast(int, idx)
+        str_idx = cast(str, idx)
+        if str_idx[-1] in ['h', "'"]:
+            return int(str_idx[:-1]) + utils.BIP32_HARDEN
+        return int(str_idx)
+
+    def derive_child(self, idx: Union[int, str]):
         '''
         Derives a bip32 child from the current node
         '''
+        index: int = self._normalize_index(idx)
         if index >= utils.BIP32_HARDEN and not self.privkey:
             raise ValueError('Need private key to derive hardened children')
 
@@ -454,10 +470,10 @@ class HDKey(Immutable):
             return self.derive_child(index + 1)
 
         if child_privkey:
-            xpriv = self._make_child_xpriv(
+            child_xpriv = self._make_child_xpriv(
                 cast(bytes, child_privkey), index=index, chain_code=IR)
-            return self._child_from_xpriv(index=index, xpriv=xpriv)
+            return self._child_from_xpriv(index=index, child_xpriv=child_xpriv)
         else:
-            xpub = self._make_child_xpub(
+            child_xpub = self._make_child_xpub(
                 child_pubkey, index=index, chain_code=IR)
-            return self._child_from_xpub(index=index, xpub=xpub)
+            return self._child_from_xpub(index=index, child_xpub=child_xpub)
