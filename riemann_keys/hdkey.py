@@ -321,6 +321,7 @@ class HDKey(Immutable):
         # Private key, chain code
         privkey, chain_code = I[:32], I[32:]
         pubkey = simple.priv_to_pub(privkey)
+        print(pubkey)
         xpriv = HDKey._make_master_xpriv(privkey, chain_code, network)
         xpub = HDKey._xpriv_to_xpub(xpriv)
         root = HDKey(
@@ -378,7 +379,6 @@ class HDKey(Immutable):
             network: str = 'Bitcoin') -> 'HDKey':
         # Lazy
         root_seed = bip39.root_seed_from_mnemonic(mnemonic, salt, network)
-        print(root_seed.hex())
         return HDKey.from_root_seed(root_seed, network)
 
     @staticmethod
@@ -463,6 +463,7 @@ class HDKey(Immutable):
             child_privkey: Optional[bytes]
             if self.privkey:
                 child_privkey = simple.tweak_privkey_add(self.privkey, IL)
+                child_pubkey = simple.priv_to_pub(child_privkey)
             else:
                 child_privkey = None
                 child_pubkey = simple.tweak_pubkey_add(self.pubkey, IL)

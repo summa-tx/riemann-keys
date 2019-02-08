@@ -1,4 +1,6 @@
 import unittest
+from unittest import mock
+
 from riemann_keys.hdkey import HDKey, Immutable
 from riemann_keys import bip39
 from riemann_keys.tests import bip39_test_vectors
@@ -319,3 +321,63 @@ class TestHDKey(unittest.TestCase):
         self.assertEqual(
             child.xpriv,
             self.english_vectors[4]['derived_node']['xpriv'])
+
+    def test_from_pubkey(self):
+        pk = bytes.fromhex('02800f0237e39dce74f506c508985d4d71f8020342d7dfe781ca5cfb73e63eb43e')  # noqa: E501
+        node = HDKey.from_pubkey(pk)
+        self.assertEqual(node.pubkey, pk)
+
+    def test_parse_derivation_error(self):
+        with self.assertRaises(ValueError) as context:
+            HDKey._parse_derivation('44')
+        self.assertIn('Bad path. ', str(context.exception))
+
+    def test_derive_path_unknown(self):
+        node = HDKey.from_privkey(b'\x32' * 32)
+        with self.assertRaises(ValueError) as context:
+            node.derive_path('6')
+        self.assertIn('path is unknown', str(context.exception))
+
+    def test_derive_path_not_descendent(self):
+        root = HDKey.from_mnemonic(bip39_test_vectors.public_path_mnemonic)
+        child = root.derive_path('m/0/0')
+        with self.assertRaises(ValueError) as context:
+            child.derive_path('m/1/1')
+        self.assertIn('requested child not in', str(context.exception))
+
+    def test_normalize_index(self):
+        self.assertEqual(
+            HDKey._normalize_index(7),
+            7)
+        self.assertEqual(
+            HDKey._normalize_index('7'),
+            7)
+        self.assertEqual(
+            HDKey._normalize_index('7h'),
+            7 + 0x80000000)
+        self.assertEqual(
+            HDKey._normalize_index("7'"),
+            7 + 0x80000000)
+
+    def test_derive_child_hardened_no_privkey(self):
+        pk = bytes.fromhex('02800f0237e39dce74f506c508985d4d71f8020342d7dfe781ca5cfb73e63eb43e')  # noqa: E501
+        node = HDKey.from_pubkey(pk)
+        with self.assertRaises(ValueError) as context:
+            node.derive_child('1h')
+        self.assertIn('Need private key', str(context.exception))
+
+    def test_derive_child_hardened_no_chaincode(self):
+        sk = b'\x32' * 32
+        node = HDKey.from_privkey(sk)
+        with self.assertRaises(ValueError) as context:
+            node.derive_child('1h')
+        self.assertIn('without chain_code', str(context.exception))
+
+    @mock.patch('riemann_keys.hdkey.simple.tweak_privkey_add')
+    def test_derive_child_invalid_result(self, mock_tweak):
+        mock_tweak.side_effect = [
+            b'\xff' * 32, b'\x33' * 32]
+
+        node = HDKey.from_mnemonic(bip39_test_vectors.public_path_mnemonic)
+        child = node.derive_child(0)
+        self.assertEqual(child.path, 'm/1')
