@@ -479,14 +479,30 @@ class HDKey(Immutable):
             return self._child_from_xpub(index=index, child_xpub=child_xpub)
 
     def sign(self, msg: bytes, hash_func=utils.sha256) -> bytes:
-        return simple.sign(self.privkey, msg, hash_func)
+        if not self.privkey:
+            raise ValueError('can\t sign without privkey')
+        return simple.sign(
+            privkey=cast(bytes, self.privkey),
+            msg=msg,
+            hash_func=hash_func)  # pragma: nocover
 
     def sign_hash(self, digest: bytes) -> bytes:
-        return simple.sign_hash(self.privkey, digest)
+        if not self.privkey:
+            raise ValueError('can\t sign without privkey')
+        return simple.sign_hash(
+            privkey=self.privkey,
+            digest=digest)  # pragma: nocover
 
     def verify(self, sig: bytes, msg: bytes, hash_func=utils.sha256) -> bool:
-        return simple.verify(self.pubkey, sig, msg, hash_func)
+        return simple.verify(
+            pubkey=self.pubkey,
+            sig=sig,
+            msg=msg,
+            hash_func=hash_func)  # pragma: nocover
 
     def verify_hash(self, sig: bytes, digest: bytes) -> bool:
         # NB: ECDSA is NOT SECURE unless the verifier calculates the hash
-        return simple.verify_hash(self.pubkey, sig, digest)
+        return simple.verify_hash(
+            pubkey=self.pubkey,
+            sig=sig,
+            digest=digest)  # pragma: nocover
