@@ -377,3 +377,15 @@ class TestHDKey(unittest.TestCase):
         node = HDKey.from_mnemonic(bip39_test_vectors.public_path_mnemonic)
         child = node.derive_child(0)
         self.assertEqual(child.path, 'm/1')
+
+    def test_sign_errors(self):
+        pk = bytes.fromhex('02800f0237e39dce74f506c508985d4d71f8020342d7dfe781ca5cfb73e63eb43e')  # noqa: E501
+        node = HDKey.from_pubkey(pk)
+
+        with self.assertRaises(ValueError) as context:
+            node.sign(b'\x00')
+        self.assertIn('without privkey', str(context.exception))
+
+        with self.assertRaises(ValueError) as context:
+            node.sign_hash(b'\x00' * 32)
+        self.assertIn('without privkey', str(context.exception))
