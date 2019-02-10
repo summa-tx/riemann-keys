@@ -704,7 +704,7 @@ class HDKey(Immutable):
             self,
             sig: bytes,
             digest: bytes,
-            warn: bool = True) -> bool:
+            warn: bool = True) -> bool:  # pragma: nocover
         '''
         Verifies a signature on a message digest
         !!! ECDSA is NOT SECURE unless the verifier calculates the hash  !!!
@@ -715,11 +715,11 @@ class HDKey(Immutable):
             (bool): True if verified, otherwise False
         '''
         # NB: ECDSA is NOT SECURE unless the verifier calculates the hash
-        if warn:  # pragma: nocover
+        if warn:
             warnings.warn(
                 'ECDSA is NOT secure unless the verifier calculates the hash. '
-                'Pass warn=False to silence this warning.')  # pragma: nocover
+                'Pass warn=False to silence this warning.')
         return simple.verify_hash(
             pubkey=self.pubkey,
             sig=sig,
-            digest=digest)  # pragma: nocover
+            digest=digest)
