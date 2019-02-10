@@ -1,22 +1,85 @@
-## HDKey: Fully function python library for hierarchial deterministic key generation.
+## HDKey: HD Wallets for humans
+
+HDKey is an implementation of bip32 HD Wallets using libsecp256k1 for signing, verification, and derivation.
 
 ### Installation, Development, & Running Tests
 
 Install from pypi for use in your project:
 ```
-pip3 install hdkey
+$ pip3 install hdkey
+$ pip3 install riemann-keys
 ```
 
 Install to develop riemann_keys:
 ```
 $ git clone git@github.com:summa-tx/riemann-keys.git
-$ cd riemann_keys
+$ cd riemann-keys
 $ pipenv install
-$ pipenv run tox || $ pipenv run pytest
-$ pipenv shell
+```
+
+#### Install libsecp256k1
+
+HDKey requires libsecp256k1 to be installed on your system.
+
+Full installation instructions are located here: [link](https://github.com/bitcoin-core/secp256k1)
+
+```
+$ git clone git@github.com:bitcoin-core/secp256k1.git
+$ cd secp256k1
+$ ./autogen.sh
+$ ./configure
+$ make
+$ ./tests
+$ sudo make install  # optional
+```
+
+#### Running tests
+
+libsecp256k1 is required to run tests.
+
+```
+$ tox
 ```
 
 ### Usage
-TBD
+
+#### General
+
+```Python
+from riemann-keys import HDKey
+my_key = HDKey.from_entropy(b'\x00' * 16)
+print(my_key.xpriv)  # This is not actually a good idea
+
+descendant = my_key.derive_path('m/44h/0h/0/0/0/7')
+print(descentdant.derive_child(79).path)    # m/44h/0h/0/0/0/7/79
+print(descentdant.derive_child('79h').path) # m/44h/0h/0/0/0/7/79h
+
+msg = b'a messsage for signing'
+sig = descendant.sign(msg)  # DER-encoded RFC6979 ECDSA sig
+
+descendant.verify(sig=sig, msg=msg)  # return True or False
+```
+
+#### Instantiation
+```Python
+# From ooutside material
+HDKey.from_xpub(xpub: str)           # an xpub
+HDKey.from_xpriv(xpriv: str)         # an xpriv
+HDKey.from_pubkey(pub: bytes)        # compressed pubkey
+HDKey.from_privkey(priv: bytes)      # private key
+HDKey.from_root_seed(seed: bytes)    # root seed
+HDKey.from_entropy(entrpopy: bytes)  # bip39 entropy
+HDKey.from_mnemonic(mnemonic: str)   # bip39 mnemonic
+
+# child node derivation (requires chain code)
+key_obj.derive_child(idx: int)  # child index eg. 7
+key_obj.derive_child(idx: str)  # child index eg. '0h'
+key_obj.derive_path(path: str)  # child path eg 'm/3/9h'
+```
 
 
+### Packaging in binaries
+
+If you're looking to use `pyinstaller` to package, we strongly recommend usinig `pyenv` ([link](https://github.com/pyenv/pyenv)) to manage python installations. Make sure to build with `--enable-shared` or `--enable-framework` ([instructions here](https://github.com/pyenv/pyenv/wiki)) as appropriate.
+
+We have tested `pyinstaller` with libsecp256k1 and HDKey on OSX and Linux.
