@@ -5,8 +5,7 @@ name = "pypi"
 
 [packages]
 riemann-keys = {editable = true, path = "."}
-base58 = "*"
-"riemann-secpy256k1" = "==0.2.4"
+"riemann-secpy256k1" = "==0.2.8"
 
 [dev-packages]
 pytest = "*"
