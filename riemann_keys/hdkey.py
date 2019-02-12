@@ -297,8 +297,8 @@ class HDKey:
         # Public parent key -> public child key
         else:
             check, child.public_key = secpy256k1.ec_pubkey_tweak_add(
-                ctx=self.CONTEXT_SIGN,
-                pubkey=self.public_key,
+                ctx=self.CONTEXT_VERIFY,
+                pubkey=self._c_public_key,
                 tweak=IL
             )
             if (check == 0):
