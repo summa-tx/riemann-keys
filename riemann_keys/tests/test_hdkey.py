@@ -453,7 +453,7 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.extended_private_key, 
+                node.extended_private_key,
                 bytes(test_vector['derived_node']['xpriv'], 'utf8')),
             self.assertEqual(
                 node.extended_public_key,
@@ -468,7 +468,121 @@ class TestHDKey(unittest.TestCase):
                 node.index,
                 int(test_vector['derived_node']['index']).to_bytes(4, "big"))
             self.assertEqual(
-                node.fingerprint, 
+                node.fingerprint,
+                bytes.fromhex(test_vector['derived_node']['fingerprint']))
+            self.assertEqual(
+                node.chain_code,
+                bytes.fromhex(test_vector['derived_node']['chain_code']))
+            self.assertEqual(
+                node.depth, test_vector['derived_node']['depth'])
+
+    def test_node_path_derivation_from_extended_private(self):
+        # Test Trezor vectors.
+        for test_vector in self.trezor_vectors['english']:
+            root = HDKey()
+            root.extended_private_key = bytes(
+                test_vector['root']['xpriv'], 'utf8')
+            node = root.derive_path(test_vector['derived_node']['path'])
+            self.assertEqual(
+                node.extended_private_key,
+                bytes(test_vector['derived_node']['xpriv'], 'utf8')),
+            self.assertEqual(
+                node.extended_public_key,
+                bytes(test_vector['derived_node']['xpub'], 'utf8'))
+            self.assertEqual(
+                node.private_key.hex(),
+                test_vector['derived_node']['private_key'])
+            self.assertEqual(
+                node.public_key.hex(),
+                test_vector['derived_node']['public_key'])
+            self.assertEqual(
+                node.index,
+                int(test_vector['derived_node']['index']).to_bytes(4, "big"))
+            self.assertEqual(
+                node.fingerprint,
+                bytes.fromhex(test_vector['derived_node']['fingerprint']))
+            self.assertEqual(
+                node.chain_code,
+                bytes.fromhex(test_vector['derived_node']['chain_code']))
+            self.assertEqual(
+                node.depth, test_vector['derived_node']['depth'])
+
+        # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            root = HDKey()
+            root.extended_private_key = bytes(
+                test_vector['root']['xpriv'], 'utf8')
+            node = root.derive_path(test_vector['derived_node']['path'])
+            self.assertEqual(
+                node.extended_private_key,
+                bytes(test_vector['derived_node']['xpriv'], 'utf8')),
+            self.assertEqual(
+                node.extended_public_key,
+                bytes(test_vector['derived_node']['xpub'], 'utf8')),
+            self.assertEqual(
+                node.private_key.hex(),
+                test_vector['derived_node']['private_key'])
+            self.assertEqual(
+                node.public_key.hex(),
+                test_vector['derived_node']['public_key'])
+            self.assertEqual(
+                node.index,
+                int(test_vector['derived_node']['index']).to_bytes(4, "big"))
+            self.assertEqual(
+                node.fingerprint,
+                bytes.fromhex(test_vector['derived_node']['fingerprint']))
+            self.assertEqual(
+                node.chain_code,
+                bytes.fromhex(test_vector['derived_node']['chain_code']))
+            self.assertEqual(
+                node.depth, test_vector['derived_node']['depth'])
+
+    def test_node_path_derivation_from_extended_public(self):
+        # Test Trezor vectors.
+        for test_vector in self.trezor_vectors['english']:
+            if "'" in test_vector['derived_node']['path']:
+                continue
+            root = HDKey()
+            root.extended_public_key = bytes(
+                test_vector['root']['xpub'], 'utf8')
+            node = root.derive_path(test_vector['derived_node']['path'])
+            self.assertEqual(
+                node.extended_public_key,
+                bytes(test_vector['derived_node']['xpub'], 'utf8'))
+            self.assertEqual(
+                node.public_key.hex(),
+                test_vector['derived_node']['public_key'])
+            self.assertEqual(
+                node.index,
+                int(test_vector['derived_node']['index']).to_bytes(4, "big"))
+            self.assertEqual(
+                node.fingerprint,
+                bytes.fromhex(test_vector['derived_node']['fingerprint']))
+            self.assertEqual(
+                node.chain_code,
+                bytes.fromhex(test_vector['derived_node']['chain_code']))
+            self.assertEqual(
+                node.depth, test_vector['derived_node']['depth'])
+
+        # Test vectors.
+        for test_vector in self.test_vectors['english']:
+            if "'" in test_vector['derived_node']['path']:
+                continue
+            root = HDKey()
+            root.extended_public_key = bytes(
+                test_vector['root']['xpub'], 'utf8')
+            node = root.derive_path(test_vector['derived_node']['path'])
+            self.assertEqual(
+                node.extended_public_key,
+                bytes(test_vector['derived_node']['xpub'], 'utf8'))
+            self.assertEqual(
+                node.public_key.hex(),
+                test_vector['derived_node']['public_key'])
+            self.assertEqual(
+                node.index,
+                int(test_vector['derived_node']['index']).to_bytes(4, "big"))
+            self.assertEqual(
+                node.fingerprint,
                 bytes.fromhex(test_vector['derived_node']['fingerprint']))
             self.assertEqual(
                 node.chain_code,
