@@ -5,7 +5,7 @@ import secpy256k1
 import pkg_resources
 from base58 import b58decode, b58encode
 
- 
+
 class HDKey:
 
     # NB: (bits of entropy, checksum bits, words in mnemonic)
@@ -64,7 +64,7 @@ class HDKey:
     def public_key(self):
         if self._c_public_key is None:
             return None
-            
+
         c_public_key = secpy256k1.ec_pubkey_serialize(
             self.CONTEXT_VERIFY, self._c_public_key, self.COMPRESSED
         )[1]

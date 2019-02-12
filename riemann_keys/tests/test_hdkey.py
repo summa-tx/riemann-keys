@@ -283,12 +283,12 @@ class TestHDKey(unittest.TestCase):
             self.assertEqual(
                 node.public_key.hex(), test_vector['root']['public_key'])
             self.assertEqual(
-                node.index, 
+                node.index,
                 int(test_vector['root']['index']).to_bytes(4, "big"))
             self.assertEqual(
                 node.fingerprint.hex(), test_vector['root']['fingerprint'])
             self.assertEqual(
-                node.chain_code, 
+                node.chain_code,
                 bytes.fromhex(test_vector['root']['chain_code']))
             self.assertEqual(node.depth, test_vector['root']['depth'])
 
@@ -339,7 +339,7 @@ class TestHDKey(unittest.TestCase):
             node.extended_private_key = bytes(
                 test_vector['root']['xpriv'], "utf8")
             self.assertEqual(
-                node.extended_private_key, 
+                node.extended_private_key,
                 bytes(test_vector['root']['xpriv'], 'utf8'))
             self.assertEqual(
                 node.private_key.hex(), test_vector['root']['private_key'])
@@ -422,13 +422,13 @@ class TestHDKey(unittest.TestCase):
                 root_seed=root_seed)
             node = root.derive_path(test_vector['derived_node']['path'])
             self.assertEqual(
-                node.extended_private_key, 
+                node.extended_private_key,
                 bytes(test_vector['derived_node']['xpriv'], 'utf8')),
             self.assertEqual(
-                node.extended_public_key, 
+                node.extended_public_key,
                 bytes(test_vector['derived_node']['xpub'], 'utf8'))
             self.assertEqual(
-                node.private_key.hex(), 
+                node.private_key.hex(),
                 test_vector['derived_node']['private_key'])
             self.assertEqual(
                 node.public_key.hex(),
@@ -456,10 +456,10 @@ class TestHDKey(unittest.TestCase):
                 node.extended_private_key, 
                 bytes(test_vector['derived_node']['xpriv'], 'utf8')),
             self.assertEqual(
-                node.extended_public_key, 
+                node.extended_public_key,
                 bytes(test_vector['derived_node']['xpub'], 'utf8')),
             self.assertEqual(
-                node.private_key.hex(), 
+                node.private_key.hex(),
                 test_vector['derived_node']['private_key'])
             self.assertEqual(
                 node.public_key.hex(),
