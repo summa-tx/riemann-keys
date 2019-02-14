@@ -1,5 +1,4 @@
 import hashlib
-import pkg_resources
 
 from riemann_keys import utils
 
@@ -19,8 +18,7 @@ def mnemonic_from_entropy(entropy: bytes):
     num_mnemonic = mnemonic_lookup(
         value=len(entropy) * 8,
         value_index=0,
-        lookup_index=2
-    )
+        lookup_index=2)
 
     # Formatting to convert hex string to binary string
     bit_format = '0{}b'.format(len(entropy) * 8)
@@ -157,17 +155,8 @@ def import_word_list() -> List[str]:
     Returns:
         (list): 2048 words specified in BIP39
     '''
-    words = []
-
-    # Import mnemonic words
-    word_list = pkg_resources.resource_string(
-        'riemann_keys', 'data/english.txt').decode('utf-8')
-
-    # Create mnemonic word list
-    for word in word_list.split('\n')[:-1]:
-        words.append(word)
-
-    return words
+    from riemann_keys.data.english import WORDS
+    return WORDS
 
 
 def validate_mnemonic(mnemonic: str) -> None:

@@ -2,7 +2,6 @@ import hmac
 import hashlib
 import warnings
 
-# import secpy256k1
 from secpy256k1 import simple
 
 from riemann_keys import base58, bip39, utils
@@ -589,6 +588,8 @@ class HDKey(Immutable):
         Returns:
             (HDKey): the child
         '''
+        # TODO: Break up this function
+
         # normalize the index, error if we can't derive the child
         index: int = self._normalize_index(idx)
         if index >= utils.BIP32_HARDEN and not self.privkey:
