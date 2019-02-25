@@ -17,7 +17,7 @@ $ cd riemann-keys
 $ pipenv install
 ```
 
-#### Install libsecp256k1
+#### Install libsecp256k1 for development
 
 HDKey requires libsecp256k1 to be installed on your system.
 
@@ -46,13 +46,13 @@ $ tox
 #### General
 
 ```Python
-from riemann-keys import HDKey
+from riemann_keys import HDKey
 my_key = HDKey.from_entropy(b'\x00' * 16)
 print(my_key.xpriv)  # This is not actually a good idea
 
 descendant = my_key.derive_path('m/44h/0h/0/0/0/7')
-print(descentdant.derive_child(79).path)    # m/44h/0h/0/0/0/7/79
-print(descentdant.derive_child('79h').path) # m/44h/0h/0/0/0/7/79h
+print(descendant.derive_child(79).path)    # m/44h/0h/0/0/0/7/79
+print(descendant.derive_child('79h').path) # m/44h/0h/0/0/0/7/79h
 
 msg = b'a messsage for signing'
 sig = descendant.sign(msg)  # DER-encoded RFC6979 ECDSA sig
@@ -62,7 +62,7 @@ descendant.verify(sig=sig, msg=msg)  # return True or False
 
 #### Instantiation
 ```Python
-# From ooutside material
+# From outside material
 HDKey.from_xpub(xpub: str)           # an xpub
 HDKey.from_xpriv(xpriv: str)         # an xpriv
 HDKey.from_pubkey(pub: bytes)        # compressed pubkey
@@ -80,6 +80,6 @@ key_obj.derive_path(path: str)  # child path eg 'm/3/9h'
 
 ### Packaging in binaries
 
-If you're looking to use `pyinstaller` to package, we strongly recommend usinig `pyenv` ([link](https://github.com/pyenv/pyenv)) to manage python installations. Make sure to build with `--enable-shared` or `--enable-framework` ([instructions here](https://github.com/pyenv/pyenv/wiki)) as appropriate.
+If you're looking to use `pyinstaller` to package, we strongly recommend using `pyenv` ([link](https://github.com/pyenv/pyenv)) to manage python installations. Make sure to build with `--enable-shared` or `--enable-framework` ([instructions here](https://github.com/pyenv/pyenv/wiki)) as appropriate.
 
 We have tested `pyinstaller` with libsecp256k1 and HDKey on OSX and Linux.
