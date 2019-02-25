@@ -1,5 +1,4 @@
 import hashlib
-import secpy256k1
 
 from typing import Dict, Tuple
 
@@ -35,11 +34,6 @@ VERSION_BYTES = {
         'private': b'\x04\x35\x83\x94',
     }
 }
-
-CONTEXT_SIGN = secpy256k1.context_create(secpy256k1.lib.SECP256K1_CONTEXT_SIGN)
-CONTEXT_VERIFY = secpy256k1.context_create(
-    secpy256k1.lib.SECP256K1_CONTEXT_VERIFY)
-COMPRESSED = secpy256k1.lib.SECP256K1_EC_COMPRESSED
 
 
 def rmd160(msg: bytes):  # pragma: nocover

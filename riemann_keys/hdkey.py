@@ -575,6 +575,8 @@ class HDKey(Immutable):
         '''
         if type(idx) is int:
             return cast(int, idx)
+        if type(idx) is not str:
+            raise ValueError('Path index must be string or integer')
         str_idx = cast(str, idx)
         if str_idx[-1] in ['h', "'"]:  # account for h or ' conventions
             return int(str_idx[:-1]) + utils.BIP32_HARDEN
