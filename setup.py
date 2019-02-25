@@ -14,6 +14,5 @@ setup(
     install_requires=[],
     packages=find_packages(),
     package_dir={'riemann_keys': 'riemann_keys'},
-    package_data={'riemann_keys': ['riemann_keys/data/english.txt']},
     keywords='bitcoin ethereum keys bip32 bip39 bip44'
 )
