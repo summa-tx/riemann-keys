@@ -7,10 +7,33 @@ HDKey is an implementation of bip32 HD Wallets using libsecp256k1 for signing, v
 Install from pypi for use in your project:
 ```
 $ pip3 install hdkey
+# or 
 $ pip3 install riemann-keys
 ```
 
-Install to develop riemann_keys:
+## Development Setup (MacOsX)
+
+Install pyenv:
+```
+$ brew update
+$ brew install pyenv
+$ env PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.0
+```
+
+Install pipenv:
+```
+$ brew update
+$ brew install pipenv
+```
+
+To use pyenv inconjuction with pipenv:
+```
+$ pipenv --python <path to pyenv python binary>
+```
+(Typically the path is `~/.pyenv/versions/3.7.0/bin/python3.7`)
+
+
+## Development Install
 ```
 $ git clone git@github.com:summa-tx/riemann-keys.git
 $ cd riemann-keys
