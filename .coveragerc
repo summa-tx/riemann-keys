@@ -1,0 +1,13 @@
+[run]
+source = riemann_keys/
+omit =
+    riemann_keys/tests/*
+    riemann_keys/base58.py
+    riemann_keys/data/*
+
+[report]
+show_missing = True
+sort = Name
+
+[html]
+directory = htmlcov/

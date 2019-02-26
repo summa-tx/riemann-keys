@@ -1,8 +1,14 @@
-# HDKey: Fully functional python library for hierarchial deterministic key generation
+## HDKey: HD Wallets for humans
+
+HDKey is an implementation of bip32 HD Wallets using libsecp256k1 for signing, verification, and derivation.
+
+### Installation, Development, & Running Tests
 
 Install from pypi for use in your project:
 ```
 $ pip3 install hdkey
+# or 
+$ pip3 install riemann-keys
 ```
 
 ## Development Setup (MacOsX)
@@ -30,60 +36,73 @@ $ pipenv --python <path to pyenv python binary>
 ## Development Install
 ```
 $ git clone git@github.com:summa-tx/riemann-keys.git
-$ cd riemann_keys
+$ cd riemann-keys
 $ pipenv install
-$ pipenv install --dev
 ```
 
-If a pip versioning error is encountered, try downgrading the local pip:
-```
-pipenv run pip install pip==18.0
-```
+#### Install libsecp256k1 for development
 
-## Test
-```
-$ pipenv run pytest
-```
+HDKey requires libsecp256k1 to be installed on your system.
 
-## Supported Networks
-`Bitcoin` (default)  
-`Testnet`  
-`Litecoin`  
-`Dogecoin`  
-`Dash`  
-`Ethereum`  
-
-## User Documentation
-Import `hdkey`:
-```
-from hdkey import HDKey
-```
-
-### Generate the root seed from a mnemonic
-
-Args:  
-&nbsp;&nbsp;&nbsp;&nbsp;`mnemonic` (str) a 12, 15, 18, 21, or 24 words from the [word list](https://github.com/bitcoin/bips/blob/master/bip-0039/english.txt)  
-&nbsp;&nbsp;&nbsp;&nbsp;`network` (str) optional argument to specify the network (default is Bitcoin)  
-&nbsp;&nbsp;&nbsp;&nbsp;`salt` (str) optional argument to add salt for added security  
-
-Returns:  
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (bytes) a 512-bit root seed  
+Full installation instructions are located here: [link](https://github.com/bitcoin-core/secp256k1)
 
 ```
-MNEMONIC = "keen speed ice always runway film setup sentence update stove distance merge" 
-root_seed = HDKey.root_seed_from_mnemonic(mnemonic=MNEMONIC)
+$ git clone git@github.com:bitcoin-core/secp256k1.git
+$ cd secp256k1
+$ ./autogen.sh
+$ ./configure
+$ make
+$ ./tests
+$ sudo make install  # optional
 ```
 
-### Generate a HDKey object from a root seed
+#### Running tests
 
-Args:  
-&nbsp;&nbsp;&nbsp;&nbsp;`root_seed` (bytes) 128, 256, or 215 bits in length   
-&nbsp;&nbsp;&nbsp;&nbsp;`network` (str) optional argument to specify the network (default is Bitcoin)    
-
-Returns:  
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `HDKey` object  
+libsecp256k1 is required to run tests.
 
 ```
-root_seed = bytes.fromhex('26bad484f5a3f65ff827127133f314451218e0041aa6f1b68405ab78e3473e510734894f1f2906446b57b99ba4c2bd2b7206b729d95071a6cd801d61ca889dfa')
-hdkey_obj = HDKey.from_root_seed(root_seed=root_seed, network='Bitcoin')
+$ tox
 ```
+
+### Usage
+
+#### General
+
+```Python
+from riemann_keys import HDKey
+my_key = HDKey.from_entropy(b'\x00' * 16)
+print(my_key.xpriv)  # This is not actually a good idea
+
+descendant = my_key.derive_path('m/44h/0h/0/0/0/7')
+print(descendant.derive_child(79).path)    # m/44h/0h/0/0/0/7/79
+print(descendant.derive_child('79h').path) # m/44h/0h/0/0/0/7/79h
+
+msg = b'a messsage for signing'
+sig = descendant.sign(msg)  # DER-encoded RFC6979 ECDSA sig
+
+descendant.verify(sig=sig, msg=msg)  # return True or False
+```
+
+#### Instantiation
+```Python
+# From outside material
+HDKey.from_xpub(xpub: str)           # an xpub
+HDKey.from_xpriv(xpriv: str)         # an xpriv
+HDKey.from_pubkey(pub: bytes)        # compressed pubkey
+HDKey.from_privkey(priv: bytes)      # private key
+HDKey.from_root_seed(seed: bytes)    # root seed
+HDKey.from_entropy(entrpopy: bytes)  # bip39 entropy
+HDKey.from_mnemonic(mnemonic: str)   # bip39 mnemonic
+
+# child node derivation (requires chain code)
+key_obj.derive_child(idx: int)  # child index eg. 7
+key_obj.derive_child(idx: str)  # child index eg. '0h'
+key_obj.derive_path(path: str)  # child path eg 'm/3/9h'
+```
+
+
+### Packaging in binaries
+
+If you're looking to use `pyinstaller` to package, we strongly recommend using `pyenv` ([link](https://github.com/pyenv/pyenv)) to manage python installations. Make sure to build with `--enable-shared` or `--enable-framework` ([instructions here](https://github.com/pyenv/pyenv/wiki)) as appropriate.
+
+We have tested `pyinstaller` with libsecp256k1 and HDKey on OSX and Linux.

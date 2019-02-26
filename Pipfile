@@ -4,14 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-riemann-keys = {editable = true, path = "."}
-secpy256k1 = "*"
+riemann-keys = {editable = true,path = "."}
+riemann-secpy256k1 = "*"
 
 [dev-packages]
 pytest = "*"
 flake8 = "*"
 tox = "*"
 pytest-cov = "*"
+ipython = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.7"
