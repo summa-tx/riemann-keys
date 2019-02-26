@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-riemann-keys = {editable = true, path = "."}
-"riemann-secpy256k1" = "==0.2.8"
+riemann-keys = {editable = true,path = "."}
+riemann-secpy256k1 = "*"
 
 [dev-packages]
 pytest = "*"

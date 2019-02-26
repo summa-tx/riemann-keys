@@ -413,11 +413,10 @@ class HDKey(Immutable):
         '''
         # TODO: get key depending on network
         # data/key, msg, digest
-        I = hmac.new(  # noqa: E741
+        I = hmac.digest(  # noqa: E741  # type: ignore
             key=b'Bitcoin seed',
             msg=root_seed,
-            digestmod=hashlib.sha512
-        ).digest()
+            digest='sha512')  # type: ignore
 
         # Private key, chain code
         privkey, chain_code = I[:32], I[32:]
@@ -687,7 +686,7 @@ class HDKey(Immutable):
             self,
             sig: bytes,
             msg: bytes,
-            hash_func: Callable[[bytes], bytes] = utils.sha256) -> bytes:
+            hash_func: Callable[[bytes], bytes] = utils.sha256) -> bool:
         '''
         Verifies a signature on a message
         Args:
