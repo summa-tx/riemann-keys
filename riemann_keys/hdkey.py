@@ -413,10 +413,10 @@ class HDKey(Immutable):
         '''
         # TODO: get key depending on network
         # data/key, msg, digest
-        I = hmac.digest(  # noqa: E741  # type: ignore
+        I = hmac.new(  # noqa: E741  # type: ignore
             key=b'Bitcoin seed',
             msg=root_seed,
-            digest='sha512')  # type: ignore
+            digestmod='sha512').digest()  # type: ignore
 
         # Private key, chain code
         privkey, chain_code = I[:32], I[32:]
