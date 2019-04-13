@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='riemann-keys',
-    version='0.1.1',
+    version='0.1.2',
     description=('Hierarchical deterministic wallet creation tool'),
     author=[
         "Harsha Goli",

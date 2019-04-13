@@ -282,6 +282,10 @@ class HDKey(Immutable):
         '''
         xpub_bytes = base58.decode(xpub)
         pubkey = xpub_bytes[45:78]
+        try:
+            simple.compress_pubkey(pubkey)
+        except Exception:
+            raise ValueError('Cannot parse public key')
 
         if xpub_bytes[0:4] == utils.VERSION_BYTES['mainnet']['public']:
             network = 'Bitcoin'
@@ -353,6 +357,10 @@ class HDKey(Immutable):
         Returns:
             (HDKey): the key object
         '''
+        try:
+            simple.compress_pubkey(pubkey)
+        except Exception:
+            raise ValueError('Cannot parse public key')
         return HDKey(
             key_dict=KeyDict(
                 path=None,
