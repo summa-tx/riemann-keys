@@ -47,6 +47,7 @@ HDKey requires libsecp256k1 to be installed on your system.
 Full installation instructions are located here: [link](https://github.com/bitcoin-core/secp256k1)
 
 ```
+$ sudo apt install libtool, autoconf
 $ git clone git@github.com:bitcoin-core/secp256k1.git
 $ cd secp256k1
 $ ./autogen.sh
