@@ -20,7 +20,5 @@ setup(
     packages=find_packages(),
     package_dir={'riemann_keys': 'riemann_keys'},
     keywords='bitcoin ethereum keys bip32 bip39 bip44',
-    classifiers=[
-        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)'
-    ]
+    license='MIT OR Apache-2.0'
 )
